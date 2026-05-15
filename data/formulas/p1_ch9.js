@@ -1,5 +1,23 @@
 export const formulas_p1_ch9 = [
   {
+    id: "wave_general",
+    chapterId: "p1_ch9",
+    topic: "General Wave Formula (তরঙ্গের সাধারণ সূত্র)",
+    nameEn: "General Wave Formula",
+    nameBn: "তরঙ্গের সাধারণ সূত্র",
+    latex:
+      "T = \\frac{1}{f} \\newline N = \\frac{t}{T} \\newline \\lambda = vT",
+    variables: [
+      { symbol: "v", meaning: "Velocity of wave", unit: "m/s" },
+      { symbol: "f", meaning: "Frequency", unit: "Hz" },
+      { symbol: "\\lambda", meaning: "Wavelength", unit: "m" },
+      { symbol: "T", meaning: "Time period", unit: "s" },
+    ],
+    assumptions: "Wave travels in a uniform medium.",
+    specialCases: [],
+    imageUrl: "./assets/images/paper-1/wave.png",
+  },
+  {
     id: "wave_velocity",
     chapterId: "p1_ch9",
     topic: "Wave Properties (তরঙ্গের বৈশিষ্ট্য)",
@@ -13,7 +31,16 @@ export const formulas_p1_ch9 = [
       { symbol: "T", meaning: "Time period", unit: "s" },
     ],
     assumptions: "Wave travels in a uniform medium.",
-    specialCases: [],
+    specialCases: [
+      {
+        condition: "\\text{In different medium (f same)}",
+        latex: "\\lambda \\propto v",
+      },
+      {
+        condition: "\\text{for different sounds (v same)}",
+        latex: "\\lambda \\propto \\frac{1}{f}",
+      },
+    ],
     hasVisualization: true,
     vizType: "wave_propagation",
   },
