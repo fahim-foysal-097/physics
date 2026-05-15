@@ -27,8 +27,7 @@ export const formulas_p1_ch3 = [
       },
     ],
     mcqShortcuts: [
-      "If a body is dropped, velocity after n seconds: v ∝ t",
-      "Ratio of distances in 1s, 2s, 3s: 1:4:9 (n²)",
+      "If a body is dropped, ratio of distances in 1s, 2s, 3s: 1:4:9 (n²)",
       "Ratio of distances in consecutive 1s intervals: 1:3:5 (2n-1)",
     ],
   },
@@ -91,7 +90,12 @@ export const formulas_p1_ch3 = [
       { symbol: "\\alpha", meaning: "Angle of projection", unit: "Degree" },
     ],
     assumptions: "Air resistance is neglected.",
-    specialCases: [],
+    specialCases: [
+      {
+        condition: "Expressed with Range (R)",
+        latex: "y = x\\tan\\alpha \\left(1 - \\frac{x}{R}\\right)",
+      },
+    ],
     hasVisualization: true,
     vizType: "projectile_advanced",
     mcqShortcuts: [
@@ -102,11 +106,29 @@ export const formulas_p1_ch3 = [
     ],
   },
   {
+    id: "projectile_from_height",
+    chapterId: "p1_ch3",
+    topic: "Projectile Motion (প্রাসের গতি)",
+    nameEn: "Projectile from a Height",
+    nameBn: "উচ্চতা থেকে প্রাসের গতি",
+    latex:
+      "y = ut + \\frac{1}{2}gt^2 \\quad \\text{(if thrown horizontally, } u_y = 0)",
+    variables: [
+      { symbol: "y", meaning: "Height fallen", unit: "m" },
+      { symbol: "u", meaning: "Initial horizontal velocity", unit: "m/s" },
+      { symbol: "x", meaning: "Horizontal range (x = u*t)", unit: "m" },
+    ],
+    assumptions: "Thrown purely horizontally from a tower of height y.",
+    specialCases: [
+      { condition: "Trajectory Equation", latex: "y = \\frac{g}{2u^2}x^2" },
+    ],
+  },
+  {
     id: "projectile_max_height",
     chapterId: "p1_ch3",
     topic: "Projectile Motion (প্রাসের গতি)",
     nameEn: "Maximum Height & Time",
-    nameBn: "সর্বোচ্চ উচ্চতা ও সময়",
+    nameBn: "সর্বোচ্চ উচ্চতা ও সময়",
     latex:
       "H = \\frac{u^2\\sin^2\\alpha}{2g}, \\quad T = \\frac{2u\\sin\\alpha}{g}",
     variables: [
@@ -137,6 +159,11 @@ export const formulas_p1_ch3 = [
         latex: "R_{max} = \\frac{u^2}{g}, \\quad H = \\frac{R_{max}}{4}",
       },
       { condition: "\\alpha = 76^\\circ", latex: "R = H" },
+    ],
+    mcqShortcuts: [
+      "For maximum range, angle of projection θ = 45°.",
+      "Two angles θ and (90° - θ) result in the same horizontal range.",
+      "If R = 4H, then θ = 45°.",
     ],
   },
 ];

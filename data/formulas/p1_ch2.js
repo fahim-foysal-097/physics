@@ -71,23 +71,94 @@ export const formulas_p1_ch2 = [
     specialCases: [],
   },
   {
-    id: "unit_vector_perp",
+    id: "direction_cosines",
     chapterId: "p1_ch2",
-    topic: "Vector Multiplication (ভেক্টর গুণন)",
-    nameEn: "Perpendicular Unit Vector",
-    nameBn: "লম্বদিকে একক ভেক্টর",
+    topic: "Vector Components (ভেক্টরের উপাংশ)",
+    nameEn: "Direction Cosines (Angle with axes)",
+    nameBn: "দিক কোসাইন (অক্ষের সাথে কোণ)",
     latex:
-      "\\hat{\\eta} = \\pm \\frac{\\vec{A} \\times \\vec{B}}{|\\vec{A} \\times \\vec{B}|}",
+      "\\cos\\alpha = \\frac{A_x}{A}, \\quad \\cos\\beta = \\frac{A_y}{A}, \\quad \\cos\\gamma = \\frac{A_z}{A}",
     variables: [
       {
-        symbol: "\\vec{A}, \\vec{B}",
-        meaning: "Two non-parallel vectors",
-        unit: "N/A",
+        symbol: "\\alpha, \\beta, \\gamma",
+        meaning: "Angles with X, Y, Z axes respectively",
+        unit: "Degree",
+      },
+      { symbol: "A", meaning: "Magnitude of Vector A", unit: "N/A" },
+    ],
+    assumptions: "",
+    specialCases: [
+      {
+        condition: "Relation",
+        latex: "\\cos^2\\alpha + \\cos^2\\beta + \\cos^2\\gamma = 1",
       },
     ],
+    hasVisualization: false,
+  },
+  {
+    id: "river_boat_min_time",
+    chapterId: "p1_ch2",
+    topic: "Relative Velocity (আপেক্ষিক বেগ)",
+    nameEn: "River Crossing in Minimum Time",
+    nameBn: "ন্যূনতম সময়ে নদী পারাপার",
+    latex: "t_{min} = \\frac{d}{v}, \\quad \\alpha = 90^\\circ",
+    variables: [
+      { symbol: "t_{min}", meaning: "Minimum time to cross", unit: "s" },
+      { symbol: "d", meaning: "Width of the river", unit: "m" },
+      { symbol: "v", meaning: "Velocity of boat", unit: "m/s" },
+    ],
     assumptions:
-      "Generates a unit vector orthogonal to the plane containing A and B.",
+      "Boat must be steered straight across (perpendicular to river flow).",
     specialCases: [],
+    mcqShortcuts: ["To cross in min time, steer at 90° to the river flow."],
+  },
+  {
+    id: "river_boat_min_dist",
+    chapterId: "p1_ch2",
+    topic: "Relative Velocity (আপেক্ষিক বেগ)",
+    nameEn: "River Crossing in Minimum Distance",
+    nameBn: "ন্যূনতম দূরত্বে নদী পারাপার",
+    latex:
+      "\\alpha = \\cos^{-1}\\left(\\frac{-u}{v}\\right), \\quad t = \\frac{d}{\\sqrt{v^2 - u^2}}",
+    variables: [
+      {
+        symbol: "\\alpha",
+        meaning: "Steering angle w.r.t river flow",
+        unit: "Degree",
+      },
+      { symbol: "u", meaning: "Velocity of river stream", unit: "m/s" },
+      { symbol: "v", meaning: "Velocity of boat", unit: "m/s" },
+      { symbol: "d", meaning: "Width of the river", unit: "m" },
+    ],
+    assumptions: "Boat velocity (v) must be greater than river velocity (u).",
+    specialCases: [],
+    // hasVisualization: true,
+    vizType: "river_boat",
+  },
+  {
+    id: "rain_umbrella",
+    chapterId: "p1_ch2",
+    topic: "Relative Velocity (আপেক্ষিক বেগ)",
+    nameEn: "Rain and Umbrella",
+    nameBn: "বৃষ্টি ও ছাতা",
+    latex: "\\tan\\theta = \\frac{v_m}{v_r}",
+    variables: [
+      {
+        symbol: "\\theta",
+        meaning: "Angle umbrella must be held from vertical",
+        unit: "Degree",
+      },
+      { symbol: "v_m", meaning: "Velocity of man", unit: "m/s" },
+      {
+        symbol: "v_r",
+        meaning: "Velocity of rain falling vertically",
+        unit: "m/s",
+      },
+    ],
+    assumptions: "Rain is falling strictly vertically when man is stationary.",
+    specialCases: [],
+    // hasVisualization: true,
+    vizType: "rain_umbrella",
   },
   {
     id: "vec_dot_product",
@@ -137,11 +208,30 @@ export const formulas_p1_ch2 = [
     hasVisualization: false,
   },
   {
+    id: "unit_vector_perp",
+    chapterId: "p1_ch2",
+    topic: "Vector Multiplication (ভেক্টর গুণন)",
+    nameEn: "Perpendicular Unit Vector",
+    nameBn: "লম্বদিকে একক ভেক্টর",
+    latex:
+      "\\hat{\\eta} = \\pm \\frac{\\vec{A} \\times \\vec{B}}{|\\vec{A} \\times \\vec{B}|}",
+    variables: [
+      {
+        symbol: "\\vec{A}, \\vec{B}",
+        meaning: "Two non-parallel vectors",
+        unit: "N/A",
+      },
+    ],
+    assumptions:
+      "Generates a unit vector orthogonal to the plane containing A and B.",
+    specialCases: [],
+  },
+  {
     id: "vec_parallel_condition",
     chapterId: "p1_ch2",
     topic: "Vector Multiplication (ভেক্টর গুণন)",
     nameEn: "Condition for Parallel Vectors",
-    nameBn: "সমান্তরাল হওয়ার শর্ত",
+    nameBn: "সমান্তরাল হওয়ার শর্ত",
     latex: "\\frac{A_x}{B_x} = \\frac{A_y}{B_y} = \\frac{A_z}{B_z}",
     variables: [
       { symbol: "A_i, B_i", meaning: "Components of the vectors", unit: "N/A" },
@@ -165,34 +255,13 @@ export const formulas_p1_ch2 = [
     specialCases: [],
   },
   {
-    id: "parallelogram_area",
-    chapterId: "p1_ch2",
-    topic: "Vector Application (ভেক্টরের প্রয়োগ)",
-    nameEn: "Area of Parallelogram",
-    nameBn: "সামান্তরিকের ক্ষেত্রফল",
-    latex: "\\text{Area} = |\\vec{A} \\times \\vec{B}|",
-    variables: [
-      {
-        symbol: "\\vec{A}, \\vec{B}",
-        meaning: "Adjacent sides of the parallelogram",
-        unit: "N/A",
-      },
-    ],
-    assumptions: "If A and B are diagonals, Area = 1/2 |A x B|",
-    specialCases: [
-      {
-        condition: "\\text{If diagonals are given}",
-        latex: "\\text{Area} = \\frac{1}{2}|\\vec{A} \\times \\vec{B}|",
-      },
-    ],
-  },
-  {
     id: "vector_area",
     chapterId: "p1_ch2",
-    topic: "Vector Multiplication (ভেক্টর গুণন)",
-    nameEn: "Area of Parallelogram",
-    nameBn: "সামান্তরিকের ক্ষেত্রফল",
-    latex: "Area = |\\vec{A} \\times \\vec{B}| = AB \\sin\\theta",
+    topic: "Vector Application (ভেক্টরের প্রয়োগ)",
+    nameEn: "Area of Parallelogram & Triangle",
+    nameBn: "সামান্তরিক ও ত্রিভুজের ক্ষেত্রফল",
+    latex:
+      "A_p = |\\vec{A} \\times \\vec{B}| = AB \\sin\\theta \\newline A_t = \\frac{1}{2}|\\vec{A} \\times \\vec{B}| = \\frac{1}{2}AB \\sin\\theta",
     variables: [
       {
         symbol: "\\vec{A}, \\vec{B}",
@@ -201,15 +270,57 @@ export const formulas_p1_ch2 = [
       },
       { symbol: "\\theta", meaning: "Angle between vectors", unit: "Degree" },
     ],
-    assumptions: "Vectors represent two adjacent sides of a parallelogram.",
+    assumptions: "Vectors represent two adjacent sides.",
     specialCases: [
       {
-        condition: "\\text{Area of Triangle}",
-        latex: "\\frac{1}{2}|\\vec{A} \\times \\vec{B}|",
+        condition: "\\text{If diagonals are given}",
+        latex: "Area = \\frac{1}{2}|\\vec{A} \\times \\vec{B}|",
       },
     ],
     hasVisualization: true,
     vizType: "vector_area",
+  },
+  {
+    id: "nabla_operator",
+    chapterId: "p1_ch2",
+    topic: "Vector Calculus (ভেক্টর ক্যালকুলাস)",
+    nameEn: "Nabla / Del Operator",
+    nameBn: "নাবলা অপারেটর",
+    latex:
+      "\\vec{\\nabla} = \\hat{i}\\frac{\\partial}{\\partial x} + \\hat{j}\\frac{\\partial}{\\partial y} + \\hat{k}\\frac{\\partial}{\\partial z}",
+    variables: [
+      {
+        symbol: "\\vec{\\nabla}",
+        meaning: "Differential vector operator",
+        unit: "N/A",
+      },
+    ],
+    assumptions: "Used to compute Gradient, Divergence, and Curl.",
+    specialCases: [],
+  },
+  {
+    id: "gradient_div_curl",
+    chapterId: "p1_ch2",
+    topic: "Vector Calculus (ভেক্টর ক্যালকুলাস)",
+    nameEn: "Gradient, Divergence & Curl",
+    nameBn: "গ্রেডিয়েন্ট, ডাইভারজেন্স ও কার্ল",
+    latex:
+      "\\text{Grad: } \\vec{\\nabla}\\phi \\quad \\text{Div: } \\vec{\\nabla} \\cdot \\vec{V} \\quad \\text{Curl: } \\vec{\\nabla} \\times \\vec{V}",
+    variables: [
+      { symbol: "\\phi", meaning: "Scalar field", unit: "N/A" },
+      { symbol: "\\vec{V}", meaning: "Vector field", unit: "N/A" },
+    ],
+    assumptions: "",
+    specialCases: [
+      {
+        condition: "Solenoidal Vector",
+        latex: "\\vec{\\nabla} \\cdot \\vec{V} = 0",
+      },
+      {
+        condition: "Irrotational & Conservative",
+        latex: "\\vec{\\nabla} \\times \\vec{V} = 0",
+      },
+    ],
   },
   {
     id: "lamis_theorem",

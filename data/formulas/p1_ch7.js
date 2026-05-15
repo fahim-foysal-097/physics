@@ -4,7 +4,7 @@ export const formulas_p1_ch7 = [
     chapterId: "p1_ch7",
     topic: "Elasticity (স্থিতিস্থাপকতা)",
     nameEn: "Young's Modulus",
-    nameBn: "ইয়ং-এর গুণাঙ্ক",
+    nameBn: "ইয়ং-এর গুণাঙ্ক",
     latex: "Y = \\frac{FL}{Al} = \\frac{mgL}{\\pi r^2 l}",
     variables: [
       { symbol: "Y", meaning: "Young's modulus", unit: "N/m² or Pa" },
@@ -16,6 +16,34 @@ export const formulas_p1_ch7 = [
     ],
     assumptions: "Within the elastic limit.",
     specialCases: [],
+  },
+  {
+    id: "elastic_moduli",
+    chapterId: "p1_ch7",
+    topic: "Elasticity (স্থিতিস্থাপকতা)",
+    nameEn: "Moduli of Elasticity",
+    nameBn: "স্থিতিস্থাপক গুণাঙ্ক",
+    latex:
+      "Y = \\frac{FL}{Al}, \\quad K = \\frac{PV}{\\Delta V}, \\quad \\eta = \\frac{F}{A\\theta}",
+    variables: [
+      { symbol: "Y", meaning: "Young's Modulus", unit: "Pa" },
+      { symbol: "K", meaning: "Bulk Modulus", unit: "Pa" },
+      { symbol: "\\eta", meaning: "Modulus of Rigidity", unit: "Pa" },
+      { symbol: "F", meaning: "Applied force", unit: "N" },
+      { symbol: "L", meaning: "Original length", unit: "m" },
+      { symbol: "A", meaning: "Cross-sectional area", unit: "m²" },
+      { symbol: "\\theta", meaning: "Shear angle in radians", unit: "rad" },
+      { symbol: "P", meaning: "Pressure", unit: "Pa" },
+      { symbol: "V", meaning: "Volume", unit: "m³" },
+    ],
+    specialCases: [
+      {
+        condition: "Poisson's Ratio",
+        latex:
+          "\\sigma = \\frac{\\text{Lateral Strain}}{\\text{Longitudinal Strain}} = \\frac{d/D}{l/L}",
+      },
+    ],
+    vizType: "stress_strain_curve",
   },
   {
     id: "poissons_ratio",
@@ -84,7 +112,7 @@ export const formulas_p1_ch7 = [
     variables: [
       { symbol: "h", meaning: "Height of liquid column", unit: "m" },
       { symbol: "T", meaning: "Surface tension", unit: "N/m" },
-      { symbol: "\\theta", meaning: "Angle of contact", unit: "Degree" },
+      { symbol: "\\theta", meaning: "Angle of contact", unit: "rad/deg" },
       { symbol: "r", meaning: "Radius of capillary tube", unit: "m" },
       { symbol: "\\rho", meaning: "Density of liquid", unit: "kg/m³" },
     ],
@@ -117,13 +145,13 @@ export const formulas_p1_ch7 = [
     variables: [
       { symbol: "v", meaning: "Terminal velocity", unit: "m/s" },
       { symbol: "r", meaning: "Radius of the sphere", unit: "m" },
-      { symbol: "\\rho", meaning: "Density of the sphere", unit: "kg/m³" },
-      { symbol: "\\sigma", meaning: "Density of the fluid", unit: "kg/m³" },
       {
         symbol: "\\eta",
         meaning: "Coefficient of viscosity",
-        unit: "Pa·s or Poiseuille",
+        unit: "Pa·s  or Poiseuille",
       },
+      { symbol: "\\rho", meaning: "Density of sphere", unit: "kg/m³" },
+      { symbol: "\\sigma", meaning: "Density of fluid", unit: "kg/m³" },
     ],
     assumptions: "Sphere falls through infinite viscous medium.",
     specialCases: [

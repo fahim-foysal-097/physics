@@ -1,5 +1,19 @@
 export const formulas_p1_ch10 = [
   {
+    id: "gas_laws_combined",
+    chapterId: "p1_ch10",
+    topic: "Gas Laws (গ্যাস সূত্র)",
+    nameEn: "Boyle, Charles and Ideal Gas",
+    nameBn: "বয়েল, চার্লস ও আদর্শ গ্যাস",
+    latex: "PV = nRT, \\quad \\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}",
+    variables: [
+      { symbol: "R", meaning: "Universal Gas Constant", unit: "8.314 J/mol·K" },
+      { symbol: "k", meaning: "Boltzmann Constant", unit: "1.38 x 10⁻²³ J/K" },
+    ],
+    // hasVisualization: true,
+    vizType: "gas_law_interactive",
+  },
+  {
     id: "ideal_gas_equation",
     chapterId: "p1_ch10",
     topic: "Ideal Gas (আদর্শ গ্যাস)",

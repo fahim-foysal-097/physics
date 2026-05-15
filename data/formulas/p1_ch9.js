@@ -210,4 +210,33 @@ export const formulas_p1_ch9 = [
     hasVisualization: true,
     vizType: "wave_interference",
   },
+  {
+    id: "wave_intensity",
+    chapterId: "p1_ch9",
+    topic: "Intensity (তীব্রতা)",
+    nameEn: "Intensity of Wave",
+    nameBn: "তরঙ্গের তীব্রতা",
+    latex: "I = 2\\pi^2 f^2 A^2 \\rho v",
+    variables: [
+      { symbol: "I", meaning: "Intensity", unit: "W/m²" },
+      { symbol: "A", meaning: "Amplitude", unit: "m" },
+      { symbol: "f", meaning: "Frequency", unit: "Hz" },
+    ],
+    assumptions:
+      "Intensity is proportional to the square of amplitude and frequency.",
+  },
+  {
+    id: "intensity_level",
+    chapterId: "p1_ch9",
+    topic: "Sound Waves",
+    nameEn: "Intensity Level",
+    nameBn: "শব্দের তীব্রতা লেভেল",
+    latex: "\\beta = 10\\log_{10}\\left(\\frac{I}{I_0}\\right)",
+    variables: [
+      { symbol: "\\beta", meaning: "Intensity level", unit: "dB" },
+      { symbol: "I_0", meaning: "Threshold of hearing", unit: "10⁻¹² W/m²" },
+    ],
+    assumptions: "I0 is the reference intensity.",
+    specialCases: [],
+  },
 ];

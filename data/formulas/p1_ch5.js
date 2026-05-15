@@ -28,7 +28,47 @@ export const formulas_p1_ch5 = [
       },
       {
         condition: "\\theta = 180^\\circ",
-        latex: "W = -FS \\quad \\text{(Maximum negative work)}",
+        latex:
+          "W = -FS \\quad \\text{(Maximum negative work/Work against force)}",
+      },
+    ],
+  },
+  {
+    id: "work_variable_force",
+    chapterId: "p1_ch5",
+    topic: "Work (কাজ)",
+    nameEn: "Work Done by Variable Force",
+    nameBn: "পরিবর্তনশীল বল দ্বারা কৃতকাজ",
+    latex: "W = \\int_{x_i}^{x_f} F \\, dx",
+    variables: [
+      { symbol: "W", meaning: "Work done", unit: "Joule (J)" },
+      { symbol: "x_i, x_f", meaning: "Initial and final positions", unit: "m" },
+      { symbol: "F", meaning: "Force as a function of x", unit: "N" },
+    ],
+    assumptions: "",
+    specialCases: [],
+  },
+  {
+    id: "work_spring",
+    chapterId: "p1_ch5",
+    topic: "Work (কাজ)",
+    nameEn: "Work Done Against Elasticity (Spring)",
+    nameBn: "স্থিতিস্থাপক বলের বিরুদ্ধে কাজ (স্প্রিং)",
+    latex: "W = \\frac{1}{2}kx^2",
+    variables: [
+      {
+        symbol: "W",
+        meaning: "Work done / Potential energy stored",
+        unit: "J",
+      },
+      { symbol: "k", meaning: "Spring constant", unit: "N/m" },
+      { symbol: "x", meaning: "Extension or compression", unit: "m" },
+    ],
+    assumptions: "Hooke's law is obeyed (elastic limit is not crossed).",
+    specialCases: [
+      {
+        condition: "Work to extend from x_1 to x_2",
+        latex: "W = \\frac{1}{2}k(x_2^2 - x_1^2)",
       },
     ],
   },
@@ -46,7 +86,13 @@ export const formulas_p1_ch5 = [
       { symbol: "P", meaning: "Momentum (mv)", unit: "kg·m/s" },
     ],
     assumptions: "Non-relativistic speeds.",
-    specialCases: [],
+    specialCases: [
+      {
+        condition: "Work-Energy Theorem",
+        latex: "W = E_{k(final)} - E_{k(initial)}",
+      },
+    ],
+    mcqShortcuts: ["If momentum P is doubled, Kinetic Energy becomes 4 times."],
   },
   {
     id: "potential_energy",
@@ -65,6 +111,79 @@ export const formulas_p1_ch5 = [
     specialCases: [],
   },
   {
+    id: "mechanical_energy_conservation",
+    chapterId: "p1_ch5",
+    topic: "Energy (শক্তি)",
+    nameEn: "Total Mechanical Energy",
+    nameBn: "মোট যান্ত্রিক শক্তি",
+    latex: "E = E_k + E_p = \\text{Constant}",
+    variables: [
+      { symbol: "E", meaning: "Total Mechanical Energy", unit: "J" },
+      { symbol: "E_k", meaning: "Kinetic Energy", unit: "J" },
+      { symbol: "E_p", meaning: "Potential Energy", unit: "J" },
+    ],
+    assumptions: "System is conservative (no friction or air resistance).",
+    specialCases: [
+      {
+        condition: "Falling freely from height H, condition where E_k = n E_p",
+        latex: "h = \\frac{H}{n+1}",
+      },
+    ],
+  },
+  {
+    id: "pendulum_energy",
+    chapterId: "p1_ch5",
+    topic: "Energy (শক্তি)",
+    nameEn: "Energy in Simple Pendulum",
+    nameBn: "সরল দোলকের শক্তি",
+    latex: "E_p = mgl(1 - \\cos\\theta)",
+    variables: [
+      {
+        symbol: "E_p",
+        meaning: "Potential energy at angle \\theta",
+        unit: "J",
+      },
+      { symbol: "l", meaning: "Effective length of pendulum", unit: "m" },
+      {
+        symbol: "\\theta",
+        meaning: "Angular displacement",
+        unit: "Degree/Radian",
+      },
+    ],
+    assumptions: "Reference PE = 0 is at the lowest point.",
+    specialCases: [],
+  },
+  {
+    id: "hammer_nail",
+    chapterId: "p1_ch5",
+    topic: "Energy (শক্তি)",
+    nameEn: "Hammer & Nail (Resistive Force)",
+    nameBn: "হাতুড়ি ও পেরেক (বাধা প্রদানকারী বল)",
+    latex: "F_R \\times x = \\frac{1}{2}mv^2 + mg(h+x)",
+    variables: [
+      {
+        symbol: "F_R",
+        meaning: "Average resistive force of wood/wall",
+        unit: "N",
+      },
+      { symbol: "x", meaning: "Penetration depth of nail", unit: "m" },
+      { symbol: "m", meaning: "Mass of hammer", unit: "kg" },
+      {
+        symbol: "v",
+        meaning: "Velocity of hammer just before hitting",
+        unit: "m/s",
+      },
+      { symbol: "h", meaning: "Height dropped from", unit: "m" },
+    ],
+    assumptions: "If hit horizontally, gravity term mg(h+x) is zero.",
+    specialCases: [
+      {
+        condition: "Horizontal hit",
+        latex: "F_R \\times x = \\frac{1}{2}mv^2",
+      },
+    ],
+  },
+  {
     id: "power",
     chapterId: "p1_ch5",
     topic: "Power (ক্ষমতা)",
@@ -78,8 +197,9 @@ export const formulas_p1_ch5 = [
       { symbol: "F", meaning: "Force", unit: "N" },
       { symbol: "v", meaning: "Constant velocity", unit: "m/s" },
     ],
-    assumptions: "For Fv, velocity must be constant.",
+    assumptions: "For P=Fv, velocity must be constant.",
     specialCases: [],
+    mcqShortcuts: ["1 HP (Horsepower) = 746 W", "1 kWh = 3.6 × 10^6 J"],
   },
   {
     id: "water_pump",
@@ -116,6 +236,10 @@ export const formulas_p1_ch5 = [
       {
         condition: "\\text{Emptying upper half of a well of depth } l",
         latex: "W = mg\\left(\\frac{l}{4}\\right)",
+      },
+      {
+        condition: "\\text{Emptying lower half of a well of depth } l",
+        latex: "W = mg\\left(\\frac{3l}{4}\\right)",
       },
     ],
     hasVisualization: true,

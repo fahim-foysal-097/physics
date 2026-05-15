@@ -7,7 +7,11 @@ export const formulas_p1_ch8 = [
     nameBn: "সরণ",
     latex: "x = A\\sin(\\omega t + \\delta)",
     variables: [
-      { symbol: "x", meaning: "Displacement from mean position", unit: "m" },
+      {
+        symbol: "x",
+        meaning: "Displacement from equilibrium position",
+        unit: "m",
+      },
       { symbol: "A", meaning: "Amplitude", unit: "m" },
       { symbol: "\\omega", meaning: "Angular frequency", unit: "rad/s" },
       { symbol: "t", meaning: "Time", unit: "s" },
@@ -60,6 +64,36 @@ export const formulas_p1_ch8 = [
     ],
   },
   {
+    id: "shm_energy_graphs",
+    chapterId: "p1_ch8",
+    topic: "SHM Energy (শক্তি)",
+    nameEn: "Energy in SHM",
+    nameBn: "সরল ছন্দিত স্পন্দনের শক্তি",
+    latex:
+      "E_k = \\frac{1}{2}k(A^2 - x^2) \\newline E_p = \\frac{1}{2}kx^2 \\newline E_{total} = \\frac{1}{2}kA^2",
+    variables: [
+      { symbol: "A", meaning: "Amplitude", unit: "m" },
+      { symbol: "x", meaning: "Displacement", unit: "m" },
+    ],
+    // hasVisualization: true,
+    vizType: "energy_vs_displacement_graph",
+  },
+  {
+    id: "spring_combinations",
+    chapterId: "p1_ch8",
+    topic: "Springs (স্প্রিং)",
+    nameEn: "Spring Constants in Series and Parallel",
+    nameBn: "স্প্রিং সমবায়",
+    latex:
+      "\\frac{1}{k_s} = \\sum \\frac{1}{k_i} = \\frac{1}{k_1} + \\frac{1}{k_2} + \\cdots \\newline k_p = \\sum k_i = k_1 + k_2 + \\cdots",
+    variables: [
+      { symbol: "k_s", meaning: "Equivalent Series Constant", unit: "N/m" },
+      { symbol: "k_p", meaning: "Equivalent Parallel Constant", unit: "N/m" },
+    ],
+    // hasVisualization: true,
+    vizType: "spring_oscillator_sim",
+  },
+  {
     id: "shm_energy",
     chapterId: "p1_ch8",
     topic: "Energy in SHM (সরল ছন্দিত স্পন্দনের শক্তি)",
@@ -101,7 +135,8 @@ export const formulas_p1_ch8 = [
       { symbol: "m", meaning: "Mass attached to spring", unit: "kg" },
       { symbol: "k", meaning: "Spring constant", unit: "N/m" },
     ],
-    assumptions: "For pendulum, angular displacement is very small.",
+    assumptions:
+      "For pendulum, angular displacement is very small (< 4 degrees).",
     specialCases: [
       {
         condition: "\\text{Seconds Pendulum}",
@@ -110,6 +145,23 @@ export const formulas_p1_ch8 = [
     ],
     hasVisualization: true,
     vizType: "simple_pendulum",
+  },
+  {
+    id: "mountain_pendulum",
+    chapterId: "p1_ch8",
+    topic: "Pendulum (দোলক)",
+    nameEn: "Pendulum at Mountain Peak",
+    nameBn: "পাহাড়ের চূড়ায় দোলক",
+    latex:
+      "h = R\\left(\\frac{T_2}{T_1} - 1\\right) = R\\left(\\sqrt{\\frac{g_1}{g_2}} - 1\\right)",
+    variables: [
+      { symbol: "h", meaning: "Height of mountain", unit: "m" },
+      {
+        symbol: "T_1, T_2",
+        meaning: "Time periods at surface and peak",
+        unit: "s",
+      },
+    ],
   },
   {
     id: "clock_error",

@@ -51,15 +51,20 @@ export const formulas_p1_ch6 = [
       { symbol: "g_d", meaning: "Gravity at depth h", unit: "m/s²" },
       { symbol: "h", meaning: "Height or depth", unit: "m" },
     ],
-    assumptions: "h is much smaller than R.",
-    specialCases: [],
+    assumptions: "h is much smaller than R : h << R (for height formula).",
+    specialCases: [
+      {
+        condition: "\\text{Gravity at Latitude } \\lambda",
+        latex: "g_\\lambda = g - \\omega^2 R \\cos^2\\lambda",
+      },
+    ],
   },
   {
     id: "satellite_velocity",
     chapterId: "p1_ch6",
     topic: "Satellites (কৃত্রিম উপগ্রহ)",
     nameEn: "Orbital Velocity",
-    nameBn: "কক্ষীয় বেগ",
+    nameBn: "কক্ষীয় বেগ",
     latex: "v = \\sqrt{\\frac{GM}{R+h}}",
     variables: [
       { symbol: "v", meaning: "Orbital velocity of satellite", unit: "m/s" },
