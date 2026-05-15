@@ -1,150 +1,120 @@
 import { utils } from "./utils.js";
 import { vizManager } from "./visualizations.js";
 
+/**
+ * Render Manager
+ * Handles all UI injection and data rendering
+ */
 export const renderManager = {
   /**
-   * Render the list of chapters into the sidebar
+   * Renders the list of chapters in the sidebar
    */
   renderChapters: (chapters) => {
-    const p1Container = document.getElementById("chaptersPaper1");
-    const p2Container = document.getElementById("chaptersPaper2");
+    const paper1List = document.getElementById("chaptersPaper1");
+    const paper2List = document.getElementById("chaptersPaper2");
 
-    p1Container.innerHTML = "";
-    p2Container.innerHTML = "";
+    paper1List.innerHTML = "";
+    paper2List.innerHTML = "";
 
     chapters.forEach((chapter) => {
-      const btn = document.createElement("button");
-      btn.className = "list-group-item list-group-item-action py-3";
-      btn.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="fw-bold">${chapter.nameEn}</div>
-                        <small class="bn-text text-muted">${chapter.nameBn}</small>
-                    </div>
+      const item = document.createElement("button");
+      item.className =
+        "list-group-item list-group-item-action d-flex flex-column py-3";
+      item.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="badge bg-primary-light text-primary rounded-pill small">CH ${chapter.id.split("_")[1].replace("ch", "")}</span>
                 </div>
+                <span class="fw-bold">${chapter.nameEn}</span>
+                <span class="text-muted small">${chapter.nameBn}</span>
             `;
 
-      btn.addEventListener("click", () => {
-        // Update active state
+      item.addEventListener("click", () => {
+        // Handle active state
         document
           .querySelectorAll(".chapter-list .list-group-item")
           .forEach((el) => el.classList.remove("active"));
-        btn.classList.add("active");
+        item.classList.add("active");
 
-        // Trigger event to load formulas
+        // Dispatch event for app.js to handle
         document.dispatchEvent(
           new CustomEvent("loadChapter", { detail: chapter }),
         );
       });
 
-      if (chapter.paper === 1) {
-        p1Container.appendChild(btn);
-      } else {
-        p2Container.appendChild(btn);
-      }
+      if (chapter.paper === 1) paper1List.appendChild(item);
+      else paper2List.appendChild(item);
     });
   },
 
   /**
-   * Render topics filters based on loaded formulas
+   * Renders sub-topic filters for the current chapter
    */
-  renderTopics: (formulas, onTopicSelect) => {
+  renderTopics: (formulas, onSelect) => {
     const container = document.getElementById("topicFilters");
     container.innerHTML = "";
 
-    if (formulas.length === 0) return;
+    const topics = ["all", ...new Set(formulas.map((f) => f.topic))];
 
-    const allTopics = [...new Set(formulas.map((f) => f.topic))];
-
-    // "All" button
-    const allBtn = document.createElement("button");
-    allBtn.className = "btn topic-btn active fade-in";
-    allBtn.textContent = "All Topics";
-    allBtn.addEventListener("click", () => {
-      document
-        .querySelectorAll(".topic-btn")
-        .forEach((b) => b.classList.remove("active"));
-      allBtn.classList.add("active");
-      onTopicSelect("all");
-    });
-    container.appendChild(allBtn);
-
-    // Topic buttons
-    allTopics.forEach((topic, i) => {
+    topics.forEach((topic) => {
       const btn = document.createElement("button");
-      btn.className = "btn topic-btn fade-in";
-      btn.style.animationDelay = `${(i + 1) * 0.05}s`;
-
-      // Clean up topic text (remove bangla for the chip if it's too long, or keep it)
-      btn.textContent = topic.split(" (")[0];
-      btn.title = topic;
+      btn.className = `btn btn-sm btn-light-accent text-nowrap rounded-pill px-3 ${topic === "all" ? "active" : ""}`;
+      btn.textContent = topic === "all" ? "All Topics" : topic;
 
       btn.addEventListener("click", () => {
-        document
-          .querySelectorAll(".topic-btn")
+        container
+          .querySelectorAll("button")
           .forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        onTopicSelect(topic);
+        onSelect(topic);
       });
+
       container.appendChild(btn);
     });
   },
 
   /**
-   * Render the grid of formulas
+   * Renders the grid of formula cards
    */
   renderFormulasGrid: (formulas) => {
     const grid = document.getElementById("formulasGrid");
     grid.innerHTML = "";
 
     if (formulas.length === 0) {
-      grid.innerHTML = `
-                <div class="col-12 text-center text-muted py-5 fade-in">
-                    <p class="fs-5">No formulas found for this selection.</p>
-                </div>
-            `;
+      grid.innerHTML =
+        '<div class="col-12 text-center py-5 text-muted">No formulas found in this section.</div>';
       return;
     }
 
-    formulas.forEach((formula, i) => {
+    formulas.forEach((formula, index) => {
       const col = document.createElement("div");
-      col.className = "col-12 col-md-6 col-xxl-4 slide-up formula-card-wrapper";
-      col.style.animationDelay = `${i * 0.05}s`;
+      col.className = "col-12 col-md-6 col-xl-4 slide-up";
+      col.style.animationDelay = `${index * 0.05}s`;
 
       col.innerHTML = `
-                <div class="formula-card h-100">
-                    <div class="formula-card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5 class="card-title mb-0 fs-6 text-primary">${formula.nameEn}</h5>
-                            <span class="badge-custom">${formula.topic.split(" (")[0]}</span>
-                        </div>
-                        <div class="bn-text text-muted small mb-3">${formula.nameBn}</div>
-                        
-                        <div class="latex-preview w-100 overflow-x-auto overflow-y-hidden pb-2" style="white-space: nowrap;">
-                            ${utils.renderMath(formula.latex, true)}
-                        </div>
+                <div class="formula-card h-100 p-4" onclick="document.dispatchEvent(new CustomEvent('openFormulaModal', {detail: ${JSON.stringify(formula).replace(/"/g, "&quot;")}}))">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="badge bg-light text-primary-accent rounded-pill px-2 py-1 small">${formula.topic}</span>
+                        ${formula.hasVisualization ? '<span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 small">Interactive</span>' : ""}
+                    </div>
+                    <h5 class="formula-name mb-1">${formula.nameEn}</h5>
+                    <p class="bn-title text-muted small mb-3">${formula.nameBn}</p>
+                    <div class="formula-preview text-center py-3 bg-light rounded-3 overflow-hidden">
+                        ${utils.renderMath(formula.latex)}
                     </div>
                 </div>
             `;
-
-      col.querySelector(".formula-card").addEventListener("click", () => {
-        document.dispatchEvent(
-          new CustomEvent("openFormulaModal", { detail: formula }),
-        );
-      });
 
       grid.appendChild(col);
     });
   },
 
   /**
-   * Open and populate the formula details modal
+   * Opens the detail modal for a formula
    */
   openFormulaModal: (formula) => {
+    // Basic Info
     document.getElementById("modalFormulaNameEn").textContent = formula.nameEn;
     document.getElementById("modalFormulaNameBn").textContent = formula.nameBn;
-
-    // Render main equation
     document.getElementById("modalFormulaLatex").innerHTML = utils.renderMath(
       formula.latex,
       true,
@@ -242,32 +212,27 @@ export const renderManager = {
       // Setup Controls if metadata exists
       if (renderManager.vizConfig[formula.vizType]) {
         controlsContainer.classList.remove("d-none");
-        renderManager.setupVizControls(
+        renderManager.setupLabControls(
           formula.vizType,
           renderManager.vizConfig[formula.vizType],
+          "modalVizControls",
+          "modalVisualization",
         );
       }
 
-      // Use a fresh listener each time, but remove existing ones to prevent accumulation
-      const oldTab = vizTab.cloneNode(true);
-      vizTab.parentNode.replaceChild(oldTab, vizTab);
-      const newVizTab = document.getElementById("visuals-tab");
-
-      newVizTab.addEventListener("shown.bs.tab", function onTabShown() {
-        vizManager.render(formula.vizType, "modalVisualization");
-        newVizTab.removeEventListener("shown.bs.tab", onTabShown);
-      });
-    } else if (formula.imageUrl) {
-      vizTab.parentElement.classList.remove("d-none");
-      vizTab.textContent = "Diagram";
-      document.getElementById("modalVisualization").innerHTML = `
-                <div class="text-center p-3">
-                    <img src="${formula.imageUrl}" class="img-fluid rounded shadow-sm" alt="Diagram">
-                </div>
-            `;
+      // We clear the container before p5 starts
+      document.getElementById("modalVisualization").innerHTML = "";
     } else {
       vizTab.parentElement.classList.add("d-none");
-      document.getElementById("modalVisualization").innerHTML = "";
+      // If no visualization, but we have an image
+      if (formula.imageUrl) {
+        vizTab.parentElement.classList.remove("d-none");
+        vizTab.textContent = "Diagram";
+        document.getElementById("modalVisualization").innerHTML =
+          `<img src="${formula.imageUrl}" class="img-fluid rounded-3" alt="Formula Diagram">`;
+      } else {
+        document.getElementById("modalVisualization").innerHTML = "";
+      }
     }
 
     // Reset tabs to first one
@@ -279,6 +244,13 @@ export const renderManager = {
     // Show modal
     const modal = new bootstrap.Modal(document.getElementById("formulaModal"));
     modal.show();
+
+    // Trigger visualization when tab is clicked
+    vizTab.onclick = () => {
+      if (formula.hasVisualization && formula.vizType) {
+        vizManager.render(formula.vizType, "modalVisualization", true);
+      }
+    };
   },
 
   /**
@@ -286,9 +258,10 @@ export const renderManager = {
    */
   vizConfig: {
     projectile_advanced: [
-      { id: "u", label: "Velocity", min: 10, max: 100, val: 60 },
-      { id: "angle", label: "Angle", min: 10, max: 85, val: 45 },
-      { id: "h", label: "Height", min: 0, max: 100, val: 0 },
+      { id: "u", label: "Velocity (u)", min: 10, max: 100, val: 60 },
+      { id: "angle", label: "Angle (θ)", min: 10, max: 85, val: 45 },
+      { id: "g", label: "Gravity (g)", min: 1, max: 20, val: 9.8, step: 0.1 },
+      { id: "h", label: "Height (h)", min: 0, max: 100, val: 0 },
       { id: "fire", label: "Fire Projectile", type: "button" },
     ],
     simple_pendulum: [
@@ -296,9 +269,9 @@ export const renderManager = {
       {
         id: "gravity",
         label: "Gravity (g)",
-        min: 0.1,
-        max: 2,
-        val: 0.4,
+        min: 1.0,
+        max: 20.0,
+        val: 9.8,
         step: 0.1,
       },
       {
@@ -313,11 +286,13 @@ export const renderManager = {
     wave_propagation: [
       {
         id: "type",
-        label: "Type (0:Trans, 1:Long)",
-        min: 0,
-        max: 1,
+        label: "Wave Type",
+        type: "radio",
+        options: [
+          { label: "Transverse", val: 0 },
+          { label: "Longitudinal", val: 1 },
+        ],
         val: 0,
-        step: 1,
       },
       {
         id: "freq",
@@ -327,6 +302,19 @@ export const renderManager = {
         val: 0.05,
         step: 0.01,
       },
+    ],
+    wave_interference: [
+      {
+        id: "interferenceType",
+        label: "Interference Type",
+        type: "radio",
+        options: [
+          { label: "Constructive", val: 0 },
+          { label: "Destructive", val: 1 },
+        ],
+        val: 0,
+      },
+      { id: "amp", label: "Amplitude", min: 10, max: 60, val: 40 },
     ],
     em_wave: [
       {
@@ -348,32 +336,6 @@ export const renderManager = {
         step: 0.01,
       },
       { id: "amp", label: "Amplitude", min: 5, max: 30, val: 15 },
-    ],
-    shm_circular: [
-      { id: "radius", label: "Radius (A)", min: 50, max: 100, val: 70 },
-      {
-        id: "speed",
-        label: "Angular Speed",
-        min: 0.01,
-        max: 0.1,
-        val: 0.03,
-        step: 0.01,
-      },
-    ],
-    vector_area: [
-      { id: "vecA_mag", label: "Vector A Mag", min: 50, max: 150, val: 100 },
-      { id: "vecB_mag", label: "Vector B Mag", min: 50, max: 150, val: 80 },
-      { id: "angle", label: "Angle", min: 0, max: 180, val: 60 },
-    ],
-    poissons_ratio: [
-      {
-        id: "ratio",
-        label: "Ratio (σ)",
-        min: -0.5,
-        max: 0.5,
-        val: 0.3,
-        step: 0.1,
-      },
     ],
     banking_road: [
       { id: "theta", label: "Angle (θ)", min: 0, max: 45, val: 15 },
@@ -422,17 +384,17 @@ export const renderManager = {
       {
         id: "omega",
         label: "Angular Freq (ω)",
-        min: 0.05,
-        max: 0.3,
-        val: 0.1,
-        step: 0.01,
+        min: 0.1,
+        max: 1.0,
+        val: 0.4,
+        step: 0.05,
       },
       {
         id: "k_wave",
         label: "Wave Number (k)",
         min: 0.01,
         max: 0.1,
-        val: 0.02,
+        val: 0.03,
         step: 0.01,
       },
       { id: "amp", label: "Amplitude (A)", min: 10, max: 80, val: 40 },
@@ -440,71 +402,65 @@ export const renderManager = {
     standing_wave_pipes: [
       {
         id: "pipeType",
-        label: "Type (0:Open, 1:Closed)",
-        min: 0,
-        max: 1,
+        label: "Pipe Type",
+        type: "radio",
+        options: [
+          { label: "Open", val: 0 },
+          { label: "Closed", val: 1 },
+        ],
         val: 0,
-        step: 1,
       },
       { id: "harmonic", label: "Harmonic", min: 1, max: 5, val: 1, step: 1 },
     ],
     beats: [
-      { id: "f1", label: "Frequency 1 (Hz)", min: 200, max: 1000, val: 440 },
-      { id: "f2", label: "Frequency 2 (Hz)", min: 200, max: 1000, val: 444 },
+      { id: "f1", label: "Freq 1 (Hz)", min: 430, max: 450, val: 440, step: 1 },
+      { id: "f2", label: "Freq 2 (Hz)", min: 430, max: 450, val: 444, step: 1 },
       { id: "toggleSound", label: "Toggle Sound", type: "button" },
     ],
-  },
-
-  setupVizControls: (vizType, config) => {
-    const container = document.getElementById("modalVizControls");
-    const row = document.createElement("div");
-    row.className = "row g-3";
-
-    config.forEach((ctrl) => {
-      const col = document.createElement("div");
-      col.className = "col-md-6";
-
-      if (ctrl.type === "button") {
-        col.innerHTML = `
-                  <button class="btn btn-outline-primary btn-sm w-100 mt-4" id="ctrl-${ctrl.id}">${ctrl.label}</button>
-              `;
-        col.querySelector("button").addEventListener("click", () => {
-          if (
-            vizManager.currentP5Instance &&
-            typeof vizManager.currentP5Instance[ctrl.id] === "function"
-          ) {
-            vizManager.currentP5Instance[ctrl.id]();
-          }
-        });
-      } else {
-        col.innerHTML = `
-                  <label class="form-label small fw-bold mb-1">${ctrl.label}: <span id="val-${ctrl.id}">${ctrl.val}</span></label>
-                  <input type="range" class="form-range" id="ctrl-${ctrl.id}" 
-                         min="${ctrl.min}" max="${ctrl.max}" step="${ctrl.step || 1}" value="${ctrl.val}">
-              `;
-
-        const input = col.querySelector("input");
-        input.addEventListener("input", (e) => {
-          const val = parseFloat(e.target.value);
-          document.getElementById(`val-${ctrl.id}`).textContent = val;
-
-          // Update the p5 instance directly
-          if (vizManager.currentP5Instance) {
-            vizManager.currentP5Instance[ctrl.id] = val;
-            // Special reset for projectile
-            if (
-              vizType === "projectile_motion" ||
-              vizType === "projectile_advanced"
-            ) {
-              vizManager.currentP5Instance.reset();
-            }
-          }
-        });
-      }
-      row.appendChild(col);
-    });
-
-    container.appendChild(row);
+    vector_addition: [
+      { id: "pMag", label: "Vector P", min: 50, max: 150, val: 100 },
+      { id: "qMag", label: "Vector Q", min: 50, max: 150, val: 80 },
+      { id: "angle", label: "Angle (θ)", min: 0, max: 180, val: 60 },
+    ],
+    vector_area: [
+      { id: "vecA_mag", label: "Vector A", min: 50, max: 150, val: 100 },
+      { id: "vecB_mag", label: "Vector B", min: 50, max: 150, val: 80 },
+      { id: "angle", label: "Angle (θ)", min: 10, max: 170, val: 60 },
+    ],
+    poissons_ratio: [
+      {
+        id: "ratio",
+        label: "Poisson Ratio",
+        min: -0.5,
+        max: 0.5,
+        val: 0.3,
+        step: 0.1,
+      },
+    ],
+    brownian_motion: [
+      {
+        id: "gasSpeed",
+        label: "Gas Speed",
+        min: 10,
+        max: 250,
+        val: 100,
+        step: 1,
+      },
+    ],
+    degrees_of_freedom: [
+      {
+        id: "molType",
+        label: "Molecule Type",
+        type: "radio",
+        options: [
+          { label: "Monoatomic", val: 0 },
+          { label: "Diatomic", val: 1 },
+          { label: "CO2", val: 2 },
+          { label: "Triatomic", val: 3 },
+        ],
+        val: 0,
+      },
+    ],
   },
 
   /**
@@ -599,6 +555,33 @@ export const renderManager = {
           if (instance && typeof instance[ctrl.id] === "function") {
             instance[ctrl.id]();
           }
+        });
+      } else if (ctrl.type === "radio") {
+        let optionsHtml = ctrl.options
+          .map(
+            (opt, i) => `
+          <input type="radio" class="btn-check" name="radio-${controlsContainerId}-${ctrl.id}" id="radio-${controlsContainerId}-${ctrl.id}-${i}" 
+                 value="${opt.val}" ${opt.val === ctrl.val ? "checked" : ""}>
+          <label class="btn btn-outline-primary btn-sm flex-fill x-small px-1" for="radio-${controlsContainerId}-${ctrl.id}-${i}">${opt.label}</label>
+        `,
+          )
+          .join("");
+
+        col.innerHTML = `
+          <label class="form-label x-small fw-bold mb-1 d-block">${ctrl.label}</label>
+          <div class="btn-group w-100 d-flex" role="group">
+            ${optionsHtml}
+          </div>
+        `;
+
+        col.querySelectorAll("input").forEach((input) => {
+          input.addEventListener("change", (e) => {
+            const val = parseInt(e.target.value);
+            const instance = vizManager.instances[canvasContainerId];
+            if (instance) {
+              instance[ctrl.id] = val;
+            }
+          });
         });
       } else {
         col.innerHTML = `

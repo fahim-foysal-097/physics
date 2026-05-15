@@ -58,15 +58,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (state.currentView === "lab") {
       renderManager.renderLabPage(state.allFormulasCache, chapter.id);
-      const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("mobileSidebar"));
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(
+        document.getElementById("mobileSidebar"),
+      );
       if (bsOffcanvas) bsOffcanvas.hide();
-      return; 
+      return;
     }
 
     // Update Title
     const titleEl = document.getElementById("currentChapterTitle");
-    titleEl.querySelector(".en-title").textContent = chapter.nameEn;
-    titleEl.querySelector(".bn-title").textContent = chapter.nameBn;
+    if (titleEl) {
+      const enTitle = titleEl.querySelector(".en-title");
+      const bnTitle = titleEl.querySelector(".bn-title");
+      if (enTitle) enTitle.textContent = chapter.nameEn;
+      if (bnTitle) bnTitle.textContent = chapter.nameBn;
+    }
 
     try {
       const moduleName = `formulas_${chapter.id}`;
@@ -77,14 +83,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (selectedTopic === "all") {
           renderManager.renderFormulasGrid(state.currentFormulas);
         } else {
-          const filtered = state.currentFormulas.filter((f) => f.topic === selectedTopic);
+          const filtered = state.currentFormulas.filter(
+            (f) => f.topic === selectedTopic,
+          );
           renderManager.renderFormulasGrid(filtered);
         }
       });
 
       renderManager.renderFormulasGrid(state.currentFormulas);
 
-      const bsOffcanvas = bootstrap.Offcanvas.getInstance(document.getElementById("mobileSidebar"));
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(
+        document.getElementById("mobileSidebar"),
+      );
       if (bsOffcanvas) bsOffcanvas.hide();
     } catch (error) {
       console.error(`Failed to load formulas for chapter ${chapter.id}`, error);
@@ -96,28 +106,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // 4. Mobile Sidebar Handling
-  const mobileSidebarBody = document.querySelector("#mobileSidebar .offcanvas-body");
+  const mobileSidebarBody = document.querySelector(
+    "#mobileSidebar .offcanvas-body",
+  );
   mobileSidebarBody.innerHTML = document.getElementById("sidebar").innerHTML;
 
-  mobileSidebarBody.querySelectorAll(".chapter-list .list-group-item").forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-      const text = btn.querySelector(".fw-bold").textContent;
-      const targetCh = chapters.find((c) => c.nameEn === text);
-      if (targetCh) {
-        document.dispatchEvent(new CustomEvent("loadChapter", { detail: targetCh }));
-        // Sync active state in both sidebars
-        document.querySelectorAll(".chapter-list .list-group-item").forEach((el) => el.classList.remove("active"));
-        // Both desktop and mobile buttons with the same index will get 'active'
-        // This works because both lists are identical in structure
-        const allItems = document.querySelectorAll(".chapter-list .list-group-item");
-        const desktopItems = document.querySelectorAll("#sidebar .chapter-list .list-group-item");
-        const mobileItems = mobileSidebarBody.querySelectorAll(".chapter-list .list-group-item");
-        
-        desktopItems[index].classList.add("active");
-        mobileItems[index].classList.add("active");
-      }
+  mobileSidebarBody
+    .querySelectorAll(".chapter-list .list-group-item")
+    .forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        const text = btn.querySelector(".fw-bold").textContent;
+        const targetCh = chapters.find((c) => c.nameEn === text);
+        if (targetCh) {
+          document.dispatchEvent(
+            new CustomEvent("loadChapter", { detail: targetCh }),
+          );
+          // Sync active state in both sidebars
+          document
+            .querySelectorAll(".chapter-list .list-group-item")
+            .forEach((el) => el.classList.remove("active"));
+          // Both desktop and mobile buttons with the same index will get 'active'
+          // This works because both lists are identical in structure
+          const allItems = document.querySelectorAll(
+            ".chapter-list .list-group-item",
+          );
+          const desktopItems = document.querySelectorAll(
+            "#sidebar .chapter-list .list-group-item",
+          );
+          const mobileItems = mobileSidebarBody.querySelectorAll(
+            ".chapter-list .list-group-item",
+          );
+
+          desktopItems[index].classList.add("active");
+          mobileItems[index].classList.add("active");
+        }
+      });
     });
-  });
 
   // 5. View Switching
   const formulasView = document.getElementById("formulasView");
@@ -125,29 +149,44 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btnFormulas = document.getElementById("viewFormulas");
   const btnLab = document.getElementById("viewLab");
 
-  btnFormulas.addEventListener("click", () => {
-    vizManager.stopAllAudio();
-    state.currentView = "formulas";
-    formulasView.classList.remove("d-none");
-    labView.classList.add("d-none");
-    btnFormulas.classList.add("active");
-    btnLab.classList.remove("active");
-    if (state.currentChapter) {
-        document.dispatchEvent(new CustomEvent("loadChapter", { detail: state.currentChapter }));
-    }
-  });
-
-  btnLab.addEventListener("click", () => {
-    vizManager.stopAllAudio();
+  // Sync initial view state
+  if (btnLab && btnLab.checked) {
     state.currentView = "lab";
     formulasView.classList.add("d-none");
     labView.classList.remove("d-none");
-    btnFormulas.classList.remove("active");
-    btnLab.classList.add("active");
-    
-    if (state.currentChapter) {
-        renderManager.renderLabPage(state.allFormulasCache, state.currentChapter.id);
-    } else {
+  } else {
+    state.currentView = "formulas";
+    formulasView.classList.remove("d-none");
+    labView.classList.add("d-none");
+  }
+
+  btnFormulas.addEventListener("change", () => {
+    if (btnFormulas.checked) {
+      vizManager.stopAllAudio();
+      state.currentView = "formulas";
+      formulasView.classList.remove("d-none");
+      labView.classList.add("d-none");
+      if (state.currentChapter) {
+        document.dispatchEvent(
+          new CustomEvent("loadChapter", { detail: state.currentChapter }),
+        );
+      }
+    }
+  });
+
+  btnLab.addEventListener("change", () => {
+    if (btnLab.checked) {
+      vizManager.stopAllAudio();
+      state.currentView = "lab";
+      formulasView.classList.add("d-none");
+      labView.classList.remove("d-none");
+
+      if (state.currentChapter) {
+        renderManager.renderLabPage(
+          state.allFormulasCache,
+          state.currentChapter.id,
+        );
+      } else {
         const grid = document.getElementById("labGrid");
         grid.innerHTML = `
             <div class="col-12 text-center py-5 mt-5">
@@ -156,13 +195,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p class="text-muted mb-0">Please select a chapter from the sidebar to view its interactive simulations.</p>
             </div>
         `;
+      }
     }
   });
 
   // 6. Modal events
-  document.getElementById("formulaModal").addEventListener("hidden.bs.modal", () => {
-    vizManager.stopAllAudio();
-  });
+  document
+    .getElementById("formulaModal")
+    .addEventListener("hidden.bs.modal", () => {
+      vizManager.stopAllAudio();
+    });
 
   // 7. Keyboard Shortcuts
   document.addEventListener("keydown", (e) => {

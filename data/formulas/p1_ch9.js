@@ -195,4 +195,19 @@ export const formulas_p1_ch9 = [
     hasVisualization: true,
     vizType: "em_wave",
   },
+  {
+    id: "wave_interference",
+    chapterId: "p1_ch9",
+    topic: "Superposition (উপরিপাতন)",
+    nameEn: "Wave Interference",
+    nameBn: "তরঙ্গের ব্যতিচার",
+    latex: "y = y_1 + y_2 = A \\sin(kx - \\omega t + \\phi)",
+    variables: [
+      { symbol: "A", meaning: "Resultant amplitude", unit: "m" },
+      { symbol: "\\phi", meaning: "Phase difference", unit: "rad" },
+    ],
+    assumptions: "Two waves of same frequency travel in same direction.",
+    hasVisualization: true,
+    vizType: "wave_interference",
+  },
 ];

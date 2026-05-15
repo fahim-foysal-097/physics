@@ -112,3 +112,34 @@ h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* View Switcher */
+.view-switcher-container {
+  z-index: 100;
+}
+
+.btn-pill {
+  border: none;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  cursor: pointer;
+}
+
+.btn-pill:hover {
+  color: var(--primary);
+  background: var(--bg-surface-hover);
+}
+
+.btn-check:checked + .btn-pill {
+  background-color: var(--primary) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.x-small {
+  font-size: 0.7rem;
+}
