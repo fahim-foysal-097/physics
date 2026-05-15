@@ -204,7 +204,8 @@ export const wavesSims = {
           let d = sketch.abs(x - sketch.pulseT);
           let y =
             d < 60
-              ? 50 * sketch.cos(sketch.map(d, 0, 60, 0, sketch.HALF_PI))
+              ? (sketch.amp || 40) *
+                sketch.cos(sketch.map(d, 0, 60, 0, sketch.HALF_PI))
               : 0;
           sketch.vertex(x, -y);
         }
@@ -217,7 +218,9 @@ export const wavesSims = {
           let d = sketch.abs(x - (sketch.width - sketch.pulseT));
           let y =
             d < 60
-              ? 50 * phase * sketch.cos(sketch.map(d, 0, 60, 0, sketch.HALF_PI))
+              ? (sketch.amp || 40) *
+                phase *
+                sketch.cos(sketch.map(d, 0, 60, 0, sketch.HALF_PI))
               : 0;
           sketch.vertex(x, -y);
         }
@@ -231,12 +234,13 @@ export const wavesSims = {
           let d1 = sketch.abs(x - sketch.pulseT);
           let y1 =
             d1 < 60
-              ? 50 * sketch.cos(sketch.map(d1, 0, 60, 0, sketch.HALF_PI))
+              ? (sketch.amp || 40) *
+                sketch.cos(sketch.map(d1, 0, 60, 0, sketch.HALF_PI))
               : 0;
           let d2 = sketch.abs(x - (sketch.width - sketch.pulseT));
           let y2 =
             d2 < 60
-              ? 50 *
+              ? (sketch.amp || 40) *
                 phase *
                 sketch.cos(sketch.map(d2, 0, 60, 0, sketch.HALF_PI))
               : 0;
@@ -291,17 +295,25 @@ export const wavesSims = {
       case "beats":
         sketch.translate(0, sketch.height / 2);
         let df = Math.abs(sketch.f1 - sketch.f2);
-        
+
         if (sketch.isPlaying && sketch.osc1) {
-          sketch.osc1.frequency.setTargetAtTime(sketch.f1, sketch.audioCtx.currentTime, 0.05);
-          sketch.osc2.frequency.setTargetAtTime(sketch.f2, sketch.audioCtx.currentTime, 0.05);
+          sketch.osc1.frequency.setTargetAtTime(
+            sketch.f1,
+            sketch.audioCtx.currentTime,
+            0.05,
+          );
+          sketch.osc2.frequency.setTargetAtTime(
+            sketch.f2,
+            sketch.audioCtx.currentTime,
+            0.05,
+          );
         }
-        
+
         // Calibration: 1 second = 400 pixels
-        let oneSecPx = 400; 
+        let oneSecPx = 400;
         // Beat frequency is |f1-f2|. In 1 second (oneSecPx), we want df beats.
         // One beat is half a cycle of the cos envelope.
-        // cos(x * freqD) -> period = 2*pi/freqD. 
+        // cos(x * freqD) -> period = 2*pi/freqD.
         // Half period = pi/freqD.
         // We want pi/freqD = oneSecPx / df  => freqD = (pi * df) / oneSecPx
         let k_beat = (Math.PI * df) / oneSecPx;
@@ -314,7 +326,8 @@ export const wavesSims = {
         sketch.beginShape();
         for (let x = 0; x < sketch.width; x += 1) {
           // Use cos for carrier to start at peak at x=0, t=0
-          let y = 60 * sketch.cos(x * k_beat) * sketch.cos(x * k_avg - sketch.t);
+          let y =
+            60 * sketch.cos(x * k_beat) * sketch.cos(x * k_avg - sketch.t);
           sketch.vertex(x, y);
         }
         sketch.endShape();
@@ -332,8 +345,8 @@ export const wavesSims = {
 
         // 1-Second Timeframe Indicator
         // Shift start to first node (A=0): where cos(x * k_beat) = 0 => x = pi/(2*k_beat)
-        let xOffset = (Math.PI / (2 * k_beat));
-        
+        let xOffset = Math.PI / (2 * k_beat);
+
         sketch.push();
         sketch.translate(xOffset, 100);
         sketch.stroke(0);
@@ -341,13 +354,13 @@ export const wavesSims = {
         sketch.line(0, 0, oneSecPx, 0);
         sketch.line(0, -5, 0, 5);
         sketch.line(oneSecPx, -5, oneSecPx, 5);
-        
+
         sketch.noStroke();
         sketch.fill(0);
         sketch.textSize(12);
         sketch.textAlign(sketch.CENTER);
         sketch.text("1.0 Second Timeframe", oneSecPx / 2, 20);
-        
+
         // Beat Frequency Label
         sketch.textAlign(sketch.LEFT);
         sketch.fill("#4f46e5");

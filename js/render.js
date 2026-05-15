@@ -440,7 +440,7 @@ export const renderManager = {
     brownian_motion: [
       {
         id: "gasSpeed",
-        label: "Gas Speed",
+        label: "Gas Speed (Temperature)",
         min: 10,
         max: 250,
         val: 100,
