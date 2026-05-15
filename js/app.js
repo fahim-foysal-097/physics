@@ -19,13 +19,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 2. Pre-load formulas for search cache
   try {
-    const modules = await Promise.all(
-      chapters.map((ch) => import(`../data/formulas/${ch.id}.js`)),
-    );
+    const modules = await Promise.all([
+      import("../data/formulas/p1_ch1.js"),
+      import("../data/formulas/p1_ch2.js"),
+      import("../data/formulas/p1_ch3.js"),
+      import("../data/formulas/p1_ch4.js"),
+      import("../data/formulas/p1_ch5.js"),
+      import("../data/formulas/p1_ch6.js"),
+      import("../data/formulas/p1_ch7.js"),
+      import("../data/formulas/p1_ch8.js"),
+      import("../data/formulas/p1_ch9.js"),
+      import("../data/formulas/p1_ch10.js"),
+    ]);
 
-    state.allFormulasCache = modules.flatMap(
-      (mod, i) => mod[`formulas_${chapters[i].id}`],
-    );
+    state.allFormulasCache = [
+      ...modules[0].formulas_p1_ch1,
+      ...modules[1].formulas_p1_ch2,
+      ...modules[2].formulas_p1_ch3,
+      ...modules[3].formulas_p1_ch4,
+      ...modules[4].formulas_p1_ch5,
+      ...modules[5].formulas_p1_ch6,
+      ...modules[6].formulas_p1_ch7,
+      ...modules[7].formulas_p1_ch8,
+      ...modules[8].formulas_p1_ch9,
+      ...modules[9].formulas_p1_ch10,
+    ];
 
     searchManager.init(state.allFormulasCache);
   } catch (e) {
