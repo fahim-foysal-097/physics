@@ -1,0 +1,198 @@
+export const formulas_p1_ch9 = [
+  {
+    id: "wave_velocity",
+    chapterId: "p1_ch9",
+    topic: "Wave Properties (তরঙ্গের বৈশিষ্ট্য)",
+    nameEn: "Wave Velocity",
+    nameBn: "তরঙ্গ বেগ",
+    latex: "v = f\\lambda = \\frac{\\lambda}{T}",
+    variables: [
+      { symbol: "v", meaning: "Velocity of wave", unit: "m/s" },
+      { symbol: "f", meaning: "Frequency", unit: "Hz" },
+      { symbol: "\\lambda", meaning: "Wavelength", unit: "m" },
+      { symbol: "T", meaning: "Time period", unit: "s" },
+    ],
+    assumptions: "Wave travels in a uniform medium.",
+    specialCases: [],
+    hasVisualization: true,
+    vizType: "wave_propagation",
+  },
+  {
+    id: "progressive_wave",
+    chapterId: "p1_ch9",
+    topic: "Progressive Wave (অগ্রগামী তরঙ্গ)",
+    nameEn: "Equation of Progressive Wave",
+    nameBn: "অগ্রগামী তরঙ্গের সমীকরণ",
+    latex:
+      "y = a\\sin\\left(\\omega t - kx\\right) = a\\sin\\left[\\frac{2\\pi}{\\lambda}(vt - x)\\right]",
+    variables: [
+      { symbol: "y", meaning: "Displacement of particle", unit: "m" },
+      { symbol: "a", meaning: "Amplitude", unit: "m" },
+      { symbol: "\\omega", meaning: "Angular frequency", unit: "rad/s" },
+      { symbol: "k", meaning: "Wave number (2π/λ)", unit: "rad/m" },
+      { symbol: "x", meaning: "Position of particle", unit: "m" },
+      { symbol: "t", meaning: "Time", unit: "s" },
+    ],
+    assumptions: "Wave traveling in positive x-direction.",
+    specialCases: [
+      {
+        condition: "\\text{Traveling in negative x-direction}",
+        latex: "y = a\\sin\\left(\\omega t + kx\\right)",
+      },
+    ],
+    hasVisualization: true,
+    vizType: "progressive_wave",
+    mcqShortcuts: [
+      "Path difference of λ corresponds to a phase difference of 2π.",
+      "At a rigid boundary, wave is reflected with 180° (π) phase change.",
+      "At a free boundary, wave is reflected with no phase change.",
+    ],
+  },
+  {
+    id: "phase_difference",
+    chapterId: "p1_ch9",
+    topic: "Wave Properties (তরঙ্গের বৈশিষ্ট্য)",
+    nameEn: "Phase Difference",
+    nameBn: "দশা পার্থক্য",
+    latex: "\\Delta\\phi = \\frac{2\\pi}{\\lambda} \\times \\Delta x",
+    variables: [
+      { symbol: "\\Delta\\phi", meaning: "Phase difference", unit: "rad" },
+      { symbol: "\\Delta x", meaning: "Path difference", unit: "m" },
+      { symbol: "\\lambda", meaning: "Wavelength", unit: "m" },
+    ],
+    assumptions: "",
+    specialCases: [],
+  },
+  {
+    id: "standing_wave",
+    chapterId: "p1_ch9",
+    topic: "Standing Wave (স্থির তরঙ্গ)",
+    nameEn: "Equation of Standing Wave",
+    nameBn: "স্থির তরঙ্গের সমীকরণ",
+    latex: "y = (2a\\cos kx)\\sin\\omega t",
+    variables: [
+      { symbol: "y", meaning: "Resultant displacement", unit: "m" },
+      { symbol: "2a\\cos kx", meaning: "Amplitude at position x", unit: "m" },
+    ],
+    assumptions:
+      "Superposition of two identical waves traveling in opposite directions.",
+    specialCases: [
+      {
+        condition: "\\text{Nodes (Zero amplitude)}",
+        latex:
+          "x = \\frac{\\lambda}{4}, \\frac{3\\lambda}{4}, \\frac{5\\lambda}{4} \\dots",
+      },
+      {
+        condition: "\\text{Antinodes (Max amplitude)}",
+        latex:
+          "x = 0, \\frac{\\lambda}{2}, \\lambda, \\frac{3\\lambda}{2} \\dots",
+      },
+    ],
+    hasVisualization: true,
+    vizType: "standing_wave",
+    mcqShortcuts: [
+      "Distance between two consecutive nodes or antinodes is λ/2.",
+      "Distance between a node and its adjacent antinode is λ/4.",
+      "At nodes, pressure is maximum and displacement is zero.",
+    ],
+  },
+  {
+    id: "beats",
+    chapterId: "p1_ch9",
+    topic: "Beats (বীট)",
+    nameEn: "Beat Frequency",
+    nameBn: "বীট কম্পাঙ্ক",
+    latex: "f_{beat} = |f_1 - f_2|",
+    variables: [
+      { symbol: "f_{beat}", meaning: "Number of beats per second", unit: "Hz" },
+      {
+        symbol: "f_1, f_2",
+        meaning: "Frequencies of the two sound waves",
+        unit: "Hz",
+      },
+    ],
+    assumptions: "The two frequencies are nearly equal.",
+    mcqShortcuts: [
+      "If a tuning fork is loaded with wax, its frequency decreases.",
+      "If a tuning fork is filed, its frequency increases.",
+      "Beat frequency cannot be greater than 10 per second for human ear to distinguish.",
+    ],
+    specialCases: [],
+    hasVisualization: true,
+    vizType: "beats",
+  },
+  {
+    id: "stretched_string",
+    chapterId: "p1_ch9",
+    topic: "Vibration of Strings (তারের কম্পন)",
+    nameEn: "Frequency of Stretched String",
+    nameBn: "টানানো তারের আড় কম্পনের সূত্র",
+    latex: "f = \\frac{1}{2L}\\sqrt{\\frac{T}{m}}",
+    variables: [
+      { symbol: "f", meaning: "Fundamental frequency", unit: "Hz" },
+      { symbol: "L", meaning: "Length of the vibrating segment", unit: "m" },
+      { symbol: "T", meaning: "Tension in the string", unit: "N" },
+      {
+        symbol: "m",
+        meaning: "Mass per unit length (Linear density)",
+        unit: "kg/m",
+      },
+    ],
+    assumptions: "String is perfectly flexible and uniform.",
+    specialCases: [
+      {
+        condition: "\\text{p-th harmonic}",
+        latex: "f_p = \\frac{p}{2L}\\sqrt{\\frac{T}{m}}",
+      },
+    ],
+  },
+  {
+    id: "pipe_vibration",
+    chapterId: "p1_ch9",
+    topic: "Vibration of Air Columns (বায়ুস্তম্ভের কম্পন)",
+    nameEn: "Frequency in Pipes",
+    nameBn: "বায়ুস্তম্ভের কম্পন",
+    latex: "f_{open} = \\frac{nv}{2L}, \\quad f_{closed} = \\frac{(2n-1)v}{4L}",
+    variables: [
+      { symbol: "v", meaning: "Velocity of sound", unit: "m/s" },
+      { symbol: "L", meaning: "Length of the pipe", unit: "m" },
+      { symbol: "n", meaning: "Harmonic number (1, 2, 3...)", unit: "N/A" },
+    ],
+    assumptions: "Neglecting end corrections.",
+    specialCases: [
+      { condition: "\\text{Fundamental (Open)}", latex: "f = \\frac{v}{2L}" },
+      { condition: "\\text{Fundamental (Closed)}", latex: "f = \\frac{v}{4L}" },
+    ],
+    hasVisualization: true,
+    vizType: "standing_wave_pipes",
+  },
+  {
+    id: "sound_wave_viz",
+    chapterId: "p1_ch9",
+    topic: "Wave Properties (তরঙ্গের বৈশিষ্ট্য)",
+    nameEn: "Sound Wave (Longitudinal)",
+    nameBn: "শব্দ তরঙ্গ (অণুদৈর্ঘ্য)",
+    latex: "y = a\\sin(\\omega t - kx)",
+    variables: [{ symbol: "v", meaning: "Speed of sound", unit: "m/s" }],
+    assumptions: "Compression and rarefaction of air particles.",
+    hasVisualization: true,
+    vizType: "sound_wave",
+  },
+  {
+    id: "em_wave_viz",
+    chapterId: "p1_ch9",
+    topic: "Wave Properties (তরঙ্গের বৈশিষ্ট্য)",
+    nameEn: "Electromagnetic Wave",
+    nameBn: "তড়িৎচৌম্বক তরঙ্গ",
+    latex:
+      "E = E_0 \\sin(kx - \\omega t), \\quad B = B_0 \\sin(kx - \\omega t)",
+    variables: [
+      { symbol: "E", meaning: "Electric field vector", unit: "V/m" },
+      { symbol: "B", meaning: "Magnetic field vector", unit: "T" },
+    ],
+    assumptions:
+      "Fields are perpendicular to each other and to the direction of propagation.",
+    hasVisualization: true,
+    vizType: "em_wave",
+  },
+];

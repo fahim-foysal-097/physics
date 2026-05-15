@@ -1,0 +1,324 @@
+/* Navbar */
+.custom-navbar {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  height: 60px;
+}
+
+.brand-icon {
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+}
+
+/* Buttons */
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-main);
+}
+
+/* Search */
+.search-wrapper {
+  max-width: 500px;
+  position: relative;
+}
+
+.search-bar .form-control,
+.search-bar .input-group-text {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+.search-bar .form-control:focus {
+  box-shadow: none;
+  background-color: var(--bg-surface);
+  border-color: var(--primary);
+}
+
+.search-bar .input-group-text {
+  color: var(--text-muted);
+}
+
+.search-bar kbd {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.search-results-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1050;
+}
+
+.search-result-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: var(--bg-surface-hover);
+}
+
+/* Sidebar & Tabs */
+.paper-tabs .nav-link {
+  color: var(--text-muted);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  font-weight: 500;
+}
+
+.paper-tabs .nav-link.active {
+  background-color: var(--primary);
+  color: var(--text-inverse);
+}
+
+.chapter-list .list-group-item {
+  background-color: transparent;
+  border-color: var(--border-color);
+  color: var(--text-main);
+  cursor: pointer;
+  border-radius: var(--radius-md) !important;
+  margin-bottom: 0.25rem;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.chapter-list .list-group-item:hover {
+  background-color: var(--bg-surface-hover);
+}
+
+.chapter-list .list-group-item.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-weight: 600;
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;
+}
+
+/* Formula Cards */
+.formula-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.formula-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
+}
+
+.formula-card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.formula-card .latex-preview {
+  font-size: 1.25rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-main);
+}
+
+.card-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge-custom {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: 4px;
+  background-color: var(--bg-surface-active);
+  color: var(--text-muted);
+}
+
+/* Modals */
+.custom-modal .modal-content {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  color: var(--text-main);
+}
+
+.custom-modal .modal-header {
+  border-bottom-color: var(--border-color);
+}
+
+.custom-modal .btn-close {
+  filter: invert(var(--invert-close-btn, 0));
+}
+
+.custom-tabs {
+  border-bottom-color: var(--border-color);
+}
+.custom-tabs .nav-link {
+  color: var(--text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.75rem 1rem;
+}
+.custom-tabs .nav-link:hover {
+  border-color: transparent;
+  color: var(--text-main);
+}
+.custom-tabs .nav-link.active {
+  background-color: transparent;
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.variable-table {
+  color: var(--text-main);
+}
+.variable-table td {
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed var(--border-color);
+}
+.variable-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Accordion */
+.custom-accordion .accordion-item {
+  background-color: transparent;
+  border-color: var(--border-color);
+  margin-bottom: 0.5rem;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+.custom-accordion .accordion-button {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-main);
+  box-shadow: none;
+}
+.custom-accordion .accordion-button:not(.collapsed) {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+.custom-accordion .accordion-button::after {
+  filter: invert(var(--invert-close-btn, 0));
+}
+.custom-accordion .accordion-body {
+  background-color: var(--bg-surface);
+}
+
+/* Topic Filters */
+.topic-btn {
+  white-space: nowrap;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  padding: 0.35rem 1rem;
+  transition: all 0.2s;
+}
+.topic-btn:hover {
+  background-color: var(--bg-surface-hover);
+}
+.topic-btn.active {
+  background-color: var(--text-main);
+  color: var(--bg-surface);
+  border-color: var(--text-main);
+}
+
+/* Offcanvas */
+.custom-offcanvas {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+}
+.custom-offcanvas .offcanvas-header {
+  border-bottom-color: var(--border-color);
+}
+
+/* Lab View Styles */
+#labGrid .formula-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: default;
+}
+
+#labGrid .formula-card:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.bg-primary-light {
+  background-color: rgba(79, 70, 229, 0.08);
+}
+
+.x-small {
+  font-size: 0.7rem;
+}
+
+.form-range-sm {
+  height: 1rem;
+}
+
+.form-range-sm::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.form-range-sm::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.nav-tab-btn {
+  border-radius: 20px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.nav-tab-btn.active {
+  background-color: var(--primary) !important;
+  color: white !important;
+}

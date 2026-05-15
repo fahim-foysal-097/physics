@@ -1,0 +1,122 @@
+export const formulas_p1_ch4 = [
+  {
+    id: "newtons_second_law",
+    chapterId: "p1_ch4",
+    topic: "Linear Dynamics (রৈখিক বলবিদ্যা)",
+    nameEn: "Newton's Second Law",
+    nameBn: "নিউটনের দ্বিতীয় সূত্র",
+    latex: "F = ma = m\\left(\\frac{v-u}{t}\\right)",
+    variables: [
+      { symbol: "F", meaning: "Force applied", unit: "N" },
+      { symbol: "m", meaning: "Mass", unit: "kg" },
+      { symbol: "a", meaning: "Acceleration", unit: "m/s²" },
+    ],
+    assumptions: "Mass is constant.",
+    specialCases: [],
+  },
+  {
+    id: "conservation_momentum",
+    chapterId: "p1_ch4",
+    topic: "Collision & Momentum (সংরক্ষণশীলতা ও সংঘর্ষ)",
+    nameEn: "Conservation of Momentum",
+    nameBn: "ভরবেগের নিত্যতার সূত্র",
+    latex: "m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2",
+    variables: [
+      { symbol: "m_1, m_2", meaning: "Masses of colliding bodies", unit: "kg" },
+      { symbol: "u_1, u_2", meaning: "Initial velocities", unit: "m/s" },
+      { symbol: "v_1, v_2", meaning: "Final velocities", unit: "m/s" },
+    ],
+    assumptions: "No external net force acts on the system.",
+    specialCases: [
+      {
+        condition: "\\text{Gun recoil}",
+        latex: "MV + mv = 0 \\implies V = -\\frac{mv}{M}",
+      },
+      {
+        condition: "\\text{Inelastic collision (sticking)}",
+        latex: "v = \\frac{m_1u_1 + m_2u_2}{m_1 + m_2}",
+      },
+    ],
+  },
+  {
+    id: "impulse",
+    chapterId: "p1_ch4",
+    topic: "Linear Dynamics (রৈখিক বলবিদ্যা)",
+    nameEn: "Impulse of Force",
+    nameBn: "বলের ঘাত",
+    latex: "J = F \\Delta t = m(v - u) = \\Delta P",
+    variables: [
+      { symbol: "J", meaning: "Impulse", unit: "N·s" },
+      { symbol: "F", meaning: "Average force", unit: "N" },
+      { symbol: "\\Delta t", meaning: "Time duration", unit: "s" },
+      { symbol: "\\Delta P", meaning: "Change in momentum", unit: "kg·m/s" },
+    ],
+    assumptions: "Force is very large acting for a very short time.",
+    specialCases: [],
+  },
+  {
+    id: "moment_of_inertia",
+    chapterId: "p1_ch4",
+    topic: "Rotational Dynamics (ঘূর্ণন গতিবিদ্যা)",
+    nameEn: "Moment of Inertia",
+    nameBn: "জড়তার ভ্রামক",
+    latex: "I = \\sum mr^2",
+    variables: [
+      { symbol: "I", meaning: "Moment of Inertia", unit: "kg·m²" },
+      { symbol: "m", meaning: "Mass of particle", unit: "kg" },
+      { symbol: "r", meaning: "Perpendicular distance from axis", unit: "m" },
+    ],
+    assumptions: "Depends on mass distribution and axis of rotation.",
+    specialCases: [
+      { condition: "\\text{Solid Sphere}", latex: "I = \\frac{2}{5}MR^2" },
+      { condition: "\\text{Ring / Hollow Cylinder}", latex: "I = MR^2" },
+      {
+        condition: "\\text{Solid Cylinder / Disc}",
+        latex: "I = \\frac{1}{2}MR^2",
+      },
+      {
+        condition: "\\text{Rod (Center axis)}",
+        latex: "I = \\frac{1}{12}ML^2",
+      },
+      { condition: "\\text{Rod (End axis)}", latex: "I = \\frac{1}{3}ML^2" },
+    ],
+  },
+  {
+    id: "torque",
+    chapterId: "p1_ch4",
+    topic: "Rotational Dynamics (ঘূর্ণন গতিবিদ্যা)",
+    nameEn: "Torque",
+    nameBn: "টর্ক বা বলের ভ্রামক",
+    latex:
+      "\\vec{\\tau} = \\vec{r} \\times \\vec{F} \\implies \\tau = I\\alpha",
+    variables: [
+      { symbol: "\\tau", meaning: "Torque", unit: "N·m" },
+      { symbol: "I", meaning: "Moment of Inertia", unit: "kg·m²" },
+      { symbol: "\\alpha", meaning: "Angular acceleration", unit: "rad/s²" },
+    ],
+    assumptions: "Analogous to F = ma in linear motion.",
+    specialCases: [],
+  },
+  {
+    id: "banking_road",
+    chapterId: "p1_ch4",
+    topic: "Circular Motion (বৃত্তাকার গতি)",
+    nameEn: "Banking of a Road",
+    nameBn: "রাস্তার ব্যাঙ্কিং",
+    latex: "\\tan\\theta = \\frac{v^2}{rg}",
+    variables: [
+      { symbol: "\\theta", meaning: "Angle of banking", unit: "Degree" },
+      { symbol: "v", meaning: "Velocity of vehicle", unit: "m/s" },
+      { symbol: "r", meaning: "Radius of the curve", unit: "m" },
+    ],
+    assumptions: "Friction is neglected for this ideal safe speed.",
+    specialCases: [
+      {
+        condition: "\\text{Elevation } h \\text{ of outer edge over width } d",
+        latex: "\\sin\\theta \\approx \\tan\\theta = \\frac{h}{d}",
+      },
+    ],
+    hasVisualization: true,
+    vizType: "banking_road",
+  },
+];

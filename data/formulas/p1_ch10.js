@@ -1,0 +1,133 @@
+export const formulas_p1_ch10 = [
+  {
+    id: "ideal_gas_equation",
+    chapterId: "p1_ch10",
+    topic: "Ideal Gas (আদর্শ গ্যাস)",
+    nameEn: "Ideal Gas Equation",
+    nameBn: "আদর্শ গ্যাস সমীকরণ",
+    latex: "PV = nRT = \\frac{W}{M}RT = NkT",
+    variables: [
+      { symbol: "P", meaning: "Pressure", unit: "Pa or atm" },
+      { symbol: "V", meaning: "Volume", unit: "m³" },
+      { symbol: "n", meaning: "Number of moles", unit: "mol" },
+      {
+        symbol: "R",
+        meaning: "Universal gas constant",
+        unit: "8.314 J/(mol·K)",
+      },
+      { symbol: "T", meaning: "Absolute temperature", unit: "K" },
+      {
+        symbol: "k",
+        meaning: "Boltzmann constant (R/N_A)",
+        unit: "1.38×10⁻²³ J/K",
+      },
+      { symbol: "N", meaning: "Number of molecules", unit: "N/A" },
+    ],
+    assumptions:
+      "Gas particles have negligible volume and no intermolecular forces.",
+    specialCases: [
+      {
+        condition: "\\text{Boyle's Law (Constant T)}",
+        latex: "P_1V_1 = P_2V_2",
+      },
+      {
+        condition: "\\text{Charles's Law (Constant P)}",
+        latex: "\\frac{V_1}{T_1} = \\frac{V_2}{T_2}",
+      },
+    ],
+  },
+  {
+    id: "kinetic_pressure",
+    chapterId: "p1_ch10",
+    topic: "Kinetic Theory (গ্যাসের গতিতত্ত্ব)",
+    nameEn: "Pressure of an Ideal Gas",
+    nameBn: "আদর্শ গ্যাসের চাপ",
+    latex: "P = \\frac{1}{3}\\rho c^2",
+    variables: [
+      { symbol: "P", meaning: "Pressure exerted by gas", unit: "Pa" },
+      { symbol: "\\rho", meaning: "Density of the gas", unit: "kg/m³" },
+      { symbol: "c", meaning: "Root Mean Square (RMS) velocity", unit: "m/s" },
+    ],
+    assumptions: "Molecules are in continuous random motion.",
+    specialCases: [],
+  },
+  {
+    id: "rms_velocity",
+    chapterId: "p1_ch10",
+    topic: "Kinetic Theory (গ্যাসের গতিতত্ত্ব)",
+    nameEn: "RMS Velocity",
+    nameBn: "মূল গড় বর্গবেগ",
+    latex: "c_{rms} = \\sqrt{\\frac{3RT}{M}} = \\sqrt{\\frac{3P}{\\rho}}",
+    variables: [
+      { symbol: "c_{rms}", meaning: "Root Mean Square velocity", unit: "m/s" },
+      { symbol: "R", meaning: "Universal gas constant", unit: "J/(mol·K)" },
+      { symbol: "T", meaning: "Absolute temperature", unit: "K" },
+      { symbol: "M", meaning: "Molar mass", unit: "kg/mol" },
+    ],
+    assumptions:
+      "Temperature must be in Kelvin. Molar mass in kg/mol (e.g., O2 = 0.032 kg/mol).",
+    specialCases: [],
+  },
+  {
+    id: "kinetic_energy_gas",
+    chapterId: "p1_ch10",
+    topic: "Kinetic Theory (গ্যাসের গতিতত্ত্ব)",
+    nameEn: "Kinetic Energy of Gas",
+    nameBn: "গ্যাসের গতিশক্তি",
+    latex: "E_k = \\frac{3}{2}nRT = \\frac{3}{2}PV",
+    variables: [
+      {
+        symbol: "E_k",
+        meaning: "Total translational kinetic energy",
+        unit: "J",
+      },
+      { symbol: "n", meaning: "Number of moles", unit: "mol" },
+    ],
+    assumptions: "Applies to monoatomic gases for total internal energy.",
+    specialCases: [
+      {
+        condition: "\\text{Kinetic energy per molecule}",
+        latex: "E = \\frac{3}{2}kT",
+      },
+    ],
+  },
+  {
+    id: "relative_humidity",
+    chapterId: "p1_ch10",
+    topic: "Hygrometry (আর্দ্রতামিতি)",
+    nameEn: "Relative Humidity",
+    nameBn: "আপেক্ষিক আর্দ্রতা",
+    latex: "R = \\frac{f}{F} \\times 100\\%",
+    variables: [
+      { symbol: "R", meaning: "Relative humidity", unit: "%" },
+      {
+        symbol: "f",
+        meaning: "Vapor pressure at dew point",
+        unit: "Pa or mmHg",
+      },
+      {
+        symbol: "F",
+        meaning: "Saturated vapor pressure at air temperature",
+        unit: "Pa or mmHg",
+      },
+    ],
+    assumptions: "",
+    specialCases: [],
+  },
+  {
+    id: "dew_point",
+    chapterId: "p1_ch10",
+    topic: "Hygrometry (আর্দ্রতামিতি)",
+    nameEn: "Glaisher's Equation for Dew Point",
+    nameBn: "গ্লেসারের সূত্র (শিশিরাঙ্ক নির্ণয়)",
+    latex: "\\theta_1 - \\theta = G(\\theta_1 - \\theta_2)",
+    variables: [
+      { symbol: "\\theta_1", meaning: "Temperature of dry bulb", unit: "°C" },
+      { symbol: "\\theta_2", meaning: "Temperature of wet bulb", unit: "°C" },
+      { symbol: "\\theta", meaning: "Dew point temperature", unit: "°C" },
+      { symbol: "G", meaning: "Glaisher's factor at θ₁", unit: "Unitless" },
+    ],
+    assumptions: "Measured using wet and dry bulb hygrometer.",
+    specialCases: [],
+  },
+];

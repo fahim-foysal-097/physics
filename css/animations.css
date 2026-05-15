@@ -1,0 +1,52 @@
+/* GSAP Initial States (to prevent FOUC) */
+.formula-card-wrapper {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.chapter-title {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.topic-btn {
+  opacity: 0;
+}
+
+/* Custom CSS Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Formula Modal Math Pop Animation */
+.katex-display {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.formula-hero:hover .katex-display {
+  transform: scale(1.05);
+}

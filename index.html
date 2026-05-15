@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSC Physics Revision | 1st & 2nd Paper</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+    <!-- p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <div class="brand-icon">
+                    <!-- Placeholder for physics icon/svg -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                        <path d="M2 12h20"></path>
+                    </svg>
+                </div>
+                <span class="fw-bold">HSC Physics <span class="text-primary-accent">Revision</span></span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="ms-auto d-flex align-items-center gap-3 w-100 search-wrapper">
+                    <div class="input-group search-bar position-relative">
+                        <span class="input-group-text bg-transparent border-end-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control border-start-0 ps-0 pe-5"
+                            placeholder="Search formulas, chapters (e.g. Vector, ভেক্টর)...">
+                        <div class="position-absolute end-0 top-50 translate-middle-y pe-3" style="z-index: 5;">
+                            <kbd class="bg-light text-muted border">Ctrl+K</kbd>
+                        </div>
+                    </div>
+                    <div class="search-results-dropdown d-none shadow-lg rounded-3" id="searchResults">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+                <ul class="navbar-nav ms-lg-3 mb-2 mb-lg-0 align-items-center gap-2">
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-outline-primary active nav-tab-btn"
+                            id="viewFormulas">Formulas</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-outline-primary nav-tab-btn" id="viewLab">Interactive Lab</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid main-layout">
+        <div class="row h-100">
+            <!-- Sidebar -->
+            <aside class="col-lg-3 col-xl-2 d-none d-lg-flex flex-column sidebar shadow-sm h-100" id="sidebar">
+                <ul class="nav nav-pills paper-tabs flex-row w-100 px-3 pt-3 mb-3" id="paperTabs" role="tablist">
+                    <li class="nav-item flex-fill text-center" role="presentation">
+                        <button class="nav-link active w-100" id="paper1-tab" data-bs-toggle="tab"
+                            data-bs-target="#paper1" type="button" role="tab">1st Paper</button>
+                    </li>
+                    <li class="nav-item flex-fill text-center" role="presentation">
+                        <button class="nav-link w-100" id="paper2-tab" data-bs-toggle="tab" data-bs-target="#paper2"
+                            type="button" role="tab">2nd Paper</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content flex-grow-1 overflow-auto px-3 pb-4" id="paperTabsContent">
+                    <div class="tab-pane fade show active" id="paper1" role="tabpanel">
+                        <div class="chapter-list list-group list-group-flush" id="chaptersPaper1">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="paper2" role="tabpanel">
+                        <div class="chapter-list list-group list-group-flush" id="chaptersPaper2">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="col-12 col-lg-9 col-xl-10 main-content pt-4 px-4 pb-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="chapter-title m-0" id="currentChapterTitle">
+                        <span class="en-title">Select a Chapter</span>
+                        <span class="bn-title text-muted fs-4 d-block mt-1">একটি অধ্যায় নির্বাচন করুন</span>
+                    </h1>
+                    <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#mobileSidebar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                        Chapters
+                    </button>
+                </div>
+
+                <!-- Formulas View -->
+                <div id="formulasView">
+                    <!-- Category Filters (Topics) -->
+                    <div class="topic-filters d-flex gap-2 overflow-auto pb-3 mb-4" id="topicFilters">
+                        <!-- Injected via JS -->
+                    </div>
+
+                    <!-- Formulas Grid -->
+                    <div class="row g-4" id="formulasGrid">
+                        <!-- Injected via JS -->
+                        <div class="col-12 text-center text-muted py-5" id="emptyState">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                                stroke-linejoin="round" class="mb-3 opacity-50">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 16 16 12 12 8"></polyline>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                            <p class="fs-5">Please select a chapter from the sidebar to view formulas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lab View (Hidden by default) -->
+                <div id="labView" class="d-none">
+                    <div class="mb-4">
+                        <h2 class="fs-4">Physics Interactive Lab</h2>
+                        <p class="text-muted">A curated list of all interactive simulations across all chapters.</p>
+                    </div>
+                    <div class="row g-4" id="labGrid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar (Offcanvas) -->
+    <div class="offcanvas offcanvas-start custom-offcanvas" tabindex="-1" id="mobileSidebar">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title">Chapters</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <!-- Will clone the sidebar contents here via JS for mobile -->
+        </div>
+    </div>
+
+    <!-- Formula Details Modal -->
+    <div class="modal fade custom-modal" id="formulaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <div class="d-flex flex-column w-100">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h4 class="modal-title mb-1" id="modalFormulaNameEn">Formula Name</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <span class="modal-subtitle text-muted fs-5" id="modalFormulaNameBn">সূত্রের নাম</span>
+                    </div>
+                </div>
+                <div class="modal-body pt-4">
+                    <div
+                        class="formula-hero text-center py-4 mb-4 rounded-3 bg-light-accent overflow-x-auto overflow-y-hidden">
+                        <div id="modalFormulaLatex" class="fs-2 px-3"></div>
+                    </div>
+
+                    <ul class="nav nav-tabs custom-tabs mb-4" id="formulaDetailTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="details-tab" data-bs-toggle="tab"
+                                data-bs-target="#details" type="button" role="tab">Details</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="special-tab" data-bs-toggle="tab" data-bs-target="#special"
+                                type="button" role="tab">Special Cases</button>
+                        </li>
+                        <li class="nav-item" role="presentation" id="visuals-tab-wrapper">
+                            <button class="nav-link" id="visuals-tab" data-bs-toggle="tab" data-bs-target="#visuals"
+                                type="button" role="tab">Visualization</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="formulaDetailTabsContent">
+                        <div class="tab-pane fade show active" id="details" role="tabpanel">
+                            <h6 class="text-uppercase text-muted fw-bold mb-3 fs-7">Variables</h6>
+                            <div class="table-responsive mb-4">
+                                <table class="table table-borderless variable-table">
+                                    <tbody id="modalVariables">
+                                        <!-- Injected via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="modalAssumptionsContainer" class="d-none mb-4">
+                                <h6 class="text-uppercase text-muted fw-bold mb-3 fs-7">Assumptions & Notes</h6>
+                                <div class="p-3 bg-light rounded-3 text-sm" id="modalAssumptions"></div>
+                            </div>
+
+                            <div id="modalDerivationContainer" class="d-none mb-4">
+                                <h6 class="text-uppercase text-muted fw-bold mb-3 fs-7">Derivation</h6>
+                                <div class="p-3 bg-light rounded-3 text-sm overflow-x-auto overflow-y-hidden"
+                                    id="modalDerivation"></div>
+                            </div>
+
+                            <div id="modalMcqShortcutsContainer" class="d-none mb-4">
+                                <h6 class="text-uppercase text-muted fw-bold mb-3 fs-7 text-success">MCQ Shortcuts &
+                                    Tricks</h6>
+                                <div class="p-3 bg-success-subtle rounded-3 text-sm" id="modalMcqShortcuts"></div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="special" role="tabpanel">
+                            <div id="modalSpecialCases" class="accordion custom-accordion">
+                                <!-- Injected via JS -->
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="visuals" role="tabpanel">
+                            <div class="viz-controls p-3 mb-3 bg-white border rounded-3 d-none" id="modalVizControls">
+                                <!-- Dynamic controls injected here -->
+                            </div>
+                            <div class="visualization-container rounded-3 overflow-hidden d-flex justify-content-center align-items-center bg-light"
+                                id="modalVisualization" style="min-height: 300px;">
+                                <!-- p5.js or Chart.js injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- App Scripts (Modules) -->
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
