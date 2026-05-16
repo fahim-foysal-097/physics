@@ -491,6 +491,44 @@ export const renderManager = {
       },
     ],
     pv_diagram: [],
+        coulombs_law: [
+      { id: "q1", label: "Charge 1 (μC)", min: -10, max: 10, val: 5, step: 0.1 },
+      { id: "q2", label: "Charge 2 (μC)", min: -10, max: 10, val: -5, step: 0.1 },
+      { id: "r", label: "Distance", min: 50, max: 200, val: 120, step: 1 },
+      { id: "reset", label: "Reset", type: "button" }
+    ],
+
+    electric_field: [
+      { id: "q1", label: "Charge 1 (μC)", min: -10, max: 10, val: 5, step: 0.1 },
+      { id: "q2", label: "Charge 2 (μC)", min: -10, max: 10, val: -5, step: 0.1 },
+      { id: "resolution", label: "Vector Grid Size", min: 10, max: 40, val: 25, step: 1 },
+      { id: "probeX", label: "Probe X", min: -120, max: 120, val: 0, step: 1 },
+      { id: "probeY", label: "Probe Y", min: -90, max: 90, val: 0, step: 1 },
+      { id: "reset", label: "Reset", type: "button" }
+    ],
+
+    sphere_field_graph: [
+      { id: "Q", label: "Total Charge", min: 1, max: 20, val: 10, step: 1 },
+      { id: "R", label: "Sphere Radius", min: 20, max: 100, val: 40, step: 1 },
+      { id: "probeR", label: "Probe Distance", min: 0, max: 250, val: 80, step: 1 },
+      { id: "reset", label: "Reset", type: "button" }
+    ],
+
+    dipole_torque: [
+      { id: "E", label: "Electric Field", min: 1, max: 10, val: 5, step: 0.1 },
+      { id: "theta", label: "Dipole Angle (θ)", min: 0, max: 180, val: 45, step: 1 },
+      { id: "fieldAngle", label: "Field Angle (φ)", min: -180, max: 180, val: 0, step: 1 },
+      { id: "toggleRun", label: "Play / Pause", type: "button" },
+      { id: "reset", label: "Reset", type: "button" }
+    ],
+
+    capacitor: [
+      { id: "A", label: "Plate Area", min: 50, max: 200, val: 100, step: 1 },
+      { id: "d", label: "Distance", min: 40, max: 400, val: 40, step: 1 },
+      { id: "K", label: "Dielectric (K)", min: 1, max: 10, val: 1, step: 0.1 },
+      { id: "V", label: "Voltage (V)", min: 1, max: 30, val: 10, step: 0.5 },
+      { id: "reset", label: "Reset", type: "button" }
+    ],
   },
 
   /**
