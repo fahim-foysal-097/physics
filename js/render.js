@@ -466,6 +466,31 @@ export const renderManager = {
         val: 0,
       },
     ],
+    carnot_cycle: [
+      { id: "TH", label: "Source Temp (T1)", min: 400, max: 1000, val: 500 },
+      { id: "TC", label: "Sink Temp (T2)", min: 200, max: 400, val: 300 },
+      {
+        id: "speed",
+        label: "Anim Speed",
+        min: 0.005,
+        max: 0.05,
+        val: 0.01,
+        step: 0.005,
+      },
+      { id: "toggleRun", label: "Play / Pause", type: "button" },
+    ],
+    heating_curve: [],
+    process_comparison: [
+      {
+        id: "gamma",
+        label: "Gamma (γ)",
+        min: 1.1,
+        max: 1.7,
+        val: 1.4,
+        step: 0.01,
+      },
+    ],
+    pv_diagram: [],
   },
 
   /**
