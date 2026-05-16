@@ -1,8 +1,4 @@
-/**
- * Waves Simulations Module
- * Includes: Propagation, EM, Sound, Progressive, Standing, Pipes, Beats
- */
-export const wavesSims = {
+export const p1_ch9_sims = {
   setup: (sketch, vizType) => {
     if (vizType === "wave_propagation") {
       sketch.type = 0;
@@ -148,7 +144,6 @@ export const wavesSims = {
         sketch.translate(0, sketch.height / 2);
         sketch.noFill();
 
-        // Incident Wave (Red, faint)
         sketch.stroke(255, 100, 100, 100);
         sketch.strokeWeight(1);
         sketch.beginShape();
@@ -161,7 +156,6 @@ export const wavesSims = {
         }
         sketch.endShape();
 
-        // Reflected Wave (Blue, faint)
         sketch.stroke(100, 100, 255, 100);
         sketch.beginShape();
         for (let x = 0; x < sketch.width; x += 2) {
@@ -173,7 +167,6 @@ export const wavesSims = {
         }
         sketch.endShape();
 
-        // Resultant Standing Wave (Solid)
         sketch.stroke("#4f46e5");
         sketch.strokeWeight(3);
         sketch.beginShape();
@@ -197,7 +190,6 @@ export const wavesSims = {
         let phase = (sketch.interferenceType || 0) === 1 ? -1 : 1;
 
         sketch.strokeWeight(1);
-        // Pulse 1
         sketch.stroke(255, 100, 100, 150);
         sketch.beginShape();
         for (let x = 0; x < sketch.width; x += 2) {
@@ -211,7 +203,6 @@ export const wavesSims = {
         }
         sketch.endShape();
 
-        // Pulse 2
         sketch.stroke(100, 100, 255, 150);
         sketch.beginShape();
         for (let x = 0; x < sketch.width; x += 2) {
@@ -226,7 +217,6 @@ export const wavesSims = {
         }
         sketch.endShape();
 
-        // Resultant
         sketch.stroke("#10b981");
         sketch.strokeWeight(3);
         sketch.beginShape();
@@ -264,7 +254,6 @@ export const wavesSims = {
         let n = sketch.harmonic;
         sketch.beginShape();
         for (let x = 0; x <= pLen; x += 1) {
-          // Smooth: step 1
           let y =
             sketch.pipeType == 0
               ? 35 *
@@ -309,42 +298,31 @@ export const wavesSims = {
           );
         }
 
-        // Calibration: 1 second = 400 pixels
         let oneSecPx = 400;
-        // Beat frequency is |f1-f2|. In 1 second (oneSecPx), we want df beats.
-        // One beat is half a cycle of the cos envelope.
-        // cos(x * freqD) -> period = 2*pi/freqD.
-        // Half period = pi/freqD.
-        // We want pi/freqD = oneSecPx / df  => freqD = (pi * df) / oneSecPx
         let k_beat = (Math.PI * df) / oneSecPx;
         let k_avg = (Math.PI * (sketch.f1 + sketch.f2)) / oneSecPx;
 
-        // Render Wave
         sketch.noFill();
         sketch.stroke("#4f46e5");
         sketch.strokeWeight(2);
         sketch.beginShape();
         for (let x = 0; x < sketch.width; x += 1) {
-          // Use cos for carrier to start at peak at x=0, t=0
           let y =
             60 * sketch.cos(x * k_beat) * sketch.cos(x * k_avg - sketch.t);
           sketch.vertex(x, y);
         }
         sketch.endShape();
 
-        // Envelope (dashed look)
         sketch.stroke(200, 150);
         sketch.strokeWeight(1);
         sketch.beginShape();
         for (let x = 0; x < sketch.width; x += 5) {
           let env = 60 * sketch.cos(x * k_beat);
           sketch.vertex(x, env);
-          sketch.vertex(x, -env); // Show both sides
+          sketch.vertex(x, -env);
         }
         sketch.endShape();
 
-        // 1-Second Timeframe Indicator
-        // Shift start to first node (A=0): where cos(x * k_beat) = 0 => x = pi/(2*k_beat)
         let xOffset = Math.PI / (2 * k_beat);
 
         sketch.push();
@@ -361,7 +339,6 @@ export const wavesSims = {
         sketch.textAlign(sketch.CENTER);
         sketch.text("1.0 Second Timeframe", oneSecPx / 2, 20);
 
-        // Beat Frequency Label
         sketch.textAlign(sketch.LEFT);
         sketch.fill("#4f46e5");
         sketch.text(`Beat Frequency: ${df.toFixed(1)} Hz`, 10 - xOffset, -180);

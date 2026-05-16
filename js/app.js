@@ -1,14 +1,12 @@
 import { chapters } from "../data/chapters.js";
 import { utils } from "./utils.js";
 import { renderManager } from "./render.js";
-import { searchManager } from "./search.js";
 import { vizManager } from "./visualizations.js";
 
 // Application State
 const state = {
   currentChapter: null,
   currentFormulas: [],
-  allFormulasCache: [], // Used for global search
   currentView: "formulas", // 'formulas' or 'lab'
 };
 
@@ -17,53 +15,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 1. Render Sidebar Chapters
   renderManager.renderChapters(chapters);
 
-  // 2. Pre-load formulas for search cache
-  try {
-    const modules = await Promise.all([
-      import("../data/formulas/p1_ch1.js"),
-      import("../data/formulas/p1_ch2.js"),
-      import("../data/formulas/p1_ch3.js"),
-      import("../data/formulas/p1_ch4.js"),
-      import("../data/formulas/p1_ch5.js"),
-      import("../data/formulas/p1_ch6.js"),
-      import("../data/formulas/p1_ch7.js"),
-      import("../data/formulas/p1_ch8.js"),
-      import("../data/formulas/p1_ch9.js"),
-      import("../data/formulas/p1_ch10.js"),
-    ]);
-
-    state.allFormulasCache = [
-      ...modules[0].formulas_p1_ch1,
-      ...modules[1].formulas_p1_ch2,
-      ...modules[2].formulas_p1_ch3,
-      ...modules[3].formulas_p1_ch4,
-      ...modules[4].formulas_p1_ch5,
-      ...modules[5].formulas_p1_ch6,
-      ...modules[6].formulas_p1_ch7,
-      ...modules[7].formulas_p1_ch8,
-      ...modules[8].formulas_p1_ch9,
-      ...modules[9].formulas_p1_ch10,
-    ];
-
-    searchManager.init(state.allFormulasCache);
-  } catch (e) {
-    console.warn("Could not load initial formula cache.", e);
-  }
-
-  // 3. Set up Event Listeners
+  // 2. Set up Event Listeners
   document.addEventListener("loadChapter", async (e) => {
-    vizManager.stopAllAudio();
+    vizManager.clearAllInstances();
     const chapter = e.detail;
     state.currentChapter = chapter;
-
-    if (state.currentView === "lab") {
-      renderManager.renderLabPage(state.allFormulasCache, chapter.id);
-      const bsOffcanvas = bootstrap.Offcanvas.getInstance(
-        document.getElementById("mobileSidebar"),
-      );
-      if (bsOffcanvas) bsOffcanvas.hide();
-      return;
-    }
 
     // Update Title
     const titleEl = document.getElementById("currentChapterTitle");
@@ -79,26 +35,29 @@ document.addEventListener("DOMContentLoaded", async () => {
       const module = await import(`../data/formulas/${chapter.id}.js`);
       state.currentFormulas = module[moduleName];
 
-      renderManager.renderTopics(state.currentFormulas, (selectedTopic) => {
-        if (selectedTopic === "all") {
-          renderManager.renderFormulasGrid(state.currentFormulas);
-        } else {
-          const filtered = state.currentFormulas.filter(
-            (f) => f.topic === selectedTopic,
-          );
-          renderManager.renderFormulasGrid(filtered);
-        }
-      });
-
-      renderManager.renderFormulasGrid(state.currentFormulas);
-
-      const bsOffcanvas = bootstrap.Offcanvas.getInstance(
-        document.getElementById("mobileSidebar"),
-      );
-      if (bsOffcanvas) bsOffcanvas.hide();
+      if (state.currentView === "lab") {
+        renderManager.renderLabPage(state.currentFormulas, chapter.id);
+      } else {
+        renderManager.renderTopics(state.currentFormulas, (selectedTopic) => {
+          if (selectedTopic === "all") {
+            renderManager.renderFormulasGrid(state.currentFormulas);
+          } else {
+            const filtered = state.currentFormulas.filter(
+              (f) => f.topic === selectedTopic,
+            );
+            renderManager.renderFormulasGrid(filtered);
+          }
+        });
+        renderManager.renderFormulasGrid(state.currentFormulas);
+      }
     } catch (error) {
       console.error(`Failed to load formulas for chapter ${chapter.id}`, error);
     }
+
+    const bsOffcanvas = bootstrap.Offcanvas.getInstance(
+      document.getElementById("mobileSidebar"),
+    );
+    if (bsOffcanvas) bsOffcanvas.hide();
   });
 
   document.addEventListener("openFormulaModal", (e) => {
@@ -162,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnFormulas.addEventListener("change", () => {
     if (btnFormulas.checked) {
-      vizManager.stopAllAudio();
+      vizManager.clearAllInstances();
       state.currentView = "formulas";
       formulasView.classList.remove("d-none");
       labView.classList.add("d-none");
@@ -176,14 +135,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnLab.addEventListener("change", () => {
     if (btnLab.checked) {
-      vizManager.stopAllAudio();
+      vizManager.clearAllInstances();
       state.currentView = "lab";
       formulasView.classList.add("d-none");
       labView.classList.remove("d-none");
 
       if (state.currentChapter) {
         renderManager.renderLabPage(
-          state.allFormulasCache,
+          state.currentFormulas,
           state.currentChapter.id,
         );
       } else {
@@ -205,12 +164,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     .addEventListener("hidden.bs.modal", () => {
       vizManager.stopAllAudio();
     });
-
-  // 7. Keyboard Shortcuts
-  document.addEventListener("keydown", (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      document.getElementById("searchInput").focus();
-    }
-  });
 });

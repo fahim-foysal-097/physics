@@ -6,7 +6,7 @@ A comprehensive, interactive, and beautifully designed web application for HSC P
 
 - **21 Chapters Covered**: Complete coverage of HSC Physics 1st and 2nd Paper.
 - **Interactive Lab**: p5.js based simulations to visualize complex physics concepts (e.g., Brownian Motion, Beats, Projectiles).
-- **Fuzzy Search**: Quickly find formulas in both English and Bengali using Fuse.js.
+- **Sandboxed Simulations**: Chapter-specific simulation modules for better performance and modularity.
 - **Math Precision**: High-quality LaTeX rendering using KaTeX.
 - **Modern UI**: Clean, responsive design built with Bootstrap 5 and custom CSS.
 - **No Build Step**: Hosted directly as static files for maximum performance and portability.
@@ -15,7 +15,6 @@ A comprehensive, interactive, and beautifully designed web application for HSC P
 
 - **Framework**: Bootstrap 5
 - **Mathematics**: KaTeX
-- **Search**: Fuse.js
 - **Animations**: GSAP
 - **Simulations**: p5.js & Chart.js
 
@@ -45,24 +44,34 @@ Formulas are modular. Each chapter has its own file in `data/formulas/pX_chY.js`
     { condition: "\\theta = 90^\circ", latex: "F = 0" }
   ],
   hasVisualization: true,   // Set true for p5.js integration
-  vizType: "my_sketch"      // Trigger for js/visualizations.js
+  vizType: "my_sketch"      // Trigger for chapter simulation module
 }
 ```
 
-### 2. Creating New Simulations (The Lab)
+### 2. Creating New Simulations (Sandboxed)
 
-The site features a unified "Interactive Lab" view. To add a new simulation:
+Simulations are organized by chapter for better isolation. To add a new simulation:
 
-1. **Write the Sketch**: Add your logic to one of the files in `js/sims/` (e.g., `mechanics.js`).
-2. **Register in `visualizations.js`**: Update the `vizManager.render` method to include your new sketch type.
-3. **Configure Controls**: In `js/render.js`, add an entry to `vizConfig`. This automatically generates UI sliders/buttons for your simulation in the Lab view.
+1. **Modify Chapter Simulation File**: Open/Create `js/sims/pX_chY.js`.
+2. **Add Logic to Module**: Add your sketch logic to the exported `pX_chY_sims` object.
+   ```javascript
+   export const p1_ch2_sims = {
+     setup: (sketch, vizType) => {
+       /* initialization */
+     },
+     draw: (sketch, vizType) => {
+       /* p5 draw loop */
+     },
+   };
+   ```
+3. **Configure Controls**: In `js/render.js`, add an entry to `vizConfig`. This automatically generates UI sliders/buttons for your simulation.
    ```javascript
    my_sketch: [
      { id: "velocity", label: "Speed", min: 0, max: 100, val: 50 },
      { id: "reset", label: "Restart", type: "button" },
    ];
    ```
-4. **Link to Data**: Set `vizType: "my_sketch"` in the formula data file.
+4. **Link to Data**: Set `vizType: "my_sketch"` in the formula data file (`data/formulas/pX_chY.js`).
 
 ### 3. Adding Static Diagrams
 
@@ -72,8 +81,8 @@ If a simulation isn't needed, you can use the `imageUrl` property in the formula
 
 ## 🏗️ Architecture & Performance
 
-- **Dynamic Loading**: Formulas are lazy-loaded via ES Modules only when a chapter is selected, keeping the initial payload light.
-- **Search Indexing**: On startup, the app asynchronously crawls all formula files to build a search index without blocking the UI.
+- **Dynamic Loading**: Formulas and Simulation modules are lazy-loaded via ES Modules only when a chapter is selected, keeping the initial payload light.
+- **Isolation**: Each chapter's simulations are contained in their own module, preventing state conflicts between different physics concepts.
 - **Audio Management**: Simulations using the Web Audio API are automatically suspended when the modal closes or pages change to prevent "ghost audio".
 
 ## 📄 License

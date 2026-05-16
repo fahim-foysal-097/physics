@@ -248,7 +248,12 @@ export const renderManager = {
     // Trigger visualization when tab is clicked
     vizTab.onclick = () => {
       if (formula.hasVisualization && formula.vizType) {
-        vizManager.render(formula.vizType, "modalVisualization", true);
+        vizManager.render(
+          formula.vizType,
+          "modalVisualization",
+          false,
+          formula.chapterId,
+        );
       }
     };
   },
@@ -466,11 +471,11 @@ export const renderManager = {
   /**
    * Render interactive simulations into the Lab view, optionally filtered by chapter
    */
-  renderLabPage: (allFormulas, filterChapterId = null) => {
+  renderLabPage: (currentChapterFormulas, filterChapterId = null) => {
     const grid = document.getElementById("labGrid");
     grid.innerHTML = "";
 
-    let labFormulas = allFormulas.filter(
+    let labFormulas = currentChapterFormulas.filter(
       (f) => f.hasVisualization && f.vizType,
     );
 
@@ -524,7 +529,7 @@ export const renderManager = {
       // Initialize p5 instance
       setTimeout(
         () => {
-          vizManager.render(formula.vizType, cardId, true);
+          vizManager.render(formula.vizType, cardId, true, formula.chapterId);
         },
         i * 50 + 100,
       );

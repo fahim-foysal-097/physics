@@ -1,20 +1,21 @@
-import { mechanicsSims } from "./sims/mechanics.js";
-import { wavesSims } from "./sims/waves.js";
-import { miscSims } from "./sims/misc.js";
-
 export const vizManager = {
   currentP5Instance: null,
   instances: {},
+  loadedModules: {},
 
-  render: (vizType, containerId, isLab = false) => {
+  render: async (vizType, containerId, isLab = false, chapterId = null) => {
     const container = document.getElementById(containerId);
     if (!container) return;
 
     if (container.clientWidth === 0) {
-      setTimeout(() => vizManager.render(vizType, containerId, isLab), 100);
+      setTimeout(
+        () => vizManager.render(vizType, containerId, isLab, chapterId),
+        100,
+      );
       return;
     }
 
+    // Clean up existing instances
     container.innerHTML = "";
     if (vizManager.instances[containerId]) {
       vizManager.instances[containerId].remove();
@@ -23,6 +24,28 @@ export const vizManager = {
     if (vizManager.currentP5Instance && containerId === "modalVisualization") {
       vizManager.currentP5Instance.remove();
       vizManager.currentP5Instance = null;
+    }
+
+    if (!chapterId) {
+      console.error("chapterId is required for rendering visualizations.");
+      return;
+    }
+
+    // Dynamic Import of Chapter Simulation Module
+    let module;
+    try {
+      const moduleName = `${chapterId}_sims`;
+
+      // Use a promise-based cache to avoid concurrent duplicate imports
+      if (!vizManager.loadedModules[chapterId]) {
+        vizManager.loadedModules[chapterId] = import(`./sims/${chapterId}.js`);
+      }
+
+      const moduleObj = await vizManager.loadedModules[chapterId];
+      module = moduleObj[moduleName];
+    } catch (e) {
+      console.warn(`No simulation module found for chapter: ${chapterId}`, e);
+      return;
     }
 
     const width = container.clientWidth;
@@ -35,30 +58,22 @@ export const vizManager = {
         sketch.createCanvas(width, height).parent(containerId);
         sketch.angleMode(sketch.RADIANS);
 
-        // Delegate setup to modules
-        mechanicsSims.setup(sketch, vizType);
-        wavesSims.setup(sketch, vizType);
-        miscSims.setup(sketch, vizType);
+        if (module && typeof module.setup === "function") {
+          module.setup(sketch, vizType);
+        }
       };
 
       sketch.draw = () => {
         sketch.background("#f8fafc");
-
-        // Delegate draw to modules
-        mechanicsSims.draw(sketch, vizType);
-        wavesSims.draw(sketch, vizType);
-        miscSims.draw(sketch, vizType);
+        if (module && typeof module.draw === "function") {
+          module.draw(sketch, vizType);
+        }
       };
     };
 
     const instance = new p5(sketchFn);
     if (isLab) vizManager.instances[containerId] = instance;
     else vizManager.currentP5Instance = instance;
-  },
-
-  // Proxy for modules to use
-  drawArrow: (sketch, x1, y1, x2, y2, colorStr) => {
-    mechanicsSims.drawArrow(sketch, x1, y1, x2, y2, colorStr);
   },
 
   stopAllAudio: () => {
@@ -72,6 +87,18 @@ export const vizManager = {
       if (inst && typeof inst.stopSound === "function") {
         inst.stopSound();
       }
+    });
+  },
+
+  clearAllInstances: () => {
+    vizManager.stopAllAudio();
+    if (vizManager.currentP5Instance) {
+      vizManager.currentP5Instance.remove();
+      vizManager.currentP5Instance = null;
+    }
+    Object.keys(vizManager.instances).forEach((id) => {
+      vizManager.instances[id].remove();
+      delete vizManager.instances[id];
     });
   },
 };
