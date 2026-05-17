@@ -199,12 +199,14 @@ export const renderManager = {
       specialTab.parentElement.classList.add("d-none");
     }
 
-    // Visualization Prep
+    // Visualization and Diagram Prep
     const vizTab = document.getElementById("visuals-tab");
+    const diagramTab = document.getElementById("diagram-tab");
     const controlsContainer = document.getElementById("modalVizControls");
     controlsContainer.innerHTML = "";
     controlsContainer.classList.add("d-none");
 
+    // Handle Visualization Tab
     if (formula.hasVisualization && formula.vizType) {
       vizTab.parentElement.classList.remove("d-none");
       vizTab.textContent = "Visualization";
@@ -224,15 +226,17 @@ export const renderManager = {
       document.getElementById("modalVisualization").innerHTML = "";
     } else {
       vizTab.parentElement.classList.add("d-none");
-      // If no visualization, but we have an image
-      if (formula.imageUrl) {
-        vizTab.parentElement.classList.remove("d-none");
-        vizTab.textContent = "Diagram";
-        document.getElementById("modalVisualization").innerHTML =
-          `<img src="${formula.imageUrl}" class="img-fluid rounded-3" alt="Formula Diagram">`;
-      } else {
-        document.getElementById("modalVisualization").innerHTML = "";
-      }
+      document.getElementById("modalVisualization").innerHTML = "";
+    }
+
+    // Handle Diagram Tab
+    if (formula.imageUrl) {
+      diagramTab.parentElement.classList.remove("d-none");
+      document.getElementById("modalDiagram").innerHTML =
+        `<img src="${formula.imageUrl}" class="img-fluid rounded-3" alt="Formula Diagram">`;
+    } else {
+      diagramTab.parentElement.classList.add("d-none");
+      document.getElementById("modalDiagram").innerHTML = "";
     }
 
     // Reset tabs to first one

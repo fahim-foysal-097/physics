@@ -249,7 +249,7 @@ export const formulas_p2_ch3 = [
     topic: "Electrical Energy",
     nameEn: "Electrical energy",
     nameBn: "বিদ্যুৎ শক্তি",
-    latex: "E = VIt = Pt",
+    latex: "E = VIt = Pt = H",
     variables: [
       { symbol: "E", meaning: "Electrical energy", unit: "J" },
       { symbol: "V", meaning: "Potential difference", unit: "V" },
@@ -528,37 +528,6 @@ export const formulas_p2_ch3 = [
     ],
     specialCases: [
       { condition: "l_1 = l_2", latex: "r = 0" },
-    ],
-    hasVisualization: false,
-  },
-  {
-    id: "p2_ch3_ammeter_voltmeter",
-    chapterId: "p2_ch3",
-    topic: "Measuring Instruments",
-    nameEn: "Galvanometer to ammeter/voltmeter",
-    nameBn: "অ্যামিটার ও ভোল্টমিটারে রূপান্তর",
-    latex: "S = \\frac{I_gG}{I - I_g},\\qquad R = \\frac{V}{I_g} - G",
-    variables: [
-      { symbol: "S", meaning: "Parallel shunt resistance for ammeter", unit: "\\Omega" },
-      {
-        symbol: "R",
-        meaning: "Series multiplier resistance for voltmeter",
-        unit: "\\Omega",
-      },
-      { symbol: "G", meaning: "Galvanometer coil resistance", unit: "\\Omega" },
-      { symbol: "I_g", meaning: "Full-scale deflection current of galvanometer", unit: "A" },
-      { symbol: "I", meaning: "Desired ammeter range", unit: "A" },
-      { symbol: "V", meaning: "Desired voltmeter range", unit: "V" },
-    ],
-    assumptions: "Ideal scale mapping with linear deflection.",
-    mcqShortcuts: [
-      "Ammeter needs a low resistance, so shunt is connected in parallel.",
-      "Voltmeter needs a high resistance, so multiplier is connected in series.",
-      "Ideal ammeter resistance is 0; ideal voltmeter resistance is infinite.",
-    ],
-    specialCases: [
-      { condition: "I \\to I_g", latex: "S \\to \\infty \\text{ (No shunt)}" },
-      { condition: "Multiplier resistance", latex: "R \\approx \\frac{V}{I_g} \\text{ (when } G \\ll R)" },
     ],
     hasVisualization: false,
   },

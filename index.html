@@ -228,6 +228,10 @@
                             <button class="nav-link" id="visuals-tab" data-bs-toggle="tab" data-bs-target="#visuals"
                                 type="button" role="tab">Visualization</button>
                         </li>
+                        <li class="nav-item" role="presentation" id="diagram-tab-wrapper">
+                            <button class="nav-link" id="diagram-tab" data-bs-toggle="tab" data-bs-target="#diagram"
+                                type="button" role="tab">Diagram</button>
+                        </li>
                     </ul>
 
                     <div class="tab-content" id="formulaDetailTabsContent">
@@ -272,6 +276,13 @@
                             <div class="visualization-container rounded-3 overflow-hidden d-flex justify-content-center align-items-center bg-light"
                                 id="modalVisualization" style="min-height: 300px;">
                                 <!-- p5.js or Chart.js injected here -->
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="diagram" role="tabpanel">
+                            <div class="visualization-container rounded-3 overflow-hidden d-flex justify-content-center align-items-center bg-light"
+                                id="modalDiagram" style="min-height: 300px;">
+                                <!-- Image injected here -->
                             </div>
                         </div>
                     </div>

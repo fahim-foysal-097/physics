@@ -19,6 +19,7 @@ export const formulas_p1_ch8 = [
     ],
     assumptions: "Motion is purely sinusoidal.",
     specialCases: [],
+    imageUrl: "assets/images/paper-1/shm.webp",
     hasVisualization: true,
     vizType: "shm_circular",
   },
