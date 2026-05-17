@@ -585,6 +585,37 @@ export const renderManager = {
       { id: "V", label: "Voltage (V)", min: 1, max: 30, val: 10, step: 0.5 },
       { id: "reset", label: "Reset", type: "button" },
     ],
+
+    wire_resistance: [
+      {
+        id: "rho",
+        label: "Resistivity (ρ)",
+        min: 0.1,
+        max: 10,
+        val: 2,
+        step: 0.1,
+      },
+      { id: "l", label: "Length (l)", min: 20, max: 240, val: 120, step: 1 },
+      { id: "A", label: "Area (A)", min: 4, max: 120, val: 40, step: 1 },
+    ],
+
+    drift_velocity: [
+      { id: "I", label: "Current (I)", min: 0.1, max: 10, val: 3, step: 0.1 },
+      {
+        id: "n",
+        label: "Carrier density (n)",
+        min: 1,
+        max: 20,
+        val: 8,
+        step: 0.5,
+      },
+      { id: "A", label: "Area (A)", min: 1, max: 12, val: 4, step: 0.1 },
+    ],
+
+    ohm_law: [
+      { id: "V", label: "Voltage (V)", min: 1, max: 30, val: 12, step: 0.5 },
+      { id: "R", label: "Resistance (R)", min: 1, max: 20, val: 6, step: 0.5 },
+    ],
   },
 
   /**

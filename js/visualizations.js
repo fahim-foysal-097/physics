@@ -72,8 +72,12 @@ export const vizManager = {
     };
 
     const instance = new p5(sketchFn);
-    if (isLab) vizManager.instances[containerId] = instance;
-    else vizManager.currentP5Instance = instance;
+    if (isLab) {
+      vizManager.instances[containerId] = instance;
+    } else {
+      vizManager.currentP5Instance = instance;
+      vizManager.instances[containerId] = instance;
+    }
   },
 
   stopAllAudio: () => {

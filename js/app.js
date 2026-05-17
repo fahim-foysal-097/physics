@@ -68,8 +68,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   const mobileSidebarBody = document.querySelector(
     "#mobileSidebar .offcanvas-body",
   );
-  mobileSidebarBody.innerHTML = document.getElementById("sidebar").innerHTML;
+  let sidebarHtml = document.getElementById("sidebar").innerHTML;
+  
+  // Replace IDs to prevent duplication on mobile and make Bootstrap tabs work
+  sidebarHtml = sidebarHtml.replace(/id="paperTabs"/g, 'id="mobilePaperTabs"');
+  sidebarHtml = sidebarHtml.replace(/id="paper1-tab"/g, 'id="mobilePaper1-tab"');
+  sidebarHtml = sidebarHtml.replace(/id="paper2-tab"/g, 'id="mobilePaper2-tab"');
+  sidebarHtml = sidebarHtml.replace(/id="paper1"/g, 'id="mobilePaper1"');
+  sidebarHtml = sidebarHtml.replace(/id="paper2"/g, 'id="mobilePaper2"');
+  sidebarHtml = sidebarHtml.replace(/data-bs-target="#paper1"/g, 'data-bs-target="#mobilePaper1"');
+  sidebarHtml = sidebarHtml.replace(/data-bs-target="#paper2"/g, 'data-bs-target="#mobilePaper2"');
+  sidebarHtml = sidebarHtml.replace(/id="chaptersPaper1"/g, 'id="mobileChaptersPaper1"');
+  sidebarHtml = sidebarHtml.replace(/id="chaptersPaper2"/g, 'id="mobileChaptersPaper2"');
+  
+  mobileSidebarBody.innerHTML = sidebarHtml;
 
+  // Re-bind click event listeners to list-group items in mobile sidebar
   mobileSidebarBody
     .querySelectorAll(".chapter-list .list-group-item")
     .forEach((btn, index) => {
@@ -84,11 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           document
             .querySelectorAll(".chapter-list .list-group-item")
             .forEach((el) => el.classList.remove("active"));
-          // Both desktop and mobile buttons with the same index will get 'active'
-          // This works because both lists are identical in structure
-          const allItems = document.querySelectorAll(
-            ".chapter-list .list-group-item",
-          );
+          
           const desktopItems = document.querySelectorAll(
             "#sidebar .chapter-list .list-group-item",
           );
@@ -96,11 +106,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             ".chapter-list .list-group-item",
           );
 
-          desktopItems[index].classList.add("active");
-          mobileItems[index].classList.add("active");
+          if (desktopItems[index]) desktopItems[index].classList.add("active");
+          if (mobileItems[index]) mobileItems[index].classList.add("active");
         }
       });
     });
+
+  // Re-initialize Bootstrap tabs for the mobile sidebar since the IDs are renamed
+  const mobileTabEl1 = document.getElementById("mobilePaper1-tab");
+  const mobileTabEl2 = document.getElementById("mobilePaper2-tab");
+  if (mobileTabEl1 && mobileTabEl2) {
+    mobileTabEl1.addEventListener("click", (e) => {
+      e.preventDefault();
+      const tab = new bootstrap.Tab(mobileTabEl1);
+      tab.show();
+    });
+    mobileTabEl2.addEventListener("click", (e) => {
+      e.preventDefault();
+      const tab = new bootstrap.Tab(mobileTabEl2);
+      tab.show();
+    });
+  }
 
   // 5. View Switching
   const formulasView = document.getElementById("formulasView");
@@ -163,5 +189,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     .getElementById("formulaModal")
     .addEventListener("hidden.bs.modal", () => {
       vizManager.stopAllAudio();
+      if (vizManager.currentP5Instance) {
+        vizManager.currentP5Instance.remove();
+        vizManager.currentP5Instance = null;
+      }
+      if (vizManager.instances["modalVisualization"]) {
+        vizManager.instances["modalVisualization"].remove();
+        delete vizManager.instances["modalVisualization"];
+      }
     });
 });

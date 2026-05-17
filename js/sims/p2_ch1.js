@@ -182,7 +182,7 @@ export const p2_ch1_sims = {
       sketch.noStroke();
       sketch.circle(curV, h - curP, 12);
 
-      // Premium Piston Visualization
+      //  Piston Visualization
       sketch.push();
       sketch.translate(w / 2 - 60, h + 60);
 
@@ -316,7 +316,7 @@ export const p2_ch1_sims = {
       sketch.circle(V, h - P, 14);
       sketch.drawingContext.shadowBlur = 0;
 
-      // Premium Floating Tooltip
+      //  Floating Tooltip
       sketch.fill("#ffffffEE");
       sketch.stroke("#e2e8f0");
       sketch.rect(V + 15, h - P - 50, 110, 45, 8);
