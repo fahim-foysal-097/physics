@@ -620,6 +620,51 @@ export const renderManager = {
       { id: "V", label: "Voltage (V)", min: 1, max: 30, val: 12, step: 0.5 },
       { id: "R", label: "Resistance (R)", min: 1, max: 20, val: 6, step: 0.5 },
     ],
+    straight_wire_field: [
+      { id: "I", label: "Current (I)", min: -10.0, max: 10.0, val: 5.0, step: 0.5 },
+      { id: "r", label: "Distance (r)", min: 20, max: 180, val: 80, step: 1 },
+      { id: "reset", label: "Reset Wire View", type: "button" },
+    ],
+    charged_particle_magnetic_field: [
+      { id: "B", label: "B Field Strength", min: -10.0, max: 10.0, val: 4.0, step: 0.5 },
+      { id: "q", label: "Charge (q)", min: -5.0, max: 5.0, val: 2.0, step: 0.2 },
+      { id: "m", label: "Mass (m)", min: 1.0, max: 10.0, val: 5.0, step: 0.2 },
+      { id: "v", label: "Velocity (v)", min: 1.0, max: 15.0, val: 6.0, step: 0.5 },
+      { id: "resetParticle", label: "Re-Inject Particle", type: "button" },
+      { id: "reset", label: "Reset All", type: "button" },
+    ],
+    faradays_induction: [
+      { id: "N", label: "Coil Turns (N)", min: 1, max: 5, val: 3, step: 1 },
+      { id: "magnetSpeed", label: "Magnet Osc Speed", min: 0.0, max: 3.0, val: 1.0, step: 0.1 },
+      {
+        id: "autoPlay",
+        label: "Auto Oscillate Magnet",
+        type: "radio",
+        options: [
+          { label: "On", val: 1 },
+          { label: "Off", val: 0 },
+        ],
+        val: 1,
+      },
+      { id: "reset", label: "Reset Field", type: "button" },
+    ],
+    lcr_resonance: [
+      { id: "R", label: "Resistance (R)", min: 2, max: 30, val: 10, step: 0.5 },
+      { id: "L", label: "Inductance L (mH)", min: 20, max: 300, val: 120, step: 5 },
+      { id: "C", label: "Capacitance C (μF)", min: 5, max: 100, val: 40, step: 1 },
+      { id: "freq", label: "AC Freq f (Hz)", min: 10, max: 200, val: 60, step: 2 },
+      { id: "reset", label: "Reset LCR", type: "button" },
+    ],
+    hubbles_law: [
+      { id: "H0", label: "Hubble Const H₀", min: 40, max: 100, val: 70, step: 1 },
+      { id: "reset", label: "Reset Galaxies", type: "button" },
+    ],
+    black_hole_gravity: [
+      { id: "M", label: "BH Mass (M)", min: 1.0, max: 8.0, val: 4.0, step: 0.2 },
+      { id: "c", label: "Light Speed (c)", min: 8.0, max: 20.0, val: 12.0, step: 0.2 },
+      { id: "resetStar", label: "Re-Orbit Star", type: "button" },
+      { id: "reset", label: "Reset Space Time", type: "button" },
+    ],
   },
 
   /**
