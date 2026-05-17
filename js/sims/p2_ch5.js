@@ -15,7 +15,7 @@ export const p2_ch5_sims = {
       lcr_resonance: {
         R: 10,
         L: 120, // milliHenry
-        C: 40,  // microFarad
+        C: 40, // microFarad
         freq: 60, // Hz
         t: 0,
       },
@@ -46,14 +46,14 @@ export const p2_ch5_sims = {
       sketch.stroke(226, 232, 240);
       sketch.strokeWeight(1);
       sketch.rect(x, y, pillWidth, 36, 18);
-      
+
       sketch.noStroke();
       sketch.fill(100, 116, 139);
       sketch.textSize(9);
       sketch.textStyle(sketch.BOLD);
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(label, x + 15, y + 18);
-      
+
       sketch.fill(37, 99, 235);
       sketch.textSize(12);
       sketch.textStyle(sketch.BOLD);
@@ -93,9 +93,20 @@ export const p2_ch5_sims = {
 
         // Dragging Magnet Logic
         if (sketch.mouseIsPressed) {
-          if (!sketch.isDraggingMagnet && sketch.mouseX > 0 && sketch.mouseX < w * 0.60) {
+          if (
+            !sketch.isDraggingMagnet &&
+            sketch.mouseX > 0 &&
+            sketch.mouseX < w * 0.6
+          ) {
             // Check click near magnet
-            if (sketch.dist(sketch.mouseX, sketch.mouseY, sketch.magnetX, centerY) < 50) {
+            if (
+              sketch.dist(
+                sketch.mouseX,
+                sketch.mouseY,
+                sketch.magnetX,
+                centerY,
+              ) < 50
+            ) {
               sketch.isDraggingMagnet = true;
               sketch.autoPlay = false; // pause autoplay on drag
             }
@@ -111,8 +122,8 @@ export const p2_ch5_sims = {
         // Physically accurate finite-length solenoid model (80px width)
         const L = 80; // Solenoid physical length
         const wd = 18; // Solenoid boundary transition width
-        const dx1 = (sketch.magnetX - coilCenterX) + L/2;
-        const dx2 = (sketch.magnetX - coilCenterX) - L/2;
+        const dx1 = sketch.magnetX - coilCenterX + L / 2;
+        const dx2 = sketch.magnetX - coilCenterX - L / 2;
 
         const sig1 = 1 / (1 + Math.exp(-dx1 / wd));
         const sig2 = 1 / (1 + Math.exp(-dx2 / wd));
@@ -122,7 +133,7 @@ export const p2_ch5_sims = {
 
         // Rate of change of flux with respect to position (dPhi/dx)
         const dPhi_dx = dsig1 - dsig2;
-        
+
         // Exact, lag-free velocity calculation
         let velocity = 0;
         if (sketch.isDraggingMagnet) {
@@ -153,7 +164,13 @@ export const p2_ch5_sims = {
         sketch.emf = rawEmf;
 
         drawTitle("Electromagnetic Induction: ε = -N dΦ/dt");
-        drawHUDPill(w - 185, 12, "INDUCED EMF", `${sketch.emf.toFixed(2)} V`, 160);
+        drawHUDPill(
+          w - 185,
+          12,
+          "INDUCED EMF",
+          `${sketch.emf.toFixed(2)} V`,
+          160,
+        );
 
         // --- Left Half: Solenoid and Magnet physical setup ---
         sketch.push();
@@ -163,7 +180,7 @@ export const p2_ch5_sims = {
         sketch.stroke(0, 100, 255, 20);
         sketch.strokeWeight(1.5);
         sketch.noFill();
-        
+
         const magW = 90;
         const magH = 30;
         const mx = sketch.magnetX;
@@ -172,8 +189,26 @@ export const p2_ch5_sims = {
         for (let i = 1; i <= 4; i++) {
           const bend = i * 25;
           // Loop curves from N-pole (right) to S-pole (left)
-          sketch.bezier(mx + magW/2, centerY, mx + magW/2 + bend, centerY - bend, mx - magW/2 - bend, centerY - bend, mx - magW/2, centerY);
-          sketch.bezier(mx + magW/2, centerY, mx + magW/2 + bend, centerY + bend, mx - magW/2 - bend, centerY + bend, mx - magW/2, centerY);
+          sketch.bezier(
+            mx + magW / 2,
+            centerY,
+            mx + magW / 2 + bend,
+            centerY - bend,
+            mx - magW / 2 - bend,
+            centerY - bend,
+            mx - magW / 2,
+            centerY,
+          );
+          sketch.bezier(
+            mx + magW / 2,
+            centerY,
+            mx + magW / 2 + bend,
+            centerY + bend,
+            mx - magW / 2 - bend,
+            centerY + bend,
+            mx - magW / 2,
+            centerY,
+          );
         }
         sketch.pop();
 
@@ -188,25 +223,41 @@ export const p2_ch5_sims = {
         sketch.chargeOffset += sketch.emf * 0.15;
 
         for (let i = 0; i < N; i++) {
-          const loopX = coilCenterX - coilW/2 + (i + 0.5) * (coilW / N);
+          const loopX = coilCenterX - coilW / 2 + (i + 0.5) * (coilW / N);
           // Back half of coil loop
           sketch.stroke(150, 90, 0, 140);
-          sketch.arc(loopX, centerY, 24, coilH, sketch.HALF_PI, sketch.THREE_PI/2);
-          
+          sketch.arc(
+            loopX,
+            centerY,
+            24,
+            coilH,
+            sketch.HALF_PI,
+            sketch.THREE_PI / 2,
+          );
+
           // Front half of coil loop
           sketch.stroke(194, 120, 3, 220);
-          sketch.arc(loopX, centerY, 24, coilH, sketch.THREE_PI/2, sketch.HALF_PI);
+          sketch.arc(
+            loopX,
+            centerY,
+            24,
+            coilH,
+            sketch.THREE_PI / 2,
+            sketch.HALF_PI,
+          );
 
           // Flowing charge indicators inside the coil front arcs
           sketch.push();
           sketch.noStroke();
           sketch.fill(56, 189, 248);
           for (let c = 0; c < 3; c++) {
-            const angle = (sketch.HALF_PI + (c * sketch.TWO_PI/3) + sketch.chargeOffset) % sketch.TWO_PI;
+            const angle =
+              (sketch.HALF_PI + (c * sketch.TWO_PI) / 3 + sketch.chargeOffset) %
+              sketch.TWO_PI;
             // draw charge carriers if they are in the front half (angle between -pi/2 and pi/2)
             if (angle > -sketch.HALF_PI && angle < sketch.HALF_PI) {
               const cx = loopX + 12 * Math.cos(angle);
-              const cy = centerY + (coilH/2) * Math.sin(angle);
+              const cy = centerY + (coilH / 2) * Math.sin(angle);
               sketch.circle(cx, cy, 6);
             }
           }
@@ -216,28 +267,34 @@ export const p2_ch5_sims = {
         // Draw iron core inside coil (grey cylinder)
         sketch.fill(100, 116, 139, 60);
         sketch.noStroke();
-        sketch.rect(coilCenterX - coilW/2 - 10, centerY - 12, coilW + 20, 24, 4);
+        sketch.rect(
+          coilCenterX - coilW / 2 - 10,
+          centerY - 12,
+          coilW + 20,
+          24,
+          4,
+        );
         sketch.pop();
 
         // 3. Draw physical Bar Magnet
         sketch.push();
         sketch.rectMode(sketch.CENTER);
         sketch.noStroke();
-        
+
         // South Pole (Blue, Left)
         sketch.fill(59, 130, 246);
-        sketch.rect(mx - magW/4, centerY, magW/2, magH, 4);
+        sketch.rect(mx - magW / 4, centerY, magW / 2, magH, 4);
         // North Pole (Red, Right)
         sketch.fill(239, 68, 68);
-        sketch.rect(mx + magW/4, centerY, magW/2, magH, 4);
+        sketch.rect(mx + magW / 4, centerY, magW / 2, magH, 4);
 
         // Text labels inside magnet poles
         sketch.fill(255);
         sketch.textSize(10);
         sketch.textStyle(sketch.BOLD);
         sketch.textAlign(sketch.CENTER, sketch.CENTER);
-        sketch.text("S", mx - magW/4, centerY);
-        sketch.text("N", mx + magW/4, centerY);
+        sketch.text("S", mx - magW / 4, centerY);
+        sketch.text("N", mx + magW / 4, centerY);
         sketch.pop();
 
         sketch.pop();
@@ -251,7 +308,7 @@ export const p2_ch5_sims = {
         // Separation line
         sketch.stroke(226, 232, 240);
         sketch.strokeWeight(1.5);
-        sketch.line(w * 0.50, 60, w * 0.50, h - 25);
+        sketch.line(w * 0.5, 60, w * 0.5, h - 25);
 
         sketch.push();
         // Galvanometer circle face
@@ -298,7 +355,7 @@ export const p2_ch5_sims = {
           rightCenterX,
           galvoY + 15,
           rightCenterX + (galvoR - 15) * Math.cos(needleAngle),
-          galvoY + 15 + (galvoR - 15) * Math.sin(needleAngle)
+          galvoY + 15 + (galvoR - 15) * Math.sin(needleAngle),
         );
 
         // Needle center hub
@@ -335,7 +392,7 @@ export const p2_ch5_sims = {
       case "lcr_resonance": {
         const R = sketch.R ?? 10;
         const L_mH = sketch.L ?? 120; // in milliHenry
-        const C_uF = sketch.C ?? 40;  // in microFarad
+        const C_uF = sketch.C ?? 40; // in microFarad
         const f_AC = sketch.freq ?? 60; // in Hz
 
         const L = L_mH / 1000; // Henry
@@ -350,7 +407,7 @@ export const p2_ch5_sims = {
         // Voltage amplitude V0 = 24V
         const V0 = 24.0;
         const I0 = V0 / Z; // Current amplitude
-        
+
         // Phase difference: phi = atan((XL-XC)/R)
         const phi = Math.atan((XL - XC) / R);
 
@@ -366,12 +423,12 @@ export const p2_ch5_sims = {
         const leftCenterX = w * 0.26;
         const oscY = h - 105;
         const oscH = 75;
-        const oscW = w * 0.40;
+        const oscW = w * 0.4;
 
         // Separation line
         sketch.stroke(226, 232, 240);
         sketch.strokeWeight(1.5);
-        sketch.line(w * 0.50, 60, w * 0.50, h - 25);
+        sketch.line(w * 0.5, 60, w * 0.5, h - 25);
 
         // 1. Draw elegant Circuit Schematic
         sketch.push();
@@ -384,7 +441,7 @@ export const p2_ch5_sims = {
 
         // Circuit Loop wire
         sketch.rect(cx - 70, cy, 140, 50, 4);
-        
+
         // Clear slots for components
         sketch.fill(253, 254, 255);
         sketch.noStroke();
@@ -398,7 +455,16 @@ export const p2_ch5_sims = {
         sketch.fill(255);
         sketch.circle(cx, cy + 50, 16);
         sketch.noFill();
-        sketch.bezier(cx - 5, cy + 50, cx - 2, cy + 46, cx + 2, cy + 54, cx + 5, cy + 50);
+        sketch.bezier(
+          cx - 5,
+          cy + 50,
+          cx - 2,
+          cy + 46,
+          cx + 2,
+          cy + 54,
+          cx + 5,
+          cy + 50,
+        );
 
         // Draw L, C, R symbols in series on top wire
         // Resistor R (zig-zag)
@@ -454,25 +520,34 @@ export const p2_ch5_sims = {
         // draw scope grid
         sketch.stroke(51, 65, 85, 120);
         sketch.strokeWeight(1);
-        for (let gx = leftCenterX - oscW/2 + 20; gx < leftCenterX + oscW/2; gx += 25) {
-          sketch.line(gx, oscY - oscH/2 + 2, gx, oscY + oscH/2 - 2);
+        for (
+          let gx = leftCenterX - oscW / 2 + 20;
+          gx < leftCenterX + oscW / 2;
+          gx += 25
+        ) {
+          sketch.line(gx, oscY - oscH / 2 + 2, gx, oscY + oscH / 2 - 2);
         }
-        sketch.line(leftCenterX - oscW/2 + 2, oscY, leftCenterX + oscW/2 - 2, oscY); // center horizontal axis
-        
+        sketch.line(
+          leftCenterX - oscW / 2 + 2,
+          oscY,
+          leftCenterX + oscW / 2 - 2,
+          oscY,
+        ); // center horizontal axis
+
         // Plot waveforms
         // Supply Voltage V = V0 * sin(omega * t) -> yellow wave
         // Response Current I = I0 * sin(omega * t - phi) -> blue wave (scaled for visibility)
         sketch.t += 0.05;
         sketch.noFill();
-        
+
         // Supply Voltage channel (Yellow)
         sketch.stroke(245, 158, 11, 230);
         sketch.strokeWeight(1.8);
         sketch.beginShape();
         for (let ox = 0; ox < oscW - 10; ox++) {
-          const ax = leftCenterX - oscW/2 + 5 + ox;
+          const ax = leftCenterX - oscW / 2 + 5 + ox;
           // compute local sine angle based on screen position
-          const waveAng = sketch.t + (ox * 0.05) * (f_AC / 60);
+          const waveAng = sketch.t + ox * 0.05 * (f_AC / 60);
           const v_val = Math.sin(waveAng) * (oscH * 0.35);
           sketch.vertex(ax, oscY - v_val);
         }
@@ -483,9 +558,9 @@ export const p2_ch5_sims = {
         sketch.strokeWeight(1.8);
         sketch.beginShape();
         for (let ox = 0; ox < oscW - 10; ox++) {
-          const ax = leftCenterX - oscW/2 + 5 + ox;
+          const ax = leftCenterX - oscW / 2 + 5 + ox;
           // subtract phase shift phi
-          const waveAng = sketch.t + (ox * 0.05) * (f_AC / 60) - phi;
+          const waveAng = sketch.t + ox * 0.05 * (f_AC / 60) - phi;
           // Scale current amplitude relative to max current
           const i_amp_factor = sketch.map(I0, 0, I_max, 2, oscH * 0.35);
           const i_val = Math.sin(waveAng) * i_amp_factor;
@@ -499,9 +574,17 @@ export const p2_ch5_sims = {
         sketch.textStyle(sketch.BOLD);
         sketch.textAlign(sketch.LEFT, sketch.TOP);
         sketch.fill(245, 158, 11);
-        sketch.text("Voltage V", leftCenterX - oscW/2 + 10, oscY - oscH/2 + 6);
+        sketch.text(
+          "Voltage V",
+          leftCenterX - oscW / 2 + 10,
+          oscY - oscH / 2 + 6,
+        );
         sketch.fill(56, 189, 248);
-        sketch.text(`Current I (${phi >= 0 ? "lagging" : "leading"})`, leftCenterX + 10, oscY - oscH/2 + 6);
+        sketch.text(
+          `Current I (${phi >= 0 ? "lagging" : "leading"})`,
+          leftCenterX + 10,
+          oscY - oscH / 2 + 6,
+        );
         sketch.pop();
 
         // --- Right Half: High-fidelity Cartesian Resonance Curve ---
@@ -525,7 +608,7 @@ export const p2_ch5_sims = {
         sketch.textStyle(sketch.BOLD);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.text("AC Frequency f (Hz)", gx + gw / 2, gy + gh + 6);
-        
+
         sketch.textAlign(sketch.RIGHT, sketch.CENTER);
         sketch.text("I₀ (A)", gx - 8, gy + gh / 2);
         sketch.pop();
@@ -541,7 +624,9 @@ export const p2_ch5_sims = {
           const w_ang = 2 * Math.PI * fx;
           const xl_val = w_ang * L;
           const xc_val = 1 / (w_ang * C);
-          const z_val = Math.sqrt(R * R + (xl_val - xc_val) * (xl_val - xc_val));
+          const z_val = Math.sqrt(
+            R * R + (xl_val - xc_val) * (xl_val - xc_val),
+          );
           const i0_val = V0 / z_val;
 
           const px = sketch.map(fx, 10, 200, gx, gx + gw);
@@ -559,7 +644,7 @@ export const p2_ch5_sims = {
         sketch.drawingContext.setLineDash([3, 3]);
         sketch.line(rx0, gy + gh, rx0, gy + 10);
         sketch.drawingContext.setLineDash([]);
-        
+
         sketch.noStroke();
         sketch.fill(220, 38, 38);
         sketch.textSize(8);

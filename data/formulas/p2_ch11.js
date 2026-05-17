@@ -7,11 +7,24 @@ export const formulas_p2_ch11 = [
     nameBn: "হাবলের সূত্র",
     latex: "v = H_0 d",
     variables: [
-      { symbol: "v", meaning: "Recession velocity of galaxy", unit: "km\\,s^{-1}" },
-      { symbol: "H_0", meaning: "Hubble constant", unit: "km\\,s^{-1}\\,Mpc^{-1}" },
-      { symbol: "d", meaning: "Proper distance to galaxy", unit: "Mpc \\text{ (Megaparsecs)}" },
+      {
+        symbol: "v",
+        meaning: "Recession velocity of galaxy",
+        unit: "km\\,s^{-1}",
+      },
+      {
+        symbol: "H_0",
+        meaning: "Hubble constant",
+        unit: "km\\,s^{-1}\\,Mpc^{-1}",
+      },
+      {
+        symbol: "d",
+        meaning: "Proper distance to galaxy",
+        unit: "Mpc \\text{ (Megaparsecs)}",
+      },
     ],
-    assumptions: "Homogeneous and isotropic expanding universe on large cosmological scales.",
+    assumptions:
+      "Homogeneous and isotropic expanding universe on large cosmological scales.",
     mcqShortcuts: [
       "Hubble's law shows that the universe is expanding; more distant galaxies recede faster.",
       "Slope of velocity vs distance graph is the Hubble constant H_0.",
@@ -19,7 +32,10 @@ export const formulas_p2_ch11 = [
       "1 Megaparsec (Mpc) = 3.26 million light-years = 3.086 * 10^22 meters.",
     ],
     specialCases: [
-      { condition: "Local Group (gravity bound)", latex: "v \\approx \\text{variable (Hubble law invalid)}" },
+      {
+        condition: "Local Group (gravity bound)",
+        latex: "v \\approx \\text{variable (Hubble law invalid)}",
+      },
     ],
     hasVisualization: true,
     vizType: "hubbles_law",
@@ -30,11 +46,16 @@ export const formulas_p2_ch11 = [
     topic: "Cosmology",
     nameEn: "Cosmological redshift",
     nameBn: "লোহিত বিচ্যুতি",
-    latex: "z = \\frac{\\Delta \\lambda}{\\lambda_0} = \\frac{\\lambda_{obs} - \\lambda_0}{\\lambda_0} \\approx \\frac{v}{c}",
+    latex:
+      "z = \\frac{\\Delta \\lambda}{\\lambda_0} = \\frac{\\lambda_{obs} - \\lambda_0}{\\lambda_0} \\approx \\frac{v}{c}",
     variables: [
       { symbol: "z", meaning: "Redshift parameter", unit: "" },
       { symbol: "\\Delta \\lambda", meaning: "Wavelength shift", unit: "m" },
-      { symbol: "\\lambda_0", meaning: "Rest wavelength emitted by source", unit: "m" },
+      {
+        symbol: "\\lambda_0",
+        meaning: "Rest wavelength emitted by source",
+        unit: "m",
+      },
       { symbol: "\\lambda_{obs}", meaning: "Observed wavelength", unit: "m" },
       { symbol: "v", meaning: "Recession velocity", unit: "m\\,s^{-1}" },
       { symbol: "c", meaning: "Speed of light", unit: "m\\,s^{-1}" },
@@ -46,7 +67,10 @@ export const formulas_p2_ch11 = [
       "Relativistic Redshift (for high speeds near c): 1 + z = \\sqrt{\\frac{1 + v/c}{1 - v/c}}.",
     ],
     specialCases: [
-      { condition: "Extremely high velocities (v \\to c)", latex: "z = \\sqrt{\\frac{c+v}{c-v}} - 1" },
+      {
+        condition: "Extremely high velocities (v \\to c)",
+        latex: "z = \\sqrt{\\frac{c+v}{c-v}} - 1",
+      },
     ],
     hasVisualization: false,
   },
@@ -59,18 +83,30 @@ export const formulas_p2_ch11 = [
     latex: "T^2 = \\left(\\frac{4\\pi^2}{G M}\\right) r^3",
     variables: [
       { symbol: "T", meaning: "Orbital period of planet/satellite", unit: "s" },
-      { symbol: "G", meaning: "Universal gravitational constant", unit: "N\\,m^2\\,kg^{-2}" },
-      { symbol: "M", meaning: "Mass of the central stellar body (star/planet)", unit: "kg" },
+      {
+        symbol: "G",
+        meaning: "Universal gravitational constant",
+        unit: "N\\,m^2\\,kg^{-2}",
+      },
+      {
+        symbol: "M",
+        meaning: "Mass of the central stellar body (star/planet)",
+        unit: "kg",
+      },
       { symbol: "r", meaning: "Semi-major axis / orbit radius", unit: "m" },
     ],
-    assumptions: "Circular or elliptical orbit of a light planet around a highly massive stationary star.",
+    assumptions:
+      "Circular or elliptical orbit of a light planet around a highly massive stationary star.",
     mcqShortcuts: [
       "Period squared is proportional to radius cubed (T^2 \\propto r^3).",
       "Kepler's Second Law: Equal areas in equal times, implying conservation of angular momentum (planets move faster when closer to the star).",
       "The constant of proportionality depends only on the mass of the central attracting body, not the orbiting body.",
     ],
     specialCases: [
-      { condition: "Earth orbiting Sun", latex: "\\frac{T^2}{r^3} = \\text{constant}" },
+      {
+        condition: "Earth orbiting Sun",
+        latex: "\\frac{T^2}{r^3} = \\text{constant}",
+      },
     ],
     hasVisualization: false,
   },
@@ -82,12 +118,21 @@ export const formulas_p2_ch11 = [
     nameBn: "সোয়ার্জশিল্ড ব্যাসার্ধ (ব্ল্যাক হোল)",
     latex: "R_s = \\frac{2 G M}{c^2}",
     variables: [
-      { symbol: "R_s", meaning: "Schwarzschild radius (Event Horizon)", unit: "m" },
-      { symbol: "G", meaning: "Universal gravitational constant", unit: "N\\,m^2\\,kg^{-2}" },
+      {
+        symbol: "R_s",
+        meaning: "Schwarzschild radius (Event Horizon)",
+        unit: "m",
+      },
+      {
+        symbol: "G",
+        meaning: "Universal gravitational constant",
+        unit: "N\\,m^2\\,kg^{-2}",
+      },
       { symbol: "M", meaning: "Mass of the collapsing body", unit: "kg" },
       { symbol: "c", meaning: "Speed of light", unit: "m\\,s^{-1}" },
     ],
-    assumptions: "Non-rotating, spherically symmetric black hole (Schwarzschild metric).",
+    assumptions:
+      "Non-rotating, spherically symmetric black hole (Schwarzschild metric).",
     mcqShortcuts: [
       "Any mass compressed within its Schwarzschild radius becomes a black hole.",
       "Schwarzschild radius is directly proportional to its mass (R_s \\propto M).",
@@ -95,7 +140,10 @@ export const formulas_p2_ch11 = [
       "The Schwarzschild radius of our Sun is about 3 km; of Earth, about 9 mm.",
     ],
     specialCases: [
-      { condition: "Mass of Sun (M = 2 \\times 10^{30} \\text{ kg})", latex: "R_s \\approx 3000\\text{ m } (3\\text{ km})" },
+      {
+        condition: "Mass of Sun (M = 2 \\times 10^{30} \\text{ kg})",
+        latex: "R_s \\approx 3000\\text{ m } (3\\text{ km})",
+      },
     ],
     hasVisualization: true,
     vizType: "black_hole_gravity",
@@ -108,9 +156,21 @@ export const formulas_p2_ch11 = [
     nameBn: "মহাবিশ্বের ক্রান্তি ঘনত্ব",
     latex: "\\rho_c = \\frac{3 H_0^2}{8\\pi G}",
     variables: [
-      { symbol: "\\rho_c", meaning: "Critical mass density", unit: "kg\\,m^{-3}" },
-      { symbol: "H_0", meaning: "Hubble constant (in SI units: s^{-1})", unit: "s^{-1}" },
-      { symbol: "G", meaning: "Universal gravitational constant", unit: "N\\,m^2\\,kg^{-2}" },
+      {
+        symbol: "\\rho_c",
+        meaning: "Critical mass density",
+        unit: "kg\\,m^{-3}",
+      },
+      {
+        symbol: "H_0",
+        meaning: "Hubble constant (in SI units: s^{-1})",
+        unit: "s^{-1}",
+      },
+      {
+        symbol: "G",
+        meaning: "Universal gravitational constant",
+        unit: "N\\,m^2\\,kg^{-2}",
+      },
     ],
     assumptions: "Flat FLRW universe with zero cosmological constant.",
     mcqShortcuts: [
@@ -120,7 +180,10 @@ export const formulas_p2_ch11 = [
       "If \\Omega < 1: Open universe (infinite, expands forever).",
     ],
     specialCases: [
-      { condition: "\\Omega = 1\\; (Flat\\; Universe)", latex: "\\rho = \\rho_c" },
+      {
+        condition: "\\Omega = 1\\; (Flat\\; Universe)",
+        latex: "\\rho = \\rho_c",
+      },
     ],
     hasVisualization: false,
   },
@@ -132,8 +195,16 @@ export const formulas_p2_ch11 = [
     nameBn: "উজ্জ্বলতা ও দূরত্বের সম্পর্ক",
     latex: "b = \\frac{L}{4\\pi d^2}",
     variables: [
-      { symbol: "b", meaning: "Apparent brightness (flux received)", unit: "W\\,m^{-2}" },
-      { symbol: "L", meaning: "Intrinsic luminosity (absolute power emitted)", unit: "W" },
+      {
+        symbol: "b",
+        meaning: "Apparent brightness (flux received)",
+        unit: "W\\,m^{-2}",
+      },
+      {
+        symbol: "L",
+        meaning: "Intrinsic luminosity (absolute power emitted)",
+        unit: "W",
+      },
       { symbol: "d", meaning: "Distance to star", unit: "m" },
     ],
     assumptions: "Light spreads spherically through non-absorbing empty space.",
@@ -154,9 +225,17 @@ export const formulas_p2_ch11 = [
     nameBn: "ভীনের সরণ সূত্র",
     latex: "\\lambda_{max} T = b_{Wien}",
     variables: [
-      { symbol: "\\lambda_{max}", meaning: "Wavelength of peak radiation intensity", unit: "m" },
+      {
+        symbol: "\\lambda_{max}",
+        meaning: "Wavelength of peak radiation intensity",
+        unit: "m",
+      },
       { symbol: "T", meaning: "Absolute temperature of blackbody", unit: "K" },
-      { symbol: "b_{Wien}", meaning: "Wien's constant (\\approx 2.898 \\times 10^{-3})", unit: "m\\,K" },
+      {
+        symbol: "b_{Wien}",
+        meaning: "Wien's constant (\\approx 2.898 \\times 10^{-3})",
+        unit: "m\\,K",
+      },
     ],
     assumptions: "Star radiates as an ideal blackbody.",
     mcqShortcuts: [
@@ -165,7 +244,10 @@ export const formulas_p2_ch11 = [
       "Used to estimate the surface temperature of distant stars.",
     ],
     specialCases: [
-      { condition: "T \\uparrow", latex: "\\lambda_{max} \\downarrow\\; (Shift\\; to\\; blue)" },
+      {
+        condition: "T \\uparrow",
+        latex: "\\lambda_{max} \\downarrow\\; (Shift\\; to\\; blue)",
+      },
     ],
     hasVisualization: false,
   },
@@ -177,12 +259,36 @@ export const formulas_p2_ch11 = [
     nameBn: "উপগ্রহের কক্ষপথীয় বেগ",
     latex: "v_o = \\sqrt{\\frac{G M}{R + h}} = \\sqrt{g \\frac{R^2}{R + h}}",
     variables: [
-      { symbol: "v_o", meaning: "Orbital velocity of satellite", unit: "m\\,s^{-1}" },
-      { symbol: "G", meaning: "Universal gravitational constant", unit: "N\\,m^2\\,kg^{-2}" },
-      { symbol: "M", meaning: "Mass of the Earth (or central planet)", unit: "kg" },
-      { symbol: "R", meaning: "Radius of the Earth (or central planet)", unit: "m" },
-      { symbol: "h", meaning: "Height of satellite above planet surface", unit: "m" },
-      { symbol: "g", meaning: "Acceleration due to gravity at surface", unit: "m\\,s^{-2}" },
+      {
+        symbol: "v_o",
+        meaning: "Orbital velocity of satellite",
+        unit: "m\\,s^{-1}",
+      },
+      {
+        symbol: "G",
+        meaning: "Universal gravitational constant",
+        unit: "N\\,m^2\\,kg^{-2}",
+      },
+      {
+        symbol: "M",
+        meaning: "Mass of the Earth (or central planet)",
+        unit: "kg",
+      },
+      {
+        symbol: "R",
+        meaning: "Radius of the Earth (or central planet)",
+        unit: "m",
+      },
+      {
+        symbol: "h",
+        meaning: "Height of satellite above planet surface",
+        unit: "m",
+      },
+      {
+        symbol: "g",
+        meaning: "Acceleration due to gravity at surface",
+        unit: "m\\,s^{-2}",
+      },
     ],
     assumptions: "Circular satellite orbit around a uniform spherical planet.",
     mcqShortcuts: [
@@ -203,13 +309,26 @@ export const formulas_p2_ch11 = [
     nameBn: "মুক্তিবেগ",
     latex: "v_e = \\sqrt{\\frac{2 G M}{R}} = \\sqrt{2 g R}",
     variables: [
-      { symbol: "v_e", meaning: "Escape velocity from surface", unit: "m\\,s^{-1}" },
-      { symbol: "G", meaning: "Universal gravitational constant", unit: "N\\,m^2\\,kg^{-2}" },
+      {
+        symbol: "v_e",
+        meaning: "Escape velocity from surface",
+        unit: "m\\,s^{-1}",
+      },
+      {
+        symbol: "G",
+        meaning: "Universal gravitational constant",
+        unit: "N\\,m^2\\,kg^{-2}",
+      },
       { symbol: "M", meaning: "Mass of the planet", unit: "kg" },
       { symbol: "R", meaning: "Radius of the planet", unit: "m" },
-      { symbol: "g", meaning: "Acceleration due to gravity at surface", unit: "m\\,s^{-2}" },
+      {
+        symbol: "g",
+        meaning: "Acceleration due to gravity at surface",
+        unit: "m\\,s^{-2}",
+      },
     ],
-    assumptions: "Projectile launched from planet surface ignoring air resistance.",
+    assumptions:
+      "Projectile launched from planet surface ignoring air resistance.",
     mcqShortcuts: [
       "Escape velocity is exactly \\sqrt{2} times (141.4%) the near-surface orbital velocity: v_e = \\sqrt{2} v_o.",
       "Escape velocity of Earth is 11.2 km/s; of Moon is 2.38 km/s; of Sun is 617.5 km/s.",
@@ -226,12 +345,17 @@ export const formulas_p2_ch11 = [
     topic: "Satellite Mechanics",
     nameEn: "Satellite orbital period",
     nameBn: "উপগ্রহের আবর্তনকাল",
-    latex: "T = 2\\pi \\sqrt{\\frac{(R + h)^3}{G M}} = \\frac{2\\pi (R + h)}{v_o}",
+    latex:
+      "T = 2\\pi \\sqrt{\\frac{(R + h)^3}{G M}} = \\frac{2\\pi (R + h)}{v_o}",
     variables: [
       { symbol: "T", meaning: "Orbital period of satellite", unit: "s" },
       { symbol: "R", meaning: "Radius of the Earth/planet", unit: "m" },
       { symbol: "h", meaning: "Height of satellite above surface", unit: "m" },
-      { symbol: "G", meaning: "Universal gravitational constant", unit: "N\\,m^2\\,kg^{-2}" },
+      {
+        symbol: "G",
+        meaning: "Universal gravitational constant",
+        unit: "N\\,m^2\\,kg^{-2}",
+      },
       { symbol: "M", meaning: "Mass of the Earth/planet", unit: "kg" },
       { symbol: "v_o", meaning: "Orbital velocity", unit: "m\\,s^{-1}" },
     ],
@@ -241,7 +365,10 @@ export const formulas_p2_ch11 = [
       "Geostationary Satellite: (1) Orbital period is exactly 24 hours, (2) Orbits in the equatorial plane from West to East, (3) Appears static relative to Earth. Height above surface h \\approx 36,000 km.",
     ],
     specialCases: [
-      { condition: "Geostationary orbit (T = 24h)", latex: "h \\approx 3.6 \\times 10^7\\text{ m } (36000\\text{ km})" },
+      {
+        condition: "Geostationary orbit (T = 24h)",
+        latex: "h \\approx 3.6 \\times 10^7\\text{ m } (36000\\text{ km})",
+      },
     ],
     hasVisualization: false,
   },

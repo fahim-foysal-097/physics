@@ -116,10 +116,22 @@ export const formulas_p2_ch3 = [
     nameBn: "পরিবাহিতা ও পরিবাহকত্ব",
     latex: "G = \\frac{1}{R},\\qquad \\sigma = \\frac{1}{\\rho}",
     variables: [
-      { symbol: "G", meaning: "Conductance", unit: "\\text{S} \\text{ or } \\Omega^{-1}" },
+      {
+        symbol: "G",
+        meaning: "Conductance",
+        unit: "\\text{S} \\text{ or } \\Omega^{-1}",
+      },
       { symbol: "R", meaning: "Resistance", unit: "\\Omega" },
-      { symbol: "\\sigma", meaning: "Electrical conductivity", unit: "\\text{S } m^{-1}" },
-      { symbol: "\\rho", meaning: "Electrical resistivity", unit: "\\Omega\\,m" },
+      {
+        symbol: "\\sigma",
+        meaning: "Electrical conductivity",
+        unit: "\\text{S } m^{-1}",
+      },
+      {
+        symbol: "\\rho",
+        meaning: "Electrical resistivity",
+        unit: "\\Omega\\,m",
+      },
     ],
     assumptions: "Ohmic material under stable physical conditions.",
     mcqShortcuts: [
@@ -128,8 +140,14 @@ export const formulas_p2_ch3 = [
       "Conductivity depends only on material and temperature, not dimensions.",
     ],
     specialCases: [
-      { condition: "R \\to 0", latex: "G \\to \\infty \\text{ (Superconductor)}" },
-      { condition: "\\rho \\to \\infty", latex: "\\sigma \\to 0 \\text{ (Ideal Insulator)}" },
+      {
+        condition: "R \\to 0",
+        latex: "G \\to \\infty \\text{ (Superconductor)}",
+      },
+      {
+        condition: "\\rho \\to \\infty",
+        latex: "\\sigma \\to 0 \\text{ (Ideal Insulator)}",
+      },
     ],
     hasVisualization: false,
   },
@@ -151,7 +169,11 @@ export const formulas_p2_ch3 = [
         meaning: "Resistance at reference temperature T_0",
         unit: "\\Omega",
       },
-      { symbol: "\\alpha", meaning: "Temperature coefficient of resistance", unit: "K^{-1}" },
+      {
+        symbol: "\\alpha",
+        meaning: "Temperature coefficient of resistance",
+        unit: "K^{-1}",
+      },
       { symbol: "T", meaning: "Temperature", unit: "^\\circ C" },
       { symbol: "T_0", meaning: "Reference temperature", unit: "^\\circ C" },
     ],
@@ -163,7 +185,10 @@ export const formulas_p2_ch3 = [
     ],
     specialCases: [
       { condition: "T = T_0", latex: "R_t = R_0" },
-      { condition: "\\alpha < 0", latex: "R_t < R_0 \\text{ (Semiconductors)}" },
+      {
+        condition: "\\alpha < 0",
+        latex: "R_t < R_0 \\text{ (Semiconductors)}",
+      },
     ],
     hasVisualization: false,
   },
@@ -277,7 +302,11 @@ export const formulas_p2_ch3 = [
     nameBn: "শ্রেণী রোধ সংযোজন",
     latex: "R_{s} = R_1 + R_2 + R_3 + \\cdots",
     variables: [
-      { symbol: "R_{s}", meaning: "Equivalent series resistance", unit: "\\Omega" },
+      {
+        symbol: "R_{s}",
+        meaning: "Equivalent series resistance",
+        unit: "\\Omega",
+      },
       {
         symbol: "R_1, R_2, R_3",
         meaning: "Individual resistances",
@@ -305,7 +334,11 @@ export const formulas_p2_ch3 = [
     latex:
       "\\frac{1}{R_{p}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{R_3} + \\cdots",
     variables: [
-      { symbol: "R_{p}", meaning: "Equivalent parallel resistance", unit: "\\Omega" },
+      {
+        symbol: "R_{p}",
+        meaning: "Equivalent parallel resistance",
+        unit: "\\Omega",
+      },
       {
         symbol: "R_1, R_2, R_3",
         meaning: "Individual resistances",
@@ -333,7 +366,11 @@ export const formulas_p2_ch3 = [
     latex: "V = \\varepsilon - Ir",
     variables: [
       { symbol: "V", meaning: "Terminal voltage", unit: "V" },
-      { symbol: "\\varepsilon", meaning: "Electromotive Force (EMF)", unit: "V" },
+      {
+        symbol: "\\varepsilon",
+        meaning: "Electromotive Force (EMF)",
+        unit: "V",
+      },
       { symbol: "I", meaning: "Current", unit: "A" },
       { symbol: "r", meaning: "Internal resistance of cell", unit: "\\Omega" },
     ],
@@ -390,12 +427,24 @@ export const formulas_p2_ch3 = [
     nameBn: "কোষের মিশ্র সমবায়",
     latex: "I = \\frac{m n \\varepsilon}{m R + n r}",
     variables: [
-      { symbol: "I", meaning: "Current through external resistor R", unit: "A" },
+      {
+        symbol: "I",
+        meaning: "Current through external resistor R",
+        unit: "A",
+      },
       { symbol: "n", meaning: "Number of cells in series per row", unit: "" },
       { symbol: "m", meaning: "Number of parallel rows", unit: "" },
-      { symbol: "\\varepsilon", meaning: "EMF of each identical cell", unit: "V" },
+      {
+        symbol: "\\varepsilon",
+        meaning: "EMF of each identical cell",
+        unit: "V",
+      },
       { symbol: "R", meaning: "External resistance", unit: "\\Omega" },
-      { symbol: "r", meaning: "Internal resistance of each cell", unit: "\\Omega" },
+      {
+        symbol: "r",
+        meaning: "Internal resistance of each cell",
+        unit: "\\Omega",
+      },
     ],
     assumptions: "All cells in the grid are identical.",
     mcqShortcuts: [
@@ -403,7 +452,10 @@ export const formulas_p2_ch3 = [
       "Total number of cells in the grid is N = m * n.",
     ],
     specialCases: [
-      { condition: "R = \\frac{nr}{m} \\text{ (Max Power)}", latex: "I_{max} = \\frac{n \\varepsilon}{2R}" },
+      {
+        condition: "R = \\frac{nr}{m} \\text{ (Max Power)}",
+        latex: "I_{max} = \\frac{n \\varepsilon}{2R}",
+      },
     ],
     hasVisualization: false,
   },
@@ -477,9 +529,7 @@ export const formulas_p2_ch3 = [
       "Total length of bridge wire is exactly 1 meter (100 cm).",
       "End resistances at terminal connections are assumed negligible.",
     ],
-    specialCases: [
-      { condition: "l = 50\\text{ cm}", latex: "P = Q" },
-    ],
+    specialCases: [{ condition: "l = 50\\text{ cm}", latex: "P = Q" }],
     hasVisualization: false,
   },
   {
@@ -495,7 +545,11 @@ export const formulas_p2_ch3 = [
         meaning: "EMFs of compared cells",
         unit: "V",
       },
-      { symbol: "l_1, l_2", meaning: "Corresponding balancing lengths", unit: "m" },
+      {
+        symbol: "l_1, l_2",
+        meaning: "Corresponding balancing lengths",
+        unit: "m",
+      },
     ],
     assumptions: "Potential gradient along the wire remains perfectly uniform.",
     mcqShortcuts: [
@@ -518,17 +572,23 @@ export const formulas_p2_ch3 = [
     variables: [
       { symbol: "r", meaning: "Internal resistance of cell", unit: "\\Omega" },
       { symbol: "l_1", meaning: "Balancing length on open circuit", unit: "m" },
-      { symbol: "l_2", meaning: "Balancing length on closed circuit (with shunt R)", unit: "m" },
-      { symbol: "R", meaning: "External shunt resistance connected", unit: "\\Omega" },
+      {
+        symbol: "l_2",
+        meaning: "Balancing length on closed circuit (with shunt R)",
+        unit: "m",
+      },
+      {
+        symbol: "R",
+        meaning: "External shunt resistance connected",
+        unit: "\\Omega",
+      },
     ],
     assumptions: "The driver cell's current remains constant throughout.",
     mcqShortcuts: [
       "Open circuit balancing length (l1) is always larger than closed circuit balancing length (l2).",
       "Direct numerical formula for lab experiment questions.",
     ],
-    specialCases: [
-      { condition: "l_1 = l_2", latex: "r = 0" },
-    ],
+    specialCases: [{ condition: "l_1 = l_2", latex: "r = 0" }],
     hasVisualization: false,
   },
   {

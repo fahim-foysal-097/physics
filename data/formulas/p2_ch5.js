@@ -7,10 +7,18 @@ export const formulas_p2_ch5 = [
     nameBn: "চৌম্বক ফ্লাক্স",
     latex: "\\Phi_B = \\vec{B} \\cdot \\vec{A} = B A \\cos\\theta",
     variables: [
-      { symbol: "\\Phi_B", meaning: "Magnetic flux", unit: "Wb \\text{ (Weber) or } T\\,m^2" },
+      {
+        symbol: "\\Phi_B",
+        meaning: "Magnetic flux",
+        unit: "Wb \\text{ (Weber) or } T\\,m^2",
+      },
       { symbol: "B", meaning: "Magnetic field strength", unit: "T" },
       { symbol: "A", meaning: "Area of the surface loop", unit: "m^2" },
-      { symbol: "\\theta", meaning: "Angle between B field and the normal to surface", unit: "rad" },
+      {
+        symbol: "\\theta",
+        meaning: "Angle between B field and the normal to surface",
+        unit: "rad",
+      },
     ],
     assumptions: "Uniform magnetic field over a flat planar surface.",
     mcqShortcuts: [
@@ -19,8 +27,15 @@ export const formulas_p2_ch5 = [
       "Be careful: If \\alpha is the angle between the B-field and the surface itself, then \\theta = 90^\\circ - \\alpha, so \\Phi_B = B A \\sin\\alpha.",
     ],
     specialCases: [
-      { condition: "\\theta = 0^\\circ\\; (Field\\; normal\\; to\\; surface)", latex: "\\Phi_{max} = B A" },
-      { condition: "\\theta = 90^\\circ\\; (Field\\; parallel\\; to\\; surface)", latex: "\\Phi = 0" },
+      {
+        condition: "\\theta = 0^\\circ\\; (Field\\; normal\\; to\\; surface)",
+        latex: "\\Phi_{max} = B A",
+      },
+      {
+        condition:
+          "\\theta = 90^\\circ\\; (Field\\; parallel\\; to\\; surface)",
+        latex: "\\Phi = 0",
+      },
     ],
     hasVisualization: false,
   },
@@ -32,9 +47,17 @@ export const formulas_p2_ch5 = [
     nameBn: "ফ্যারাডের তাড়িতচৌম্বক আবেশের সূত্র",
     latex: "\\varepsilon = -N \\frac{d\\Phi_B}{dt}",
     variables: [
-      { symbol: "\\varepsilon", meaning: "Induced electromotive force (EMF)", unit: "V" },
+      {
+        symbol: "\\varepsilon",
+        meaning: "Induced electromotive force (EMF)",
+        unit: "V",
+      },
       { symbol: "N", meaning: "Number of turns in coil", unit: "" },
-      { symbol: "d\\Phi_B/dt", meaning: "Time rate of change of magnetic flux", unit: "Wb\\,s^{-1}" },
+      {
+        symbol: "d\\Phi_B/dt",
+        meaning: "Time rate of change of magnetic flux",
+        unit: "Wb\\,s^{-1}",
+      },
     ],
     assumptions: "Conducting loop under a time-varying magnetic field.",
     mcqShortcuts: [
@@ -43,7 +66,10 @@ export const formulas_p2_ch5 = [
       "For a linear change of flux: \\varepsilon = -N \\frac{\\Delta \\Phi_B}{\\Delta t}.",
     ],
     specialCases: [
-      { condition: "Constant flux (d\\Phi_B/dt = 0)", latex: "\\varepsilon = 0" },
+      {
+        condition: "Constant flux (d\\Phi_B/dt = 0)",
+        latex: "\\varepsilon = 0",
+      },
     ],
     hasVisualization: true,
     vizType: "faradays_induction",
@@ -59,18 +85,33 @@ export const formulas_p2_ch5 = [
       { symbol: "\\varepsilon", meaning: "Induced motional EMF", unit: "V" },
       { symbol: "B", meaning: "Magnetic field strength", unit: "T" },
       { symbol: "L", meaning: "Length of conducting rod", unit: "m" },
-      { symbol: "v", meaning: "Velocity of conductor moving in B-field", unit: "m\\,s^{-1}" },
-      { symbol: "\\theta", meaning: "Angle between velocity vector v and field B", unit: "rad" },
+      {
+        symbol: "v",
+        meaning: "Velocity of conductor moving in B-field",
+        unit: "m\\,s^{-1}",
+      },
+      {
+        symbol: "\\theta",
+        meaning: "Angle between velocity vector v and field B",
+        unit: "rad",
+      },
     ],
-    assumptions: "Straight conductor moving with steady velocity perpendicular to its own length in a uniform magnetic field.",
+    assumptions:
+      "Straight conductor moving with steady velocity perpendicular to its own length in a uniform magnetic field.",
     mcqShortcuts: [
       "Induced EMF is maximum when velocity vector is perpendicular to field (\\theta = 90^\\circ).",
       "Used in generating electricity in generators.",
       "An airplane flying horizontally cuts the vertical component of Earth's field, inducing EMF between its wingtips: \\varepsilon = B_v L v.",
     ],
     specialCases: [
-      { condition: "\\theta = 90^\\circ\\; (Perpendicular\\; motion)", latex: "\\varepsilon_{max} = B L v" },
-      { condition: "\\theta = 0^\\circ\\; (Parallel\\; motion)", latex: "\\varepsilon = 0" },
+      {
+        condition: "\\theta = 90^\\circ\\; (Perpendicular\\; motion)",
+        latex: "\\varepsilon_{max} = B L v",
+      },
+      {
+        condition: "\\theta = 0^\\circ\\; (Parallel\\; motion)",
+        latex: "\\varepsilon = 0",
+      },
     ],
     hasVisualization: false,
   },
@@ -80,11 +121,20 @@ export const formulas_p2_ch5 = [
     topic: "Inductance",
     nameEn: "Self inductance",
     nameBn: "স্বকীয় আবেশ গুণাঙ্ক",
-    latex: "L = \\frac{N \\Phi_B}{I},\\qquad \\varepsilon_L = -L \\frac{dI}{dt}",
+    latex:
+      "L = \\frac{N \\Phi_B}{I},\\qquad \\varepsilon_L = -L \\frac{dI}{dt}",
     variables: [
-      { symbol: "L", meaning: "Self-inductance coefficient", unit: "H \\text{ (Henry)}" },
+      {
+        symbol: "L",
+        meaning: "Self-inductance coefficient",
+        unit: "H \\text{ (Henry)}",
+      },
       { symbol: "N", meaning: "Total number of turns in coil", unit: "" },
-      { symbol: "\\Phi_B", meaning: "Magnetic flux through single turn", unit: "Wb" },
+      {
+        symbol: "\\Phi_B",
+        meaning: "Magnetic flux through single turn",
+        unit: "Wb",
+      },
       { symbol: "I", meaning: "Current flowing in coil", unit: "A" },
       { symbol: "\\varepsilon_L", meaning: "Self-induced back EMF", unit: "V" },
     ],
@@ -95,7 +145,10 @@ export const formulas_p2_ch5 = [
       "Self-inductance of a solenoid: L = \\frac{\\mu_0 N^2 A}{l}.",
     ],
     specialCases: [
-      { condition: "Constant current (dI/dt = 0)", latex: "\\varepsilon_L = 0" },
+      {
+        condition: "Constant current (dI/dt = 0)",
+        latex: "\\varepsilon_L = 0",
+      },
     ],
     hasVisualization: false,
   },
@@ -105,22 +158,39 @@ export const formulas_p2_ch5 = [
     topic: "Inductance",
     nameEn: "Mutual inductance",
     nameBn: "পারস্পরিক আবেশ গুণাঙ্ক",
-    latex: "M = \\frac{N_2 \\Phi_2}{I_1},\\qquad \\varepsilon_2 = -M \\frac{dI_1}{dt}",
+    latex:
+      "M = \\frac{N_2 \\Phi_2}{I_1},\\qquad \\varepsilon_2 = -M \\frac{dI_1}{dt}",
     variables: [
-      { symbol: "M", meaning: "Mutual inductance coefficient", unit: "H \\text{ (Henry)}" },
+      {
+        symbol: "M",
+        meaning: "Mutual inductance coefficient",
+        unit: "H \\text{ (Henry)}",
+      },
       { symbol: "N_2", meaning: "Number of turns in secondary coil", unit: "" },
-      { symbol: "\\Phi_2", meaning: "Magnetic flux in secondary coil turn", unit: "Wb" },
+      {
+        symbol: "\\Phi_2",
+        meaning: "Magnetic flux in secondary coil turn",
+        unit: "Wb",
+      },
       { symbol: "I_1", meaning: "Current in primary coil", unit: "A" },
-      { symbol: "\\varepsilon_2", meaning: "Induced EMF in secondary coil", unit: "V" },
+      {
+        symbol: "\\varepsilon_2",
+        meaning: "Induced EMF in secondary coil",
+        unit: "V",
+      },
     ],
-    assumptions: "Two stationary coils magnetically coupled in a linear medium.",
+    assumptions:
+      "Two stationary coils magnetically coupled in a linear medium.",
     mcqShortcuts: [
       "EMF is induced in secondary coil only when current in primary coil changes.",
       "Mutual inductance between two coaxial solenoids: M = \\frac{\\mu_0 N_1 N_2 A}{l}.",
       "Basis of transformers.",
     ],
     specialCases: [
-      { condition: "Steady primary current (dI_1/dt = 0)", latex: "\\varepsilon_2 = 0" },
+      {
+        condition: "Steady primary current (dI_1/dt = 0)",
+        latex: "\\varepsilon_2 = 0",
+      },
     ],
     hasVisualization: false,
   },
@@ -130,16 +200,34 @@ export const formulas_p2_ch5 = [
     topic: "Transformer",
     nameEn: "Transformer relations",
     nameBn: "ট্রান্সফরমারের সূত্র",
-    latex: "\\frac{V_p}{V_s} = \\frac{E_p}{E_s} = \\frac{N_p}{N_s} = \\frac{I_s}{I_p}",
+    latex:
+      "\\frac{V_p}{V_s} = \\frac{E_p}{E_s} = \\frac{N_p}{N_s} = \\frac{I_s}{I_p}",
     variables: [
-      { symbol: "V_p, E_p", meaning: "Primary terminal voltage / EMF", unit: "V" },
-      { symbol: "V_s, E_s", meaning: "Secondary terminal voltage / EMF", unit: "V" },
-      { symbol: "N_p", meaning: "Number of turns in primary winding", unit: "" },
-      { symbol: "N_s", meaning: "Number of turns in secondary winding", unit: "" },
+      {
+        symbol: "V_p, E_p",
+        meaning: "Primary terminal voltage / EMF",
+        unit: "V",
+      },
+      {
+        symbol: "V_s, E_s",
+        meaning: "Secondary terminal voltage / EMF",
+        unit: "V",
+      },
+      {
+        symbol: "N_p",
+        meaning: "Number of turns in primary winding",
+        unit: "",
+      },
+      {
+        symbol: "N_s",
+        meaning: "Number of turns in secondary winding",
+        unit: "",
+      },
       { symbol: "I_p", meaning: "Current in primary winding", unit: "A" },
       { symbol: "I_s", meaning: "Current in secondary winding", unit: "A" },
     ],
-    assumptions: "Ideal transformer (100% efficiency, zero flux leakage, zero resistance losses).",
+    assumptions:
+      "Ideal transformer (100% efficiency, zero flux leakage, zero resistance losses).",
     mcqShortcuts: [
       "Efficiency: \\eta = \\frac{P_{out}}{P_{in}} = \\frac{V_s I_s}{V_p I_p}.",
       "For a step-up transformer: N_s > N_p \\implies V_s > V_p \\implies I_s < I_p.",
@@ -147,7 +235,10 @@ export const formulas_p2_ch5 = [
       "Frequency of AC voltage does NOT change in a transformer.",
     ],
     specialCases: [
-      { condition: "Ideal Transformer", latex: "P_p = P_s\\; \\text{(Power is conserved)}" },
+      {
+        condition: "Ideal Transformer",
+        latex: "P_p = P_s\\; \\text{(Power is conserved)}",
+      },
     ],
     hasVisualization: false,
   },
@@ -159,9 +250,21 @@ export const formulas_p2_ch5 = [
     nameBn: "পর্যায়বৃত্ত প্রবাহের তাৎক্ষণিক সমীকরণ",
     latex: "E = E_0 \\sin(\\omega t),\\qquad I = I_0 \\sin(\\omega t + \\phi)",
     variables: [
-      { symbol: "E, I", meaning: "Instantaneous EMF and current at time t", unit: "V, A" },
-      { symbol: "E_0, I_0", meaning: "Peak EMF and current (amplitude)", unit: "V, A" },
-      { symbol: "\\omega", meaning: "Angular frequency (2 \\pi f)", unit: "rad\\,s^{-1}" },
+      {
+        symbol: "E, I",
+        meaning: "Instantaneous EMF and current at time t",
+        unit: "V, A",
+      },
+      {
+        symbol: "E_0, I_0",
+        meaning: "Peak EMF and current (amplitude)",
+        unit: "V, A",
+      },
+      {
+        symbol: "\\omega",
+        meaning: "Angular frequency (2 \\pi f)",
+        unit: "rad\\,s^{-1}",
+      },
       { symbol: "t", meaning: "Time", unit: "s" },
       { symbol: "\\phi", meaning: "Phase angle relative to EMF", unit: "rad" },
     ],
@@ -173,7 +276,10 @@ export const formulas_p2_ch5 = [
       "In purely capacitive circuit, current leads voltage by 90^\\circ (\\phi = \\pi/2).",
     ],
     specialCases: [
-      { condition: "Phase difference \\phi = 90^\\circ", latex: "I = I_0 \\cos(\\omega t)" },
+      {
+        condition: "Phase difference \\phi = 90^\\circ",
+        latex: "I = I_0 \\cos(\\omega t)",
+      },
     ],
     hasVisualization: false,
   },
@@ -183,14 +289,32 @@ export const formulas_p2_ch5 = [
     topic: "Alternating Current",
     nameEn: "RMS and average metrics",
     nameBn: "কার্যকরী ও গড় মানসমূহ",
-    latex: "I_{rms} = I_{eff} = \\frac{I_0}{\\sqrt{2}},\\quad E_{rms} = E_{eff} = \\frac{E_0}{\\sqrt{2}},\\quad I_{avg} = \\frac{2 I_0}{\\pi}",
+    latex:
+      "I_{rms} = I_{eff} = \\frac{I_0}{\\sqrt{2}},\\quad E_{rms} = E_{eff} = \\frac{E_0}{\\sqrt{2}},\\quad I_{avg} = \\frac{2 I_0}{\\pi}",
     variables: [
-      { symbol: "I_{rms}, E_{rms}", meaning: "Root Mean Square (effective) values", unit: "A, V" },
-      { symbol: "I_{eff}, E_{eff}", meaning: "Effective current and EMF", unit: "A, V" },
-      { symbol: "I_{avg}", meaning: "Average current over a positive half cycle", unit: "A" },
-      { symbol: "I_0, E_0", meaning: "Peak current and voltage values", unit: "A, V" },
+      {
+        symbol: "I_{rms}, E_{rms}",
+        meaning: "Root Mean Square (effective) values",
+        unit: "A, V",
+      },
+      {
+        symbol: "I_{eff}, E_{eff}",
+        meaning: "Effective current and EMF",
+        unit: "A, V",
+      },
+      {
+        symbol: "I_{avg}",
+        meaning: "Average current over a positive half cycle",
+        unit: "A",
+      },
+      {
+        symbol: "I_0, E_0",
+        meaning: "Peak current and voltage values",
+        unit: "A, V",
+      },
     ],
-    assumptions: "Symmetrical sinusoidal alternating current wave over half and full cycles.",
+    assumptions:
+      "Symmetrical sinusoidal alternating current wave over half and full cycles.",
     mcqShortcuts: [
       "RMS values represent the equivalent DC values that produce the same heating effect: I_{rms} \\approx 0.707 I_0.",
       "Average value of AC over a complete full cycle is exactly zero.",
@@ -209,24 +333,47 @@ export const formulas_p2_ch5 = [
     topic: "LCR Circuit",
     nameEn: "Impedance in LCR series circuit",
     nameBn: "LCR শ্রেণী বর্তনীর প্রতিবন্ধকতা",
-    latex: "Z = \\sqrt{R^2 + (X_L - X_C)^2},\\qquad \\tan\\phi = \\frac{X_L - X_C}{R}",
+    latex:
+      "Z = \\sqrt{R^2 + (X_L - X_C)^2},\\qquad \\tan\\phi = \\frac{X_L - X_C}{R}",
     variables: [
       { symbol: "Z", meaning: "Total circuit impedance", unit: "\\Omega" },
       { symbol: "R", meaning: "Ohmic resistance", unit: "\\Omega" },
-      { symbol: "X_L", meaning: "Inductive reactance (\\omega L)", unit: "\\Omega" },
-      { symbol: "X_C", meaning: "Capacitive reactance (1 / (\\omega C))", unit: "\\Omega" },
-      { symbol: "\\phi", meaning: "Phase difference between current and voltage", unit: "rad" },
+      {
+        symbol: "X_L",
+        meaning: "Inductive reactance (\\omega L)",
+        unit: "\\Omega",
+      },
+      {
+        symbol: "X_C",
+        meaning: "Capacitive reactance (1 / (\\omega C))",
+        unit: "\\Omega",
+      },
+      {
+        symbol: "\\phi",
+        meaning: "Phase difference between current and voltage",
+        unit: "rad",
+      },
     ],
-    assumptions: "Series connection of Resistor, Inductor, and Capacitor with sinusoidal AC source.",
+    assumptions:
+      "Series connection of Resistor, Inductor, and Capacitor with sinusoidal AC source.",
     mcqShortcuts: [
       "Inductive Reactance: X_L = 2\\pi f L. Reactance increases with frequency.",
       "Capacitive Reactance: X_C = 1 / (2\\pi f C). Reactance decreases with frequency. (For DC, f=0, X_C = \\infty - blocks DC!).",
       "Power factor of LCR circuit is \\cos\\phi = R / Z. Real power dissipated is P = V_{rms} I_{rms} \\cos\\phi.",
     ],
     specialCases: [
-      { condition: "Purely resistive (X_L = X_C = 0)", latex: "Z = R,\\quad \\phi = 0" },
-      { condition: "Inductive dominant (X_L > X_C)", latex: "\\phi > 0\\; \\text{(Current lags voltage)}" },
-      { condition: "Capacitive dominant (X_C > X_L)", latex: "\\phi < 0\\; \\text{(Current leads voltage)}" },
+      {
+        condition: "Purely resistive (X_L = X_C = 0)",
+        latex: "Z = R,\\quad \\phi = 0",
+      },
+      {
+        condition: "Inductive dominant (X_L > X_C)",
+        latex: "\\phi > 0\\; \\text{(Current lags voltage)}",
+      },
+      {
+        condition: "Capacitive dominant (X_C > X_L)",
+        latex: "\\phi < 0\\; \\text{(Current leads voltage)}",
+      },
     ],
     hasVisualization: false,
   },
@@ -242,7 +389,8 @@ export const formulas_p2_ch5 = [
       { symbol: "L", meaning: "Inductance of coil", unit: "H" },
       { symbol: "C", meaning: "Capacitance of capacitor", unit: "F" },
     ],
-    assumptions: "Series LCR circuit in resonance condition where reactance cancels out.",
+    assumptions:
+      "Series LCR circuit in resonance condition where reactance cancels out.",
     mcqShortcuts: [
       "At resonance, Inductive reactance equals Capacitive reactance (X_L = X_C).",
       "Impedance is minimum and purely resistive (Z = R).",
@@ -250,7 +398,10 @@ export const formulas_p2_ch5 = [
       "Quality Factor (Q-factor): Q = \\frac{1}{R} \\sqrt{\\frac{L}{C}} = \\frac{\\omega_0 L}{R}, representing sharpness of resonance.",
     ],
     specialCases: [
-      { condition: "Resonance (X_L = X_C)", latex: "Z = R,\\quad \\cos\\phi = 1,\\quad I_0 = \\frac{V_0}{R}" },
+      {
+        condition: "Resonance (X_L = X_C)",
+        latex: "Z = R,\\quad \\cos\\phi = 1,\\quad I_0 = \\frac{V_0}{R}",
+      },
     ],
     hasVisualization: true,
     vizType: "lcr_resonance",

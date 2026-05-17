@@ -29,7 +29,8 @@ export const p2_ch11_sims = {
       const count = 18;
       // Define a stable set of random polar offsets from the home galaxy
       for (let i = 0; i < count; i++) {
-        const angle = (i * sketch.TWO_PI) / 8 + sketch.random(-0.15, 0.15) + (i * 0.1);
+        const angle =
+          (i * sketch.TWO_PI) / 8 + sketch.random(-0.15, 0.15) + i * 0.1;
         const baseR = sketch.random(25, 90);
         tempGalaxies.push({
           angle: angle,
@@ -43,7 +44,7 @@ export const p2_ch11_sims = {
       sketch.resetStar = () => {
         const leftCenterX = sketch.width * 0.28;
         const centerY = sketch.height / 2 + 10;
-        
+
         // Initial state of the orbiting star
         sketch.starX = leftCenterX;
         sketch.starY = centerY - 75; // Start above the black hole
@@ -62,7 +63,8 @@ export const p2_ch11_sims = {
         // regenerate
         const tempGalaxies = [];
         for (let i = 0; i < 18; i++) {
-          const angle = (i * sketch.TWO_PI) / 8 + sketch.random(-0.15, 0.15) + (i * 0.1);
+          const angle =
+            (i * sketch.TWO_PI) / 8 + sketch.random(-0.15, 0.15) + i * 0.1;
           const baseR = sketch.random(25, 90);
           tempGalaxies.push({
             angle: angle,
@@ -96,14 +98,14 @@ export const p2_ch11_sims = {
       sketch.stroke(226, 232, 240);
       sketch.strokeWeight(1);
       sketch.rect(x, y, pillWidth, 36, 18);
-      
+
       sketch.noStroke();
       sketch.fill(100, 116, 139);
       sketch.textSize(9);
       sketch.textStyle(sketch.BOLD);
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(label, x + 15, y + 18);
-      
+
       sketch.fill(37, 99, 235);
       sketch.textSize(12);
       sketch.textStyle(sketch.BOLD);
@@ -137,16 +139,22 @@ export const p2_ch11_sims = {
         const scaleVal = sketch.scale;
 
         drawTitle("Cosmic Expansion: Hubble's Law v = H₀ d");
-        drawHUDPill(w - 185, 12, "SCALE FACTOR", `${scaleVal.toFixed(2)}x`, 160);
+        drawHUDPill(
+          w - 185,
+          12,
+          "SCALE FACTOR",
+          `${scaleVal.toFixed(2)}x`,
+          160,
+        );
 
         // Draw separation boundary line
         sketch.stroke(226, 232, 240);
         sketch.strokeWeight(1.5);
-        sketch.line(w * 0.50, 60, w * 0.50, h - 25);
+        sketch.line(w * 0.5, 60, w * 0.5, h - 25);
 
         // --- Left Half: Expandable Grid ---
         sketch.push();
-        
+
         // Draw concentric expansion guidelines
         sketch.stroke(203, 213, 225, 60);
         sketch.strokeWeight(1);
@@ -173,7 +181,7 @@ export const p2_ch11_sims = {
           sketch.stroke(16, 185, 129, 180); // Green velocity vector
           sketch.strokeWeight(1.5);
           sketch.line(gx, gy, arrowX, arrowY);
-          
+
           sketch.push();
           sketch.translate(arrowX, arrowY);
           sketch.rotate(g.angle);
@@ -204,7 +212,7 @@ export const p2_ch11_sims = {
         sketch.textStyle(sketch.BOLD);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.text("Milky Way (Home)", leftCenterX, centerY + 12);
-        
+
         sketch.pop();
 
         // --- Right Half: v vs d Cartesian Plot ---
@@ -228,7 +236,7 @@ export const p2_ch11_sims = {
         sketch.textStyle(sketch.BOLD);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.text("Distance d (Mpc)", gx + gw / 2, gy + gh + 6);
-        
+
         sketch.textAlign(sketch.RIGHT, sketch.CENTER);
         sketch.text("v (km/s)", gx - 8, gy + gh / 2);
         sketch.pop();
@@ -239,10 +247,10 @@ export const p2_ch11_sims = {
         sketch.strokeWeight(2);
         const maxD = (150 * 1.7) / 50; // max distance on graph
         const maxV = H0 * maxD;
-        
+
         const lineEndX = sketch.map(maxD, 0, 4, gx, gx + gw);
         const lineEndY = sketch.map(maxV, 0, 350, gy + gh, gy);
-        
+
         sketch.line(gx, gy + gh, lineEndX, lineEndY);
         sketch.pop();
 
@@ -262,7 +270,7 @@ export const p2_ch11_sims = {
             sketch.circle(dotX, dotY, 6);
           }
         });
-        
+
         // Display H0 slope text on right side
         sketch.fill(14, 165, 233);
         sketch.textSize(10);
@@ -280,7 +288,7 @@ export const p2_ch11_sims = {
 
         const leftCenterX = w * 0.28;
         const centerY = h / 2 + 10;
-        const leftBoxW = w * 0.50 - 40;
+        const leftBoxW = w * 0.5 - 40;
 
         // Schwarzschild Radius: Rs = 2GM/c^2
         // G = 15.0 for scale
@@ -289,12 +297,18 @@ export const p2_ch11_sims = {
         const Rs_px = Rs_val * 16; // scaled for pixels
 
         drawTitle("Orbit Trajectory near Schwarzschild Radius Rs");
-        drawHUDPill(w - 185, 12, "EVENT HORIZON (Rs)", `${Rs_val.toFixed(2)} m`, 160);
+        drawHUDPill(
+          w - 185,
+          12,
+          "EVENT HORIZON (Rs)",
+          `${Rs_val.toFixed(2)} m`,
+          160,
+        );
 
         // Separation line
         sketch.stroke(226, 232, 240);
         sketch.strokeWeight(1.5);
-        sketch.line(w * 0.50, 60, w * 0.50, h - 25);
+        sketch.line(w * 0.5, 60, w * 0.5, h - 25);
 
         // --- Left Half: Orbit Simulation ---
         sketch.push();
@@ -309,7 +323,12 @@ export const p2_ch11_sims = {
         if (!sketch.isCaptured) {
           const dx = sketch.starX - leftCenterX;
           const dy = sketch.starY - centerY;
-          const r_dist = sketch.dist(sketch.starX, sketch.starY, leftCenterX, centerY);
+          const r_dist = sketch.dist(
+            sketch.starX,
+            sketch.starY,
+            leftCenterX,
+            centerY,
+          );
           const r_val = r_dist / 16; // convert back to formula units
 
           if (r_dist < Rs_px) {
@@ -321,7 +340,7 @@ export const p2_ch11_sims = {
             // a = -GM / r^2 * (1 + 3L^2 / (r^2 c^2))
             // To simplify and ensure stability:
             const forceMag = (G * M) / (r_val * r_val);
-            
+
             // Relativistic correction term (adds orbital precession!)
             // L is angular momentum. Let's model it as a subtle scaling
             const L2 = 18.0;
@@ -347,7 +366,7 @@ export const p2_ch11_sims = {
           sketch.captureTimer--;
           const dx = sketch.starX - leftCenterX;
           const dy = sketch.starY - centerY;
-          
+
           sketch.starX -= dx * 0.15;
           sketch.starY -= dy * 0.15;
 
@@ -363,7 +382,7 @@ export const p2_ch11_sims = {
         const pulse = 10 + 5 * Math.sin(sketch.frameCount * 0.05);
         sketch.fill(249, 115, 22, 40); // vibrant orange
         sketch.circle(leftCenterX, centerY, Rs_px * 2.5 + pulse);
-        
+
         sketch.fill(249, 115, 22, 110);
         sketch.circle(leftCenterX, centerY, Rs_px * 1.8);
         sketch.pop();
@@ -389,7 +408,7 @@ export const p2_ch11_sims = {
         sketch.stroke(14, 165, 233, 160); // Glowing cyan trail
         sketch.strokeWeight(1.8);
         sketch.beginShape();
-        sketch.starTrail.forEach(pt => sketch.vertex(pt.x, pt.y));
+        sketch.starTrail.forEach((pt) => sketch.vertex(pt.x, pt.y));
         sketch.endShape();
         sketch.pop();
 
@@ -410,12 +429,17 @@ export const p2_ch11_sims = {
           const velScale = 10;
           const vx_px = sketch.starVX * velScale;
           const vy_px = sketch.starVY * velScale;
-          
+
           sketch.stroke(16, 185, 129);
           sketch.strokeWeight(1.8);
           sketch.fill(16, 185, 129);
-          sketch.line(sketch.starX, sketch.starY, sketch.starX + vx_px, sketch.starY + vy_px);
-          
+          sketch.line(
+            sketch.starX,
+            sketch.starY,
+            sketch.starX + vx_px,
+            sketch.starY + vy_px,
+          );
+
           // arrow head
           const ang = Math.atan2(vy_px, vx_px);
           sketch.translate(sketch.starX + vx_px, sketch.starY + vy_px);
@@ -432,7 +456,11 @@ export const p2_ch11_sims = {
           sketch.textSize(12);
           sketch.textStyle(sketch.BOLD);
           sketch.textAlign(sketch.CENTER, sketch.CENTER);
-          sketch.text("GRAVITATIONAL COLLAPSE!", leftCenterX, centerY - Rs_px - 22);
+          sketch.text(
+            "GRAVITATIONAL COLLAPSE!",
+            leftCenterX,
+            centerY - Rs_px - 22,
+          );
           sketch.pop();
         }
 
@@ -444,14 +472,20 @@ export const p2_ch11_sims = {
         // Current distance and speed metrics
         const dx = sketch.starX - leftCenterX;
         const dy = sketch.starY - centerY;
-        const r_dist = sketch.dist(sketch.starX, sketch.starY, leftCenterX, centerY);
+        const r_dist = sketch.dist(
+          sketch.starX,
+          sketch.starY,
+          leftCenterX,
+          centerY,
+        );
         const r_val = r_dist / 16;
-        const star_speed = sketch.dist(0, 0, sketch.starVX, sketch.starVY) * 1.5;
+        const star_speed =
+          sketch.dist(0, 0, sketch.starVX, sketch.starVY) * 1.5;
 
         sketch.push();
         sketch.noStroke();
         sketch.textAlign(sketch.LEFT, sketch.TOP);
-        
+
         sketch.fill(30, 41, 59);
         sketch.textSize(13);
         sketch.textStyle(sketch.BOLD);
@@ -463,23 +497,43 @@ export const p2_ch11_sims = {
         sketch.fill(71, 85, 105);
 
         const textLines = [
-          { label: "Black Hole Mass (M):", val: `${M.toFixed(1)} Solar Masses`, col: "#7c3aed" },
-          { label: "Speed of Light (c):", val: `${c.toFixed(1)} * 10^7 m/s`, col: "#ef4444" },
-          { label: "Schwarzschild Radius (Rs):", val: `${Rs_val.toFixed(2)} meters`, col: "#2563eb" },
-          { label: "Current Orbit Radius (r):", val: `${r_val.toFixed(2)} meters`, col: "#0ea5e9" },
-          { label: "Orbital Speed (v):", val: `${star_speed.toFixed(2)} * 10^4 m/s`, col: "#10b981" },
+          {
+            label: "Black Hole Mass (M):",
+            val: `${M.toFixed(1)} Solar Masses`,
+            col: "#7c3aed",
+          },
+          {
+            label: "Speed of Light (c):",
+            val: `${c.toFixed(1)} * 10^7 m/s`,
+            col: "#ef4444",
+          },
+          {
+            label: "Schwarzschild Radius (Rs):",
+            val: `${Rs_val.toFixed(2)} meters`,
+            col: "#2563eb",
+          },
+          {
+            label: "Current Orbit Radius (r):",
+            val: `${r_val.toFixed(2)} meters`,
+            col: "#0ea5e9",
+          },
+          {
+            label: "Orbital Speed (v):",
+            val: `${star_speed.toFixed(2)} * 10^4 m/s`,
+            col: "#10b981",
+          },
         ];
 
         let lineY = ry + 30;
         textLines.forEach((item) => {
           sketch.fill(100, 116, 139);
           sketch.text(item.label, rx, lineY);
-          
+
           sketch.fill(item.col);
           sketch.textStyle(sketch.BOLD);
           sketch.text(item.val, rx + 185, lineY);
           sketch.textStyle(sketch.NORMAL);
-          
+
           lineY += 24;
         });
 
@@ -487,9 +541,21 @@ export const p2_ch11_sims = {
         sketch.fill(100, 116, 139);
         sketch.textSize(10);
         sketch.textStyle(sketch.ITALIC);
-        sketch.text("* Observe how increasing Mass (M) directly inflates\n  the Event Horizon radius Rs.", rx, lineY + 10);
-        sketch.text("* Decreasing speed of light (c) also inflates Rs.", rx, lineY + 38);
-        sketch.text("* Watch the orbit precess (shift axis) when very\n  close to Rs due to general relativity correction!", rx, lineY + 54);
+        sketch.text(
+          "* Observe how increasing Mass (M) directly inflates\n  the Event Horizon radius Rs.",
+          rx,
+          lineY + 10,
+        );
+        sketch.text(
+          "* Decreasing speed of light (c) also inflates Rs.",
+          rx,
+          lineY + 38,
+        );
+        sketch.text(
+          "* Watch the orbit precess (shift axis) when very\n  close to Rs due to general relativity correction!",
+          rx,
+          lineY + 54,
+        );
         sketch.pop();
 
         break;

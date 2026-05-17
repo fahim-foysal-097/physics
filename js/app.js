@@ -69,18 +69,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     "#mobileSidebar .offcanvas-body",
   );
   let sidebarHtml = document.getElementById("sidebar").innerHTML;
-  
+
   // Replace IDs to prevent duplication on mobile and make Bootstrap tabs work
   sidebarHtml = sidebarHtml.replace(/id="paperTabs"/g, 'id="mobilePaperTabs"');
-  sidebarHtml = sidebarHtml.replace(/id="paper1-tab"/g, 'id="mobilePaper1-tab"');
-  sidebarHtml = sidebarHtml.replace(/id="paper2-tab"/g, 'id="mobilePaper2-tab"');
+  sidebarHtml = sidebarHtml.replace(
+    /id="paper1-tab"/g,
+    'id="mobilePaper1-tab"',
+  );
+  sidebarHtml = sidebarHtml.replace(
+    /id="paper2-tab"/g,
+    'id="mobilePaper2-tab"',
+  );
   sidebarHtml = sidebarHtml.replace(/id="paper1"/g, 'id="mobilePaper1"');
   sidebarHtml = sidebarHtml.replace(/id="paper2"/g, 'id="mobilePaper2"');
-  sidebarHtml = sidebarHtml.replace(/data-bs-target="#paper1"/g, 'data-bs-target="#mobilePaper1"');
-  sidebarHtml = sidebarHtml.replace(/data-bs-target="#paper2"/g, 'data-bs-target="#mobilePaper2"');
-  sidebarHtml = sidebarHtml.replace(/id="chaptersPaper1"/g, 'id="mobileChaptersPaper1"');
-  sidebarHtml = sidebarHtml.replace(/id="chaptersPaper2"/g, 'id="mobileChaptersPaper2"');
-  
+  sidebarHtml = sidebarHtml.replace(
+    /data-bs-target="#paper1"/g,
+    'data-bs-target="#mobilePaper1"',
+  );
+  sidebarHtml = sidebarHtml.replace(
+    /data-bs-target="#paper2"/g,
+    'data-bs-target="#mobilePaper2"',
+  );
+  sidebarHtml = sidebarHtml.replace(
+    /id="chaptersPaper1"/g,
+    'id="mobileChaptersPaper1"',
+  );
+  sidebarHtml = sidebarHtml.replace(
+    /id="chaptersPaper2"/g,
+    'id="mobileChaptersPaper2"',
+  );
+
   mobileSidebarBody.innerHTML = sidebarHtml;
 
   // Re-bind click event listeners to list-group items in mobile sidebar
@@ -98,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           document
             .querySelectorAll(".chapter-list .list-group-item")
             .forEach((el) => el.classList.remove("active"));
-          
+
           const desktopItems = document.querySelectorAll(
             "#sidebar .chapter-list .list-group-item",
           );

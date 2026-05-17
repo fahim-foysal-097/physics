@@ -621,21 +621,56 @@ export const renderManager = {
       { id: "R", label: "Resistance (R)", min: 1, max: 20, val: 6, step: 0.5 },
     ],
     straight_wire_field: [
-      { id: "I", label: "Current (I)", min: -10.0, max: 10.0, val: 5.0, step: 0.5 },
+      {
+        id: "I",
+        label: "Current (I)",
+        min: -10.0,
+        max: 10.0,
+        val: 5.0,
+        step: 0.5,
+      },
       { id: "r", label: "Distance (r)", min: 20, max: 180, val: 80, step: 1 },
       { id: "reset", label: "Reset Wire View", type: "button" },
     ],
     charged_particle_magnetic_field: [
-      { id: "B", label: "B Field Strength", min: -10.0, max: 10.0, val: 4.0, step: 0.5 },
-      { id: "q", label: "Charge (q)", min: -5.0, max: 5.0, val: 2.0, step: 0.2 },
+      {
+        id: "B",
+        label: "B Field Strength",
+        min: -10.0,
+        max: 10.0,
+        val: 4.0,
+        step: 0.5,
+      },
+      {
+        id: "q",
+        label: "Charge (q)",
+        min: -5.0,
+        max: 5.0,
+        val: 2.0,
+        step: 0.2,
+      },
       { id: "m", label: "Mass (m)", min: 1.0, max: 10.0, val: 5.0, step: 0.2 },
-      { id: "v", label: "Velocity (v)", min: 1.0, max: 15.0, val: 6.0, step: 0.5 },
+      {
+        id: "v",
+        label: "Velocity (v)",
+        min: 1.0,
+        max: 15.0,
+        val: 6.0,
+        step: 0.5,
+      },
       { id: "resetParticle", label: "Re-Inject Particle", type: "button" },
       { id: "reset", label: "Reset All", type: "button" },
     ],
     faradays_induction: [
       { id: "N", label: "Coil Turns (N)", min: 1, max: 5, val: 3, step: 1 },
-      { id: "magnetSpeed", label: "Magnet Osc Speed", min: 0.0, max: 3.0, val: 1.0, step: 0.1 },
+      {
+        id: "magnetSpeed",
+        label: "Magnet Osc Speed",
+        min: 0.0,
+        max: 3.0,
+        val: 1.0,
+        step: 0.1,
+      },
       {
         id: "autoPlay",
         label: "Auto Oscillate Magnet",
@@ -650,21 +685,187 @@ export const renderManager = {
     ],
     lcr_resonance: [
       { id: "R", label: "Resistance (R)", min: 2, max: 30, val: 10, step: 0.5 },
-      { id: "L", label: "Inductance L (mH)", min: 20, max: 300, val: 120, step: 5 },
-      { id: "C", label: "Capacitance C (μF)", min: 5, max: 100, val: 40, step: 1 },
-      { id: "freq", label: "AC Freq f (Hz)", min: 10, max: 200, val: 60, step: 2 },
+      {
+        id: "L",
+        label: "Inductance L (mH)",
+        min: 20,
+        max: 300,
+        val: 120,
+        step: 5,
+      },
+      {
+        id: "C",
+        label: "Capacitance C (μF)",
+        min: 5,
+        max: 100,
+        val: 40,
+        step: 1,
+      },
+      {
+        id: "freq",
+        label: "AC Freq f (Hz)",
+        min: 10,
+        max: 200,
+        val: 60,
+        step: 2,
+      },
       { id: "reset", label: "Reset LCR", type: "button" },
     ],
     hubbles_law: [
-      { id: "H0", label: "Hubble Const H₀", min: 40, max: 100, val: 70, step: 1 },
+      {
+        id: "H0",
+        label: "Hubble Const H₀",
+        min: 40,
+        max: 100,
+        val: 70,
+        step: 1,
+      },
       { id: "reset", label: "Reset Galaxies", type: "button" },
     ],
     black_hole_gravity: [
-      { id: "M", label: "BH Mass (M)", min: 1.0, max: 8.0, val: 4.0, step: 0.2 },
-      { id: "c", label: "Light Speed (c)", min: 8.0, max: 20.0, val: 12.0, step: 0.2 },
+      {
+        id: "M",
+        label: "BH Mass (M)",
+        min: 1.0,
+        max: 8.0,
+        val: 4.0,
+        step: 0.2,
+      },
+      {
+        id: "c",
+        label: "Light Speed (c)",
+        min: 8.0,
+        max: 20.0,
+        val: 12.0,
+        step: 0.2,
+      },
       { id: "resetStar", label: "Re-Orbit Star", type: "button" },
       { id: "reset", label: "Reset Space Time", type: "button" },
     ],
+    relativity_dilation: [
+      {
+        id: "beta",
+        label: "Velocity v/c",
+        min: 0.1,
+        max: 0.99,
+        val: 0.6,
+        step: 0.01,
+      },
+      { id: "reset", label: "Reset Clock", type: "button" },
+    ],
+    photoelectric_effect: [
+      {
+        id: "wavelength",
+        label: "Wavelength λ (nm)",
+        min: 200,
+        max: 750,
+        val: 380,
+        step: 5,
+      },
+      {
+        id: "intensity",
+        label: "Light Intensity (%)",
+        min: 10,
+        max: 100,
+        val: 50,
+        step: 5,
+      },
+      {
+        id: "workFunction",
+        label: "Work Function Φ (eV)",
+        min: 1.5,
+        max: 5.0,
+        val: 2.3,
+        step: 0.1,
+      },
+      {
+        id: "voltage",
+        label: "Anode Voltage V (V)",
+        min: -4.0,
+        max: 4.0,
+        val: 0.0,
+        step: 0.1,
+      },
+    ],
+    xray_production: [
+      {
+        id: "tubeVoltage",
+        label: "Tube Voltage V (kV)",
+        min: 10,
+        max: 50,
+        val: 30,
+        step: 1,
+      },
+    ],
+    bohr_atom: [
+      {
+        id: "n_level",
+        label: "Target Orbit n",
+        min: 1,
+        max: 5,
+        val: 2,
+        step: 1,
+      },
+      { id: "triggerJump", label: "Perform Transition", type: "button" },
+    ],
+    radioactive_decay: [
+      {
+        id: "halfLife",
+        label: "Half-Life T₁/₂ (sec)",
+        min: 1.0,
+        max: 8.0,
+        val: 3.0,
+        step: 0.2,
+      },
+      { id: "reset", label: "Reset Grid & Decay", type: "button" },
+    ],
+    pn_junction: [
+      {
+        id: "bias",
+        label: "DC Bias V (V)",
+        min: -4.0,
+        max: 2.0,
+        val: 0.8,
+        step: 0.1,
+      },
+      {
+        id: "circuitMode",
+        label: "View Mode",
+        type: "radio",
+        options: [
+          { label: "Carrier Junction", val: 0 },
+          { label: "AC Rectifier", val: 1 },
+        ],
+        val: 0,
+      },
+    ],
+    transistor_amplifier: [
+      {
+        id: "ib",
+        label: "Base Current I_b (μA)",
+        min: 5,
+        max: 60,
+        val: 20,
+        step: 1,
+      },
+      {
+        id: "beta",
+        label: "Current Gain β",
+        min: 50,
+        max: 250,
+        val: 120,
+        step: 5,
+      },
+      {
+        id: "rl",
+        label: "Load Resistor R_L (kΩ)",
+        min: 1.0,
+        max: 8.0,
+        val: 4.0,
+        step: 0.2,
+      },
+    ],
+    logic_gates: [],
   },
 
   /**
@@ -682,10 +883,56 @@ export const renderManager = {
       labFormulas = labFormulas.filter((f) => f.chapterId === filterChapterId);
     }
 
+    // Deduplicate by vizType so each unique simulation only appears once
+    const seenVizTypes = new Set();
+    labFormulas = labFormulas.filter((f) => {
+      if (seenVizTypes.has(f.vizType)) return false;
+      seenVizTypes.add(f.vizType);
+      return true;
+    });
+
     if (labFormulas.length === 0) {
       grid.innerHTML = `<div class="col-12 text-center py-5 text-muted">No simulations found for this selection.</div>`;
       return;
     }
+
+    const simTitles = {
+      // Chapter 8
+      relativity_dilation: {
+        en: "Relativity: Time Dilation & Length Contraction",
+        topic: "Modern Physics (আধুনিক পদার্থবিজ্ঞান)",
+      },
+      photoelectric_effect: {
+        en: "Photoelectric Effect Experiment",
+        topic: "Modern Physics (আধুনিক পদার্থবিজ্ঞান)",
+      },
+      xray_production: {
+        en: "X-Ray Production & Spectrum",
+        topic: "Modern Physics (আধুনিক পদার্থবিজ্ঞান)",
+      },
+      // Chapter 9
+      bohr_atom: {
+        en: "Bohr Hydrogen Atom & Spectral Lines",
+        topic: "Atoms & Nucleus (পরমাণু ও নিউক্লিয়াস)",
+      },
+      radioactive_decay: {
+        en: "Radioactive Decay Simulation",
+        topic: "Atoms & Nucleus (পরমাণু ও নিউক্লিয়াস)",
+      },
+      // Chapter 10
+      pn_junction: {
+        en: "P-N Junction & AC Rectifier",
+        topic: "Semiconductors (সেমিকন্ডাক্টর)",
+      },
+      transistor_amplifier: {
+        en: "Transistor Common Emitter Amplifier",
+        topic: "Semiconductors (সেমিকন্ডাক্টর)",
+      },
+      logic_gates: {
+        en: "Interactive Logic Gates Sandbox",
+        topic: "Digital Electronics (ডিজিটাল ইলেকট্রনিক্স)",
+      },
+    };
 
     labFormulas.forEach((formula, i) => {
       const col = document.createElement("div");
@@ -695,16 +942,20 @@ export const renderManager = {
       const cardId = `lab-viz-${formula.id}-${i}`; // More unique ID
       const controlsId = `lab-ctrl-${formula.id}-${i}`;
 
+      const customTitle = simTitles[formula.vizType];
+      const cardTitle = customTitle ? customTitle.en : formula.nameEn;
+      const cardTopic = customTitle ? customTitle.topic : formula.topic;
+
       col.innerHTML = `
                 <div class="formula-card h-100 p-0 overflow-hidden shadow-sm">
                     <div class="p-3 border-bottom bg-light d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="m-0 fs-6">${formula.nameEn}</h5>
-                            <small class="text-muted">${formula.topic}</small>
+                            <h5 class="m-0 fs-6">${cardTitle}</h5>
+                            <small class="text-muted">${cardTopic}</small>
                         </div>
                         <span class="badge bg-primary-light text-primary rounded-pill px-3">Lab</span>
                     </div>
-                    <div class="p-3 bg-white border-bottom ${renderManager.vizConfig[formula.vizType] ? "" : "d-none"}" id="${controlsId}">
+                    <div class="p-3 bg-white border-bottom ${renderManager.vizConfig[formula.vizType] && renderManager.vizConfig[formula.vizType].length > 0 ? "" : "d-none"}" id="${controlsId}">
                         <!-- Controls will be injected here -->
                     </div>
                     <div class="bg-light d-flex justify-content-center align-items-center" id="${cardId}" style="height: 380px; min-height: 380px;">
@@ -716,7 +967,10 @@ export const renderManager = {
       grid.appendChild(col);
 
       // Setup Controls for this specific card
-      if (renderManager.vizConfig[formula.vizType]) {
+      if (
+        renderManager.vizConfig[formula.vizType] &&
+        renderManager.vizConfig[formula.vizType].length > 0
+      ) {
         renderManager.setupLabControls(
           formula.vizType,
           renderManager.vizConfig[formula.vizType],

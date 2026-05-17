@@ -8,11 +8,23 @@ export const formulas_p2_ch4 = [
     latex: "dB = \\frac{\\mu_0}{4\\pi} \\frac{I\\,dl\\sin\\theta}{r^2}",
     variables: [
       { symbol: "dB", meaning: "Magnetic field element strength", unit: "T" },
-      { symbol: "\\mu_0", meaning: "Permeability of free space", unit: "T\\,m\\,A^{-1}" },
+      {
+        symbol: "\\mu_0",
+        meaning: "Permeability of free space",
+        unit: "T\\,m\\,A^{-1}",
+      },
       { symbol: "I", meaning: "Current flowing in conductor", unit: "A" },
       { symbol: "dl", meaning: "Infinitesimal length of conductor", unit: "m" },
-      { symbol: "\\theta", meaning: "Angle between dl and displacement vector r", unit: "rad" },
-      { symbol: "r", meaning: "Distance from current element to point", unit: "m" },
+      {
+        symbol: "\\theta",
+        meaning: "Angle between dl and displacement vector r",
+        unit: "rad",
+      },
+      {
+        symbol: "r",
+        meaning: "Distance from current element to point",
+        unit: "m",
+      },
     ],
     assumptions: "Steady current flowing in a thin conductor in vacuum.",
     mcqShortcuts: [
@@ -21,7 +33,10 @@ export const formulas_p2_ch4 = [
       "Field is zero along the line of the current element (\\theta = 0^\\circ or 180^\\circ).",
     ],
     specialCases: [
-      { condition: "\\theta = 90^\\circ\\; (Perpendicular)", latex: "dB_{max} = \\frac{\\mu_0 I\\,dl}{4\\pi r^2}" },
+      {
+        condition: "\\theta = 90^\\circ\\; (Perpendicular)",
+        latex: "dB_{max} = \\frac{\\mu_0 I\\,dl}{4\\pi r^2}",
+      },
       { condition: "\\theta = 0^\\circ\\; (Along\\; length)", latex: "dB = 0" },
     ],
     hasVisualization: false,
@@ -36,8 +51,16 @@ export const formulas_p2_ch4 = [
     variables: [
       { symbol: "B", meaning: "Magnetic field strength at point", unit: "T" },
       { symbol: "I", meaning: "Current", unit: "A" },
-      { symbol: "r", meaning: "Perpendicular distance from conductor", unit: "m" },
-      { symbol: "\\mu_0", meaning: "Permeability of free space", unit: "T\\,m\\,A^{-1}" },
+      {
+        symbol: "r",
+        meaning: "Perpendicular distance from conductor",
+        unit: "m",
+      },
+      {
+        symbol: "\\mu_0",
+        meaning: "Permeability of free space",
+        unit: "T\\,m\\,A^{-1}",
+      },
     ],
     assumptions: "Conductor is infinitely long, thin, straight, and in vacuum.",
     mcqShortcuts: [
@@ -46,7 +69,10 @@ export const formulas_p2_ch4 = [
       "The field lines form concentric circles centered on the wire.",
     ],
     specialCases: [
-      { condition: "r \\to 0^+", latex: "B \\to \\infty\\; \\text{(Idealized)}" },
+      {
+        condition: "r \\to 0^+",
+        latex: "B \\to \\infty\\; \\text{(Idealized)}",
+      },
       { condition: "r \\to \\infty", latex: "B \\to 0" },
     ],
     hasVisualization: true,
@@ -65,7 +91,8 @@ export const formulas_p2_ch4 = [
       { symbol: "I", meaning: "Current", unit: "A" },
       { symbol: "R", meaning: "Radius of circular loop", unit: "m" },
     ],
-    assumptions: "Perfect circular current loop in a vacuum or non-magnetic medium.",
+    assumptions:
+      "Perfect circular current loop in a vacuum or non-magnetic medium.",
     mcqShortcuts: [
       "Field at center is directly proportional to number of turns (B \\propto N).",
       "Field is inversely proportional to coil radius (B \\propto 1/R).",
@@ -84,8 +111,16 @@ export const formulas_p2_ch4 = [
     nameBn: "সোলেনয়েডের অভ্যন্তরে চৌম্বক ক্ষেত্র",
     latex: "B = \\mu_0 n I = \\frac{\\mu_0 N I}{L}",
     variables: [
-      { symbol: "B", meaning: "Magnetic field inside solenoid center", unit: "T" },
-      { symbol: "n", meaning: "Number of turns per unit length (N/L)", unit: "m^{-1}" },
+      {
+        symbol: "B",
+        meaning: "Magnetic field inside solenoid center",
+        unit: "T",
+      },
+      {
+        symbol: "n",
+        meaning: "Number of turns per unit length (N/L)",
+        unit: "m^{-1}",
+      },
       { symbol: "N", meaning: "Total number of turns", unit: "" },
       { symbol: "L", meaning: "Total length of solenoid", unit: "m" },
       { symbol: "I", meaning: "Current", unit: "A" },
@@ -97,7 +132,10 @@ export const formulas_p2_ch4 = [
       "Field depends only on current and turn density, not on cross-sectional area or radius.",
     ],
     specialCases: [
-      { condition: "At the ends of solenoid", latex: "B_{end} = \\frac{\\mu_0 n I}{2}" },
+      {
+        condition: "At the ends of solenoid",
+        latex: "B_{end} = \\frac{\\mu_0 n I}{2}",
+      },
     ],
     hasVisualization: false,
   },
@@ -109,21 +147,41 @@ export const formulas_p2_ch4 = [
     nameBn: "লরেঞ্জ বলের সমীকরণ",
     latex: "\\vec{F} = q(\\vec{E} + \\vec{v} \\times \\vec{B})",
     variables: [
-      { symbol: "\\vec{F}", meaning: "Total electromagnetic force vector", unit: "N" },
+      {
+        symbol: "\\vec{F}",
+        meaning: "Total electromagnetic force vector",
+        unit: "N",
+      },
       { symbol: "q", meaning: "Charge of moving particle", unit: "C" },
-      { symbol: "\\vec{E}", meaning: "Electric field vector", unit: "V\\,m^{-1}" },
-      { symbol: "\\vec{v}", meaning: "Velocity vector of particle", unit: "m\\,s^{-1}" },
+      {
+        symbol: "\\vec{E}",
+        meaning: "Electric field vector",
+        unit: "V\\,m^{-1}",
+      },
+      {
+        symbol: "\\vec{v}",
+        meaning: "Velocity vector of particle",
+        unit: "m\\,s^{-1}",
+      },
       { symbol: "\\vec{B}", meaning: "Magnetic field vector", unit: "T" },
     ],
-    assumptions: "Classical point charge moving in macroscopic electric and magnetic fields.",
+    assumptions:
+      "Classical point charge moving in macroscopic electric and magnetic fields.",
     mcqShortcuts: [
       "If particle is at rest (v = 0), magnetic force is zero, but electric force remains F = qE.",
       "In a velocity selector, magnetic and electric forces are equal and opposite (v = E/B), allowing undeflected straight passage.",
       "Total force is vector sum of electric and magnetic force.",
     ],
     specialCases: [
-      { condition: "\\vec{E} = 0\\; \\text{(Pure Magnetic Force)}", latex: "\\vec{F}_M = q(\\vec{v} \\times \\vec{B})" },
-      { condition: "\\vec{v} \\parallel \\vec{B}\\, \\text{and}\\, \\vec{E} = 0", latex: "\\vec{F} = 0" },
+      {
+        condition: "\\vec{E} = 0\\; \\text{(Pure Magnetic Force)}",
+        latex: "\\vec{F}_M = q(\\vec{v} \\times \\vec{B})",
+      },
+      {
+        condition:
+          "\\vec{v} \\parallel \\vec{B}\\, \\text{and}\\, \\vec{E} = 0",
+        latex: "\\vec{F} = 0",
+      },
     ],
     hasVisualization: false,
   },
@@ -139,7 +197,11 @@ export const formulas_p2_ch4 = [
       { symbol: "q", meaning: "Electric charge", unit: "C" },
       { symbol: "v", meaning: "Velocity of particle", unit: "m\\,s^{-1}" },
       { symbol: "B", meaning: "Magnetic field strength", unit: "T" },
-      { symbol: "\\theta", meaning: "Angle between velocity and field", unit: "rad" },
+      {
+        symbol: "\\theta",
+        meaning: "Angle between velocity and field",
+        unit: "rad",
+      },
     ],
     assumptions: "Charge is moving in a uniform magnetic field in vacuum.",
     mcqShortcuts: [
@@ -149,8 +211,14 @@ export const formulas_p2_ch4 = [
       "If 0 < \\theta < 90^\\circ, the trajectory is a helical path.",
     ],
     specialCases: [
-      { condition: "\\theta = 90^\\circ\\; (Circular\\; motion)", latex: "F_{max} = q v B" },
-      { condition: "\\theta = 0^\\circ\\; \\text{or}\\, 180^\\circ\\; (Linear)", latex: "F = 0" },
+      {
+        condition: "\\theta = 90^\\circ\\; (Circular\\; motion)",
+        latex: "F_{max} = q v B",
+      },
+      {
+        condition: "\\theta = 0^\\circ\\; \\text{or}\\, 180^\\circ\\; (Linear)",
+        latex: "F = 0",
+      },
     ],
     hasVisualization: true,
     vizType: "charged_particle_magnetic_field",
@@ -167,9 +235,14 @@ export const formulas_p2_ch4 = [
       { symbol: "I", meaning: "Current in wire", unit: "A" },
       { symbol: "L", meaning: "Length of wire in magnetic field", unit: "m" },
       { symbol: "B", meaning: "Magnetic field strength", unit: "T" },
-      { symbol: "\\theta", meaning: "Angle between wire direction and B field", unit: "rad" },
+      {
+        symbol: "\\theta",
+        meaning: "Angle between wire direction and B field",
+        unit: "rad",
+      },
     ],
-    assumptions: "Straight wire carrying uniform current in a uniform magnetic field.",
+    assumptions:
+      "Straight wire carrying uniform current in a uniform magnetic field.",
     mcqShortcuts: [
       "Direction of force is given by Fleming's Left Hand Rule.",
       "If wire runs parallel to magnetic field lines (\\theta = 0^\\circ), it experiences zero force.",
@@ -194,18 +267,29 @@ export const formulas_p2_ch4 = [
       { symbol: "I", meaning: "Current", unit: "A" },
       { symbol: "A", meaning: "Area of loop", unit: "m^2" },
       { symbol: "B", meaning: "Magnetic field", unit: "T" },
-      { symbol: "\\theta", meaning: "Angle between coil's normal (magnetic moment) and B field", unit: "rad" },
+      {
+        symbol: "\\theta",
+        meaning: "Angle between coil's normal (magnetic moment) and B field",
+        unit: "rad",
+      },
       { symbol: "M", meaning: "Magnetic dipole moment (NIA)", unit: "A\\,m^2" },
     ],
-    assumptions: "Rigid planar current-carrying loop suspended in a uniform magnetic field.",
+    assumptions:
+      "Rigid planar current-carrying loop suspended in a uniform magnetic field.",
     mcqShortcuts: [
       "Note on angle: If \\alpha is given as the angle between the coil surface and the field, then \\theta = 90^\\circ - \\alpha, making \\tau = N I A B \\cos\\alpha.",
       "Torque is maximum when B-field lies in the plane of the coil surface (\\alpha = 0^\\circ, \\theta = 90^\\circ).",
       "Torque is zero when field is perpendicular to the coil surface.",
     ],
     specialCases: [
-      { condition: "Normal is perpendicular to B (\\theta = 90^\\circ)", latex: "\\tau_{max} = N I A B" },
-      { condition: "Normal is parallel to B (\\theta = 0^\\circ)", latex: "\\tau = 0" },
+      {
+        condition: "Normal is perpendicular to B (\\theta = 90^\\circ)",
+        latex: "\\tau_{max} = N I A B",
+      },
+      {
+        condition: "Normal is parallel to B (\\theta = 0^\\circ)",
+        latex: "\\tau = 0",
+      },
     ],
     hasVisualization: false,
   },
@@ -223,17 +307,20 @@ export const formulas_p2_ch4 = [
       { symbol: "n", meaning: "Charge carrier density", unit: "m^{-3}" },
       { symbol: "e", meaning: "Elementary charge", unit: "C" },
       { symbol: "d", meaning: "Conductor plate thickness", unit: "m" },
-      { symbol: "R_H", meaning: "Hall coefficient (1 / (n e))", unit: "m^3\\,C^{-1}" },
+      {
+        symbol: "R_H",
+        meaning: "Hall coefficient (1 / (n e))",
+        unit: "m^3\\,C^{-1}",
+      },
     ],
-    assumptions: "Conductor is a rectangular slab placed perpendicular to magnetic field.",
+    assumptions:
+      "Conductor is a rectangular slab placed perpendicular to magnetic field.",
     mcqShortcuts: [
       "Hall voltage is inversely proportional to thickness d. Thinner films generate higher Hall voltage.",
       "Used to determine the sign of charge carriers (holes vs electrons) and carrier density.",
       "Used in magnetic field sensors (magnetometers).",
     ],
-    specialCases: [
-      { condition: "B = 0", latex: "V_H = 0" },
-    ],
+    specialCases: [{ condition: "B = 0", latex: "V_H = 0" }],
     hasVisualization: false,
   },
   {
@@ -244,9 +331,17 @@ export const formulas_p2_ch4 = [
     nameBn: "চৌম্বক দ্বিমেরু ভ্রামক",
     latex: "M = m \\times 2l",
     variables: [
-      { symbol: "M", meaning: "Magnetic dipole moment", unit: "A\\,m^2 \\text{ or } J\\,T^{-1}" },
+      {
+        symbol: "M",
+        meaning: "Magnetic dipole moment",
+        unit: "A\\,m^2 \\text{ or } J\\,T^{-1}",
+      },
       { symbol: "m", meaning: "Pole strength of magnet", unit: "A\\,m" },
-      { symbol: "2l", meaning: "Magnetic length (distance between poles)", unit: "m" },
+      {
+        symbol: "2l",
+        meaning: "Magnetic length (distance between poles)",
+        unit: "m",
+      },
     ],
     assumptions: "Idealized bar magnet with distinct north and south poles.",
     mcqShortcuts: [
@@ -255,7 +350,10 @@ export const formulas_p2_ch4 = [
       "If cut perpendicular to length, length is halved, pole strength is same, M' = M/2. If cut both ways into 4 pieces, M' = M/4.",
     ],
     specialCases: [
-      { condition: "Magnet bent into semi-circle", latex: "M_{new} = \\frac{2 M}{\\pi}" },
+      {
+        condition: "Magnet bent into semi-circle",
+        latex: "M_{new} = \\frac{2 M}{\\pi}",
+      },
     ],
     hasVisualization: false,
   },
@@ -268,11 +366,20 @@ export const formulas_p2_ch4 = [
     latex: "\\mu_r = \\frac{\\mu}{\\mu_0} = 1 + \\chi_m",
     variables: [
       { symbol: "\\mu_r", meaning: "Relative magnetic permeability", unit: "" },
-      { symbol: "\\mu", meaning: "Permeability of material", unit: "T\\,m\\,A^{-1}" },
-      { symbol: "\\mu_0", meaning: "Permeability of free space", unit: "T\\,m\\,A^{-1}" },
+      {
+        symbol: "\\mu",
+        meaning: "Permeability of material",
+        unit: "T\\,m\\,A^{-1}",
+      },
+      {
+        symbol: "\\mu_0",
+        meaning: "Permeability of free space",
+        unit: "T\\,m\\,A^{-1}",
+      },
       { symbol: "\\chi_m", meaning: "Magnetic susceptibility", unit: "" },
     ],
-    assumptions: "Isotropic, homogeneous magnetic medium placed in a magnetic field.",
+    assumptions:
+      "Isotropic, homogeneous magnetic medium placed in a magnetic field.",
     mcqShortcuts: [
       "For diamagnetic substances: \\chi_m < 0 and \\mu_r < 1.",
       "For paramagnetic substances: \\chi_m > 0 (small) and \\mu_r > 1.",
@@ -289,22 +396,42 @@ export const formulas_p2_ch4 = [
     topic: "Earth's Magnetism",
     nameEn: "Earth magnetic components",
     nameBn: "ভূ-চৌম্বকত্বের উপাদান",
-    latex: "H = B \\cos\\theta,\\quad V = B \\sin\\theta,\\quad \\tan\\theta = \\frac{V}{H}",
+    latex:
+      "H = B \\cos\\theta,\\quad V = B \\sin\\theta,\\quad \\tan\\theta = \\frac{V}{H}",
     variables: [
-      { symbol: "H", meaning: "Horizontal component of earth magnetic field", unit: "T" },
-      { symbol: "V", meaning: "Vertical component of earth magnetic field", unit: "T" },
-      { symbol: "B", meaning: "Total intensity of earth magnetic field", unit: "T" },
+      {
+        symbol: "H",
+        meaning: "Horizontal component of earth magnetic field",
+        unit: "T",
+      },
+      {
+        symbol: "V",
+        meaning: "Vertical component of earth magnetic field",
+        unit: "T",
+      },
+      {
+        symbol: "B",
+        meaning: "Total intensity of earth magnetic field",
+        unit: "T",
+      },
       { symbol: "\\theta", meaning: "Angle of dip (inclination)", unit: "rad" },
     ],
-    assumptions: "Local magnetic field of earth approximated as a magnetic dipole.",
+    assumptions:
+      "Local magnetic field of earth approximated as a magnetic dipole.",
     mcqShortcuts: [
       "At Earth's magnetic equator, dip angle \\theta = 0^\\circ, hence V = 0 and H = B.",
       "At Earth's magnetic poles, dip angle \\theta = 90^\\circ, hence H = 0 and V = B.",
       "If H = V at a place, the angle of dip is exactly 45^\\circ.",
     ],
     specialCases: [
-      { condition: "\\theta = 0^\\circ\\; (Equator)", latex: "H = B,\\quad V = 0" },
-      { condition: "\\theta = 90^\\circ\\; (Poles)", latex: "H = 0,\\quad V = B" },
+      {
+        condition: "\\theta = 0^\\circ\\; (Equator)",
+        latex: "H = B,\\quad V = 0",
+      },
+      {
+        condition: "\\theta = 90^\\circ\\; (Poles)",
+        latex: "H = 0,\\quad V = B",
+      },
     ],
     hasVisualization: false,
   },

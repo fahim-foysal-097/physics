@@ -1,4 +1,4 @@
-# HSC Physics Revision Website
+# HSC Physics Revision Website <img src="assets/icon.png" height="34s">
 
 A comprehensive, interactive, and beautifully designed web application for HSC Physics revision. This platform provides students with an easy-to-use interface to browse formulas, understand variables, and interact with physics simulations for both Paper 1 and Paper 2.
 
@@ -73,7 +73,3 @@ If a simulation isn't needed, you can use the `imageUrl` property in the formula
 - **Dynamic Loading**: Formulas and Simulation modules are lazy-loaded via ES Modules only when a chapter is selected, keeping the initial payload light.
 - **Isolation**: Each chapter's simulations are contained in their own module, preventing state conflicts between different physics concepts.
 - **Audio Management**: Simulations using the Web Audio API are automatically suspended when the modal closes or pages change to prevent "ghost audio".
-
-## 📄 License
-
-Developed for HSC Students in Bangladesh. All rights reserved.

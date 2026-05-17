@@ -62,7 +62,7 @@ export const p2_ch3_sims = {
       sketch.stroke(226, 232, 240);
       sketch.strokeWeight(1);
       sketch.rect(x, y, pillWidth, 36, 18);
-      
+
       // Label text
       sketch.noStroke();
       sketch.fill(100, 116, 139);
@@ -70,7 +70,7 @@ export const p2_ch3_sims = {
       sketch.textStyle(sketch.BOLD);
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(label, x + 15, y + 18);
-      
+
       // Value text
       sketch.fill(37, 99, 235);
       sketch.textSize(12);
@@ -87,15 +87,15 @@ export const p2_ch3_sims = {
       sketch.fill(colorStr);
       sketch.strokeWeight(2);
       sketch.line(x, y, x + vx, y + vy);
-      
+
       const angle = Math.atan2(vy, vx);
       const len = Math.hypot(vx, vy);
       const head = Math.max(5, Math.min(8, len * 0.2));
-      
+
       sketch.translate(x + vx, y + vy);
       sketch.rotate(angle);
       sketch.triangle(0, head / 2, 0, -head / 2, head, 0);
-      
+
       if (label) {
         sketch.rotate(-angle);
         sketch.noStroke();
@@ -133,7 +133,7 @@ export const p2_ch3_sims = {
         const startX = w / 2 - wireW / 2;
         const endX = w / 2 + wireW / 2;
         const centerY = h / 2 + 10;
-        
+
         // Map Area slider to physical cylinder diameter nicely (keep it spacious!)
         const wireH = sketch.map(A, 4, 120, 20, 80);
 
@@ -144,13 +144,13 @@ export const p2_ch3_sims = {
         // Fixed terminal endpoints at 35px on left and w-35px on right
         sketch.line(35, centerY, startX, centerY);
         sketch.line(endX, centerY, w - 35, centerY);
-        
+
         sketch.fill(239, 68, 68); // Positive terminal (Left)
         sketch.noStroke();
         sketch.circle(35, centerY, 10);
         sketch.fill(59, 130, 246); // Negative terminal (Right)
         sketch.circle(w - 35, centerY, 10);
-        
+
         sketch.fill(255);
         sketch.textSize(8);
         sketch.textAlign(sketch.CENTER, sketch.CENTER);
@@ -162,13 +162,19 @@ export const p2_ch3_sims = {
         sketch.push();
         sketch.rectMode(sketch.CORNERS);
         sketch.noStroke();
-        
+
         // Base metallic color
         sketch.fill(226, 232, 240);
         sketch.rect(startX, centerY - wireH / 2, endX, centerY + wireH / 2, 4);
 
         // Dynamic Heating glow overlay (stronger for high resistance dissipation)
-        const glowOpacity = sketch.map(sketch.constrain(R, 0, 15), 0, 15, 0, 180);
+        const glowOpacity = sketch.map(
+          sketch.constrain(R, 0, 15),
+          0,
+          15,
+          0,
+          180,
+        );
         sketch.fill(239, 68, 68, glowOpacity);
         sketch.rect(startX, centerY - wireH / 2, endX, centerY + wireH / 2, 4);
 
@@ -185,24 +191,28 @@ export const p2_ch3_sims = {
         const rows = Math.max(1, Math.min(4, Math.floor(wireH / 20)));
         const ionSize = 8 + rho * 1.3;
         const vibAmp = rho * 0.45;
-        
+
         sketch.t += 0.08;
         sketch.push();
         sketch.noStroke();
         sketch.fill(249, 115, 22, 190); // Copper-orange
 
         for (let c = 0; c < colCount; c++) {
-          const x = startX + ((c + 0.5) * (endX - startX) / colCount);
+          const x = startX + ((c + 0.5) * (endX - startX)) / colCount;
           for (let r = 0; r < rows; r++) {
-            const y = centerY - wireH / 2 + ((r + 0.5) * wireH / rows);
-            
+            const y = centerY - wireH / 2 + ((r + 0.5) * wireH) / rows;
+
             const ox = Math.sin(sketch.t * 3 + c + r) * vibAmp;
             const oy = Math.cos(sketch.t * 3 + c + r) * vibAmp;
-            
+
             sketch.fill(249, 115, 22, 200);
             sketch.circle(x + ox, y + oy, ionSize);
             sketch.fill(255, 237, 213, 230); // Core highlight
-            sketch.circle(x + ox - ionSize * 0.15, y + oy - ionSize * 0.15, ionSize * 0.4);
+            sketch.circle(
+              x + ox - ionSize * 0.15,
+              y + oy - ionSize * 0.15,
+              ionSize * 0.4,
+            );
           }
         }
         sketch.pop();
@@ -211,18 +221,20 @@ export const p2_ch3_sims = {
         const flowSpeed = sketch.map(1 / Math.max(0.1, R), 0, 10, 0.4, 4.0);
         sketch.push();
         sketch.noStroke();
-        
+
         for (let i = 0; i < 20; i++) {
           const hHash = (i * 97) % 1000;
-          const px = startX + ((hHash + sketch.frameCount * flowSpeed) % (endX - startX));
+          const px =
+            startX +
+            ((hHash + sketch.frameCount * flowSpeed) % (endX - startX));
           const offsetWave = (wireH / 2 - 6) * Math.sin(i * 1.7);
           const py = centerY + offsetWave;
-          
+
           sketch.fill(56, 189, 248, 50); // Glow aura
           sketch.circle(px, py, 12);
           sketch.fill(14, 165, 233, 210); // Main core
           sketch.circle(px, py, 5.5);
-          
+
           // Render minor collision flash rings dynamically near grid columns
           if (rho > 2.0 && Math.floor(px) % 45 === 0) {
             sketch.stroke(239, 68, 68, 140);
@@ -244,7 +256,13 @@ export const p2_ch3_sims = {
 
         drawTitle("Drift Velocity: I = n A e vd");
         // Print as drift speed readout scaled nicely to fit pill
-        drawHUDPill(w - 205, 12, "DRIFT VELOCITY", `${vd.toFixed(4)} mm/s`, 180);
+        drawHUDPill(
+          w - 205,
+          12,
+          "DRIFT VELOCITY",
+          `${vd.toFixed(4)} mm/s`,
+          180,
+        );
 
         const startX = 45;
         const endX = w - 45;
@@ -261,15 +279,36 @@ export const p2_ch3_sims = {
 
         // Sleek field vector labels
         sketch.push();
-        drawVector(startX + 10, centerY - condH / 2 - 15, 60, 0, "#0ea5e9", "E Field");
-        drawVector(startX + 100, centerY - condH / 2 - 15, 60, 0, "#10b981", "Current I");
-        drawVector(endX - 10, centerY - condH / 2 - 15, -60, 0, "#f59e0b", "Force on e⁻");
+        drawVector(
+          startX + 10,
+          centerY - condH / 2 - 15,
+          60,
+          0,
+          "#0ea5e9",
+          "E Field",
+        );
+        drawVector(
+          startX + 100,
+          centerY - condH / 2 - 15,
+          60,
+          0,
+          "#10b981",
+          "Current I",
+        );
+        drawVector(
+          endX - 10,
+          centerY - condH / 2 - 15,
+          -60,
+          0,
+          "#f59e0b",
+          "Force on e⁻",
+        );
         sketch.pop();
 
         // Physics updates for chaotic scattering
         const driftPush = vd * 1.5;
         sketch.push();
-        
+
         sketch.electrons.forEach((e) => {
           // Chaotic bounce updates
           e.x += e.vx;
@@ -312,7 +351,7 @@ export const p2_ch3_sims = {
             sketch.stroke(245, 158, 11, 220); // Amber path
             sketch.strokeWeight(1.8);
             sketch.beginShape();
-            e.trail.forEach(pt => sketch.vertex(pt.x, pt.y));
+            e.trail.forEach((pt) => sketch.vertex(pt.x, pt.y));
             sketch.endShape();
 
             sketch.noStroke();
@@ -349,7 +388,7 @@ export const p2_ch3_sims = {
         // Draw clean separation line in the middle
         sketch.stroke(226, 232, 240);
         sketch.strokeWeight(1.5);
-        sketch.line(w * 0.50, 60, w * 0.50, h - 25);
+        sketch.line(w * 0.5, 60, w * 0.5, h - 25);
 
         // --- Left Half: Resistor Microscopic Zoom View ---
         sketch.push();
@@ -378,10 +417,16 @@ export const p2_ch3_sims = {
         const flowVel = sketch.map(I, 0, 30, 0.4, 3.8);
         sketch.fill(14, 165, 233, 200);
         for (let i = 0; i < 8; i++) {
-          const px = leftCenterX - zoomR + ((i * 25 + sketch.frameCount * flowVel) % (zoomR * 2));
+          const px =
+            leftCenterX -
+            zoomR +
+            ((i * 25 + sketch.frameCount * flowVel) % (zoomR * 2));
           // keep them bounded vertically inside the circle elegantly
           const distFromCenter = Math.abs(px - leftCenterX);
-          const verticalBound = Math.sqrt(Math.max(0, zoomR * zoomR - distFromCenter * distFromCenter)) - 8;
+          const verticalBound =
+            Math.sqrt(
+              Math.max(0, zoomR * zoomR - distFromCenter * distFromCenter),
+            ) - 8;
           const py = zoomY + Math.sin(i * 1.5) * verticalBound * 0.7;
 
           if (px > leftCenterX - zoomR + 4 && px < leftCenterX + zoomR - 4) {
@@ -417,7 +462,7 @@ export const p2_ch3_sims = {
         sketch.textStyle(sketch.BOLD);
         sketch.textAlign(sketch.CENTER, sketch.TOP);
         sketch.text("Voltage V (V)", gx + gw / 2, gy + gh + 6);
-        
+
         sketch.textAlign(sketch.RIGHT, sketch.CENTER);
         sketch.text("I (A)", gx - 8, gy + gh / 2);
         sketch.pop();
@@ -430,11 +475,11 @@ export const p2_ch3_sims = {
         sketch.push();
         sketch.stroke(37, 99, 235, 140);
         sketch.strokeWeight(2.5);
-        
+
         const lineEndX = gx + gw;
         const lineEndI = maxV / R;
         const lineEndY = sketch.map(lineEndI, 0, maxI, gy + gh, gy);
-        
+
         sketch.line(gx, gy + gh, lineEndX, lineEndY);
         sketch.pop();
 
