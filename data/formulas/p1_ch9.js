@@ -15,7 +15,7 @@ export const formulas_p1_ch9 = [
     ],
     assumptions: "Wave travels in a uniform medium.",
     specialCases: [],
-    imageUrl: "./assets/images/paper-1/wave.png",
+    imageUrl: "./assets/images/paper-1/wave.webp",
   },
   {
     id: "wave_velocity",

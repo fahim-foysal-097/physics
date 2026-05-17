@@ -2,15 +2,6 @@
 
 A comprehensive, interactive, and beautifully designed web application for HSC Physics revision. This platform provides students with an easy-to-use interface to browse formulas, understand variables, and interact with physics simulations for both Paper 1 and Paper 2.
 
-## 🚀 Features
-
-- **21 Chapters Covered**: Complete coverage of HSC Physics 1st and 2nd Paper.
-- **Interactive Lab**: p5.js based simulations to visualize complex physics concepts (e.g., Brownian Motion, Beats, Projectiles).
-- **Sandboxed Simulations**: Chapter-specific simulation modules for better performance and modularity.
-- **Math Precision**: High-quality LaTeX rendering using KaTeX.
-- **Modern UI**: Clean, responsive design built with Bootstrap 5 and custom CSS.
-- **No Build Step**: Hosted directly as static files for maximum performance and portability.
-
 ## 🛠️ Tech Stack
 
 - **Framework**: Bootstrap 5
@@ -29,23 +20,21 @@ Formulas are modular. Each chapter has its own file in `data/formulas/pX_chY.js`
 **Formula Schema:**
 
 ```javascript
-{
-  id: "formula_id",
-  chapterId: "p1_ch2",      // Must match chapter metadata
-  topic: "Topic Name",      // Used for filtering
-  nameEn: "English Name",
-  nameBn: "Bengali Name",
-  latex: "\\vec{F} = m\\vec{a}",
-  variables: [
-    { symbol: "F", meaning: "Force", unit: "N" }
-  ],
-  assumptions: "Ideal conditions...",
-  specialCases: [
-    { condition: "\\theta = 90^\circ", latex: "F = 0" }
-  ],
-  hasVisualization: true,   // Set true for p5.js integration
-  vizType: "my_sketch"      // Trigger for chapter simulation module
-}
+export const formulas_p1_ch = [
+  {
+    id: "formula_id",
+    chapterId: "p1_ch2", // Must match chapter metadata
+    topic: "Topic Name", // Used for filtering
+    nameEn: "English Name",
+    nameBn: "Bengali Name",
+    latex: "\\vec{F} = m\\vec{a}",
+    variables: [{ symbol: "F", meaning: "Force", unit: "N" }],
+    assumptions: "Ideal conditions...",
+    specialCases: [{ condition: "\\theta = 90^\circ", latex: "F = 0" }],
+    hasVisualization: true, // Set true for p5.js integration
+    vizType: "my_sketch", // Trigger for chapter simulation module
+  },
+];
 ```
 
 ### 2. Creating New Simulations (Sandboxed)

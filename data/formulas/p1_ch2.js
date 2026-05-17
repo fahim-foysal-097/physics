@@ -344,5 +344,6 @@ export const formulas_p1_ch2 = [
     ],
     assumptions: "Forces must be concurrent, coplanar, and in equilibrium.",
     specialCases: [],
+    imageUrl: "assets/images/paper-1/lami.webp",
   },
 ];
