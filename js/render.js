@@ -866,6 +866,179 @@ export const renderManager = {
       },
     ],
     logic_gates: [],
+    critical_angle_tir: [
+      { id: "i", label: "Incident Angle (i)", min: 0, max: 90, val: 45 },
+      {
+        id: "n1",
+        label: "Denser Index (n1)",
+        min: 1.0,
+        max: 2.5,
+        val: 1.5,
+        step: 0.05,
+      },
+      {
+        id: "n2",
+        label: "Rarer Index (n2)",
+        min: 1.0,
+        max: 2.5,
+        val: 1.0,
+        step: 0.05,
+      },
+    ],
+    prism_ray_tracer: [
+      { id: "i1", label: "Incident Angle (i1)", min: 10, max: 80, val: 45 },
+      {
+        id: "prismA",
+        label: "Prism Angle (A)",
+        min: 30,
+        max: 90,
+        val: 60,
+        step: 1,
+      },
+      {
+        id: "nPrism",
+        label: "Glass Index (n)",
+        min: 1.1,
+        max: 2.0,
+        val: 1.5,
+        step: 0.05,
+      },
+      {
+        id: "lightType",
+        label: "Light Type",
+        type: "radio",
+        options: [
+          { label: "Laser beam", val: 0 },
+          { label: "White light", val: 1 },
+        ],
+        val: 0,
+      },
+    ],
+    thin_lens_ray_tracer: [
+      {
+        id: "lensType",
+        label: "Lens Type",
+        type: "radio",
+        options: [
+          { label: "Convex (Converging)", val: 0 },
+          { label: "Concave (Diverging)", val: 1 },
+        ],
+        val: 0,
+      },
+      { id: "u", label: "Object Distance (u)", min: 20, max: 300, val: 150 },
+      { id: "f", label: "Focal Length (f)", min: 30, max: 150, val: 80 },
+      { id: "objH", label: "Object Height", min: 10, max: 80, val: 50 },
+    ],
+    youngs_double_slit_sim: [
+      {
+        id: "lambda",
+        label: "Wavelength (λ) nm",
+        min: 400,
+        max: 700,
+        val: 550,
+        step: 5,
+      },
+      { id: "slitD", label: "Slit Separation (d)", min: 15, max: 80, val: 40 },
+      {
+        id: "screenDist",
+        label: "Screen Distance (D)",
+        min: 100,
+        max: 300,
+        val: 200,
+      },
+      {
+        id: "phaseShift",
+        label: "Slit Phase Shift (δ)",
+        min: 0,
+        max: 360,
+        val: 0,
+        step: 10,
+      },
+    ],
+    single_slit_diffraction_sim: [
+      {
+        id: "diffractionMode",
+        label: "Diffraction Regime",
+        type: "radio",
+        options: [
+          { label: "Fraunhofer (Far-Field)", val: 0 },
+          { label: "Fresnel (Near-Field)", val: 1 },
+        ],
+        val: 0,
+      },
+      {
+        id: "lambda",
+        label: "Wavelength (λ) nm",
+        min: 400,
+        max: 700,
+        val: 550,
+        step: 5,
+      },
+      { id: "slitWidth", label: "Slit Width (a)", min: 10, max: 80, val: 30 },
+    ],
+    diffraction_grating_sim: [
+      {
+        id: "gratingLightMode",
+        label: "Light Source",
+        type: "radio",
+        options: [
+          { label: "Monochromatic Laser", val: 0 },
+          { label: "White Light Source", val: 1 },
+        ],
+        val: 0,
+      },
+      {
+        id: "lambda",
+        label: "Wavelength (λ) nm",
+        min: 400,
+        max: 700,
+        val: 550,
+        step: 5,
+      },
+      {
+        id: "gratingLines",
+        label: "Line Density (N) lines/mm",
+        min: 200,
+        max: 800,
+        val: 500,
+        step: 20,
+      },
+    ],
+    wavefront_huygens: [
+      {
+        id: "waveType",
+        label: "Wavefront Shape",
+        type: "radio",
+        options: [
+          { label: "Plane wave", val: 0 },
+          { label: "Spherical wave", val: 1 },
+        ],
+        val: 0,
+      },
+    ],
+    em_wave_poynting: [
+      { id: "wavelength", label: "EM Wavelength", min: 80, max: 250, val: 150 },
+    ],
+    polarization_malus_sim: [
+      {
+        id: "polarizationMode",
+        label: "Experiment Mode",
+        type: "radio",
+        options: [
+          { label: "Malus's Law", val: 0 },
+          { label: "Brewster's Law", val: 1 },
+        ],
+        val: 0,
+      },
+      {
+        id: "theta",
+        label: "Analyzer Angle (θ)",
+        min: 0,
+        max: 360,
+        val: 45,
+        step: 5,
+      },
+    ],
   },
 
   /**
@@ -895,8 +1068,45 @@ export const renderManager = {
       grid.innerHTML = `<div class="col-12 text-center py-5 text-muted">No simulations found for this selection.</div>`;
       return;
     }
-
     const simTitles = {
+      // Chapter 6
+      critical_angle_tir: {
+        en: "Total Internal Reflection & Critical Angle",
+        topic: "Geometrical Optics (জ্যামিতিক আলোকবিজ্ঞান)",
+      },
+      prism_ray_tracer: {
+        en: "Prism Ray Tracing & Light Dispersion",
+        topic: "Geometrical Optics (জ্যামিতিক আলোকবিজ্ঞান)",
+      },
+      thin_lens_ray_tracer: {
+        en: "Thin Lens Ray Diagram Generator",
+        topic: "Geometrical Optics (জ্যামিতিক আলোকবিজ্ঞান)",
+      },
+      // Chapter 7
+      youngs_double_slit_sim: {
+        en: "Young's Double Slit & Phase Shift",
+        topic: "Physical Optics (ভৌত আলোকবিজ্ঞান)",
+      },
+      single_slit_diffraction_sim: {
+        en: "Single Slit Diffraction (Fraunhofer & Fresnel)",
+        topic: "Physical Optics (ভৌত আলোকবিজ্ঞান)",
+      },
+      diffraction_grating_sim: {
+        en: "Diffraction Grating Spectrometer",
+        topic: "Physical Optics (ভৌত আলোকবিজ্ঞান)",
+      },
+      wavefront_huygens: {
+        en: "Huygens' Principle & Wavefronts",
+        topic: "Physical Optics (ভৌত আলোকবিজ্ঞান)",
+      },
+      em_wave_poynting: {
+        en: "3D Electromagnetic Wave & Poynting Vector",
+        topic: "Physical Optics (ভৌত আলোকবিজ্ঞান)",
+      },
+      polarization_malus_sim: {
+        en: "Polarization & Malus's Law Sandbox",
+        topic: "Physical Optics (ভৌত আলোকবিজ্ঞান)",
+      },
       // Chapter 8
       relativity_dilation: {
         en: "Relativity: Time Dilation & Length Contraction",
