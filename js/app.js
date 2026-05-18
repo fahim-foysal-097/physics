@@ -3,6 +3,16 @@ import { utils } from "./utils.js";
 import { renderManager } from "./render.js";
 import { vizManager } from "./visualizations.js";
 
+// ── Dark Mode ────────────────────────────────────────────────
+(function initTheme() {
+  const saved = localStorage.getItem("theme");
+  if (saved) {
+    document.documentElement.setAttribute("data-theme", saved);
+  } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+})();
+
 // Application State
 const state = {
   currentChapter: null,
@@ -14,6 +24,18 @@ const state = {
 document.addEventListener("DOMContentLoaded", async () => {
   // 1. Render Sidebar Chapters
   renderManager.renderChapters(chapters);
+
+  // 1b. Dark Mode Toggle
+  const toggleBtn = document.getElementById("darkModeToggle");
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const isDark =
+        document.documentElement.getAttribute("data-theme") === "dark";
+      const next = isDark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  }
 
   // 2. Set up Event Listeners
   document.addEventListener("loadChapter", async (e) => {
