@@ -30,6 +30,8 @@ export const formulas_p1_ch3 = [
       "If a body is dropped, ratio of distances in 1s, 2s, 3s: 1:4:9 (n²)",
       "Ratio of distances in consecutive 1s intervals: 1:3:5 (2n-1)",
     ],
+    hasVisualization: true,
+    vizType: "motion_graphs",
   },
   {
     id: "nth_second_distance",

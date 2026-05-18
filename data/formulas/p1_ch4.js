@@ -58,6 +58,8 @@ export const formulas_p1_ch4 = [
     ],
     assumptions: "Ideal string and frictionless, massless pulley.",
     specialCases: [],
+    hasVisualization: true,
+    vizType: "pulley_system",
   },
   {
     id: "lift_math",
@@ -129,6 +131,8 @@ export const formulas_p1_ch4 = [
         latex: "v = \\frac{m_1u_1 + m_2u_2}{m_1 + m_2}",
       },
     ],
+    hasVisualization: true,
+    vizType: "collision_lab",
   },
   {
     id: "elastic_collision_velocity",
@@ -148,6 +152,8 @@ export const formulas_p1_ch4 = [
         latex: "v_1 = u_2, \\quad v_2 = u_1 \\text{ (Velocities exchange)}",
       },
     ],
+    hasVisualization: true,
+    vizType: "collision_lab",
   },
   {
     id: "impulse",

@@ -108,6 +108,8 @@ export const formulas_p1_ch6 = [
     variables: [{ symbol: "v_e", meaning: "Escape velocity", unit: "m/s" }],
     assumptions: "Object is projected from the surface of the planet.",
     specialCases: [],
+    hasVisualization: true,
+    vizType: "escape_velocity_sandbox",
   },
   {
     id: "keplers_third_law",
@@ -121,6 +123,25 @@ export const formulas_p1_ch6 = [
       { symbol: "R_1, R_2", meaning: "Mean distances from the sun", unit: "m" },
     ],
     assumptions: "Orbits are nearly circular.",
+    specialCases: [],
+    hasVisualization: true,
+    vizType: "kepler_laws_sim",
+  },
+  {
+    id: "gravitational_potential",
+    chapterId: "p1_ch6",
+    topic: "Gravitation (মহাকর্ষ)",
+    nameEn: "Gravitational Potential & Potential Energy",
+    nameBn: "মহাকর্ষীয় বিভব ও বিভব শক্তি",
+    latex: "V = -\\frac{GM}{r}, \\quad U = -\\frac{GMm}{r}",
+    variables: [
+      { symbol: "V", meaning: "Gravitational potential", unit: "J/kg" },
+      { symbol: "U", meaning: "Gravitational potential energy", unit: "J" },
+      { symbol: "M", meaning: "Mass of the massive body", unit: "kg" },
+      { symbol: "m", meaning: "Mass of the test body", unit: "kg" },
+      { symbol: "r", meaning: "Distance from the center of the massive body", unit: "m" }
+    ],
+    assumptions: "Reference zero potential energy is at infinity.",
     specialCases: [],
   },
 ];

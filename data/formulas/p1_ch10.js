@@ -10,7 +10,7 @@ export const formulas_p1_ch10 = [
       { symbol: "R", meaning: "Universal Gas Constant", unit: "8.314 J/mol·K" },
       { symbol: "k", meaning: "Boltzmann Constant", unit: "1.38 x 10⁻²³ J/K" },
     ],
-    // hasVisualization: true,
+    hasVisualization: true,
     vizType: "gas_law_interactive",
   },
   {

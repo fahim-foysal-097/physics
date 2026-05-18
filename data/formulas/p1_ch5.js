@@ -71,6 +71,8 @@ export const formulas_p1_ch5 = [
         latex: "W = \\frac{1}{2}k(x_2^2 - x_1^2)",
       },
     ],
+    hasVisualization: true,
+    vizType: "spring_energy_lab",
   },
   {
     id: "kinetic_energy",
@@ -129,6 +131,8 @@ export const formulas_p1_ch5 = [
         latex: "h = \\frac{H}{n+1}",
       },
     ],
+    hasVisualization: true,
+    vizType: "energy_conservation_coaster",
   },
   {
     id: "pendulum_energy",
@@ -244,5 +248,22 @@ export const formulas_p1_ch5 = [
     ],
     hasVisualization: true,
     vizType: "water_pump",
+  },
+  {
+    id: "machine_efficiency",
+    chapterId: "p1_ch5",
+    topic: "Power (ক্ষমতা)",
+    nameEn: "Efficiency of a Machine",
+    nameBn: "যন্ত্রের কর্মদক্ষতা",
+    latex: "\\eta = \\frac{W_{out}}{W_{in}} \\times 100\\% = \\frac{P_{out}}{P_{in}} \\times 100\\%",
+    variables: [
+      { symbol: "\\eta", meaning: "Efficiency of the machine", unit: "%" },
+      { symbol: "W_{out}, W_{in}", meaning: "Useful output and input work", unit: "J" },
+      { symbol: "P_{out}, P_{in}", meaning: "Useful output and input power", unit: "W" },
+    ],
+    assumptions: "Input power must always be greater than output power due to losses.",
+    specialCases: [
+      { condition: "Perfect engine (No loss)", latex: "\\eta = 100\\%" },
+    ],
   },
 ];

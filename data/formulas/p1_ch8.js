@@ -76,8 +76,8 @@ export const formulas_p1_ch8 = [
       { symbol: "A", meaning: "Amplitude", unit: "m" },
       { symbol: "x", meaning: "Displacement", unit: "m" },
     ],
-    // hasVisualization: true,
-    vizType: "energy_vs_displacement_graph",
+    hasVisualization: true,
+    vizType: "shm_energy_graphs_sim",
   },
   {
     id: "spring_combinations",
@@ -91,8 +91,8 @@ export const formulas_p1_ch8 = [
       { symbol: "k_s", meaning: "Equivalent Series Constant", unit: "N/m" },
       { symbol: "k_p", meaning: "Equivalent Parallel Constant", unit: "N/m" },
     ],
-    // hasVisualization: true,
-    vizType: "spring_oscillator_sim",
+    hasVisualization: true,
+    vizType: "spring_combinations_sim",
   },
   {
     id: "shm_energy",
@@ -121,6 +121,8 @@ export const formulas_p1_ch8 = [
         latex: "E_p = \\frac{1}{2}m\\omega^2 x^2",
       },
     ],
+    hasVisualization: true,
+    vizType: "shm_energy_graphs_sim",
   },
   {
     id: "time_period_pendulum",

@@ -16,6 +16,8 @@ export const formulas_p1_ch7 = [
     ],
     assumptions: "Within the elastic limit.",
     specialCases: [],
+    hasVisualization: true,
+    vizType: "stress_strain_curve",
   },
   {
     id: "elastic_moduli",
@@ -43,6 +45,7 @@ export const formulas_p1_ch7 = [
           "\\sigma = \\frac{\\text{Lateral Strain}}{\\text{Longitudinal Strain}} = \\frac{d/D}{l/L}",
       },
     ],
+    hasVisualization: true,
     vizType: "stress_strain_curve",
   },
   {
@@ -118,6 +121,8 @@ export const formulas_p1_ch7 = [
     ],
     assumptions: "Tube is perfectly cylindrical.",
     specialCases: [],
+    hasVisualization: true,
+    vizType: "capillary_rise_lab",
   },
   {
     id: "excess_pressure",
@@ -160,5 +165,7 @@ export const formulas_p1_ch7 = [
         latex: "F = 6\\pi\\eta rv",
       },
     ],
+    hasVisualization: true,
+    vizType: "terminal_velocity_stokes",
   },
 ];
