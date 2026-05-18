@@ -5,8 +5,7 @@ export const formulas_p2_ch9 = [
     topic: "Bohr Model (বোর পরমাণু মডেল)",
     nameEn: "Bohr Angular Momentum Quantization",
     nameBn: "বোর কৌণিক ভরবেগ কোয়ান্টায়ন",
-    latex:
-      "L = m v r = \\frac{n h}{2\\pi} = n \\hbar \\newline \\text{where } \\hbar = \\frac{h}{2\\pi} \\approx 1.054 \\times 10^{-34} \\text{ J·s}",
+    latex: "L = m v r = \\frac{n h}{2\\pi} = n \\hbar",
     variables: [
       {
         symbol: "L",
@@ -24,7 +23,7 @@ export const formulas_p2_ch9 = [
       { symbol: "h", meaning: "Planck's constant", unit: "J·s" },
     ],
     assumptions:
-      "Electrons revolve only in certain non-radiating, stable circular orbits.",
+      "Electrons revolve only in certain non-radiating, stable circular orbits. Here h = 6.626 × 10⁻³⁴ J·s.",
     specialCases: [
       {
         condition: "n = 1 \\quad (\\text{Ground state})",
@@ -259,7 +258,7 @@ export const formulas_p2_ch9 = [
     nameEn: "Mass Defect & Binding Energy",
     nameBn: "ভর ত্রুটি ও বন্ধন শক্তি",
     latex:
-      "\\Delta m = \\left[ Z m_p + (A - Z) m_n \\right] - M_{nucleus} \\newline E_B = \\Delta m \\cdot c^2 \\newline \\text{If } \\Delta m \\text{ is in amu:} \\newline E_B = \\Delta m \\times 931.5 \\text{ MeV} \\newline \\text{Note: } 1 \\text{ amu} \\approx 1.66 \\times 10^{-27} \\text{ kg} = 931.5 \\text{ MeV}",
+      "\\Delta m = \\left[ Z m_p + (A - Z) m_n \\right] - M_{nucleus} \\newline E_B = \\Delta m \\cdot c^2 \\newline \\text{If } \\Delta m \\text{ is in amu:} \\newline E_B = \\Delta m \\times 931.5 \\text{ MeV}",
     variables: [
       {
         symbol: "\\Delta m",
@@ -299,7 +298,7 @@ export const formulas_p2_ch9 = [
       },
     ],
     assumptions:
-      "Einstein's mass-energy equivalence explains the missing mass in nucleosynthesis.",
+      "1 amu = 931.5 MeV/c² = 1.66 * 10^{-27} kg. Einstein's mass-energy equivalence explains the missing mass in nucleosynthesis.",
     specialCases: [],
     mcqShortcuts: [
       "To convert mass defect in amu directly into energy in Joules: multiply by $1.492 \\times 10^{-10}\\text{ J}$.",

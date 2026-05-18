@@ -243,11 +243,13 @@ export const formulas_p1_ch9 = [
     topic: "Intensity (তীব্রতা)",
     nameEn: "Intensity of Wave",
     nameBn: "তরঙ্গের তীব্রতা",
-    latex: "I = 2\\pi^2 f^2 A^2 \\rho v",
+    latex: "I = 2\\pi^2 f^2 A^2 \\rho v = \\frac{P}{A} = \\frac{E}{A t}",
     variables: [
       { symbol: "I", meaning: "Intensity", unit: "W/m²" },
       { symbol: "A", meaning: "Amplitude", unit: "m" },
       { symbol: "f", meaning: "Frequency", unit: "Hz" },
+      { symbol: "\\rho", meaning: "Density of medium", unit: "kg/m³" },
+      { symbol: "v", meaning: "Velocity of wave", unit: "m/s" },
     ],
     assumptions:
       "Intensity is proportional to the square of amplitude and frequency.",

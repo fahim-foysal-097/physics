@@ -115,11 +115,15 @@ export const formulas_p2_ch6 = [
     nameEn: "Prism Equation & Minimum Deviation",
     nameBn: "প্রিজমে প্রতিসরণ ও ন্যূনতম বিচ্যুতি",
     latex:
-      "A = r_1 + r_2 \\newline D = i_1 + i_2 - A \\newline \\mu = \\frac{\\sin\\left(\\frac{A + D_m}{2}\\right)}{\\sin\\left(\\frac{A}{2}\right)}",
+      "A = r_1 + r_2 \\newline \\delta = i_1 + i_2 - A \\newline \\mu = \\frac{\\sin\\left(\\frac{A + \\delta_m}{2}\\right)}{\\sin\\left(\\frac{A}{2}\\right)}",
     variables: [
       { symbol: "A", meaning: "Angle of prism", unit: "Degrees" },
-      { symbol: "D", meaning: "Angle of deviation", unit: "Degrees" },
-      { symbol: "D_m", meaning: "Angle of minimum deviation", unit: "Degrees" },
+      { symbol: "\\delta", meaning: "Angle of deviation", unit: "Degrees" },
+      {
+        symbol: "\\delta_m",
+        meaning: "Angle of minimum deviation",
+        unit: "Degrees",
+      },
       {
         symbol: "i_1, i_2",
         meaning: "Angles of incidence and emergence",
@@ -204,7 +208,7 @@ export const formulas_p2_ch6 = [
     nameEn: "Lens Maker's Formula & Combinations",
     nameBn: "লেন্স প্রস্তুতকারকের সমীকরণ ও সংযোগ",
     latex:
-      "\\frac{1}{f} = (\\mu - 1)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\right) \\newline P = \\frac{1}{f \\text{ (m)}} \\newline \\frac{1}{f_{eq}} = \\frac{1}{f_1} + \\frac{1}{f_2} \\implies P_{eq} = P_1 + P_2",
+      "\\frac{1}{f} = (\\mu - 1)\\left(\\frac{1}{R_1} - \\frac{1}{R_2}\\right) \\newline P = \\frac{1}{f \\text{ (m)}} \\newline \\frac{1}{f_{eq}} = \\frac{1}{f_1} + \\frac{1}{f_2} \\implies P_{eq} = P_1 + P_2",
     variables: [
       { symbol: "f", meaning: "Focal length of the lens", unit: "m" },
       {

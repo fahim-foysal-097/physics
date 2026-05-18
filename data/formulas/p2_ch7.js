@@ -53,11 +53,16 @@ export const formulas_p2_ch7 = [
     nameEn: "Young's Double Slit Interference",
     nameBn: "ইয়ং-এর দ্বি-চির পরীক্ষা",
     latex:
-      "x_n = \\frac{n\\lambda D}{d} \\quad (\\text{Bright Fringes}) \\newline x_n = (2n-1)\\frac{\\lambda D}{2d} \\quad (\\text{Dark Fringes}) \\newline \\beta = \\frac{\\lambda D}{d} \\quad (\\text{Fringe Width})",
+      "x_{nL} = 2n  \\frac{\\lambda}{2}  \\frac{D}{a}, \\quad a\\sin\\theta_{nL} = 2n  \\frac{\\lambda}{2} \\newline x_{nD} = (2n-1)  \\frac{\\lambda}{2}  \\frac{D}{a}, \\quad a\\sin\\theta_{nD} = (2n-1)  \\frac{\\lambda}{2}  \\newline \\Delta z = \\frac{\\lambda D}{a} \\newline \\beta = \\frac{\\Delta z}{2} = \\frac{\\lambda D}{2a}",
     variables: [
       {
-        symbol: "x_n",
-        meaning: "Distance of the n-th fringe from the central maximum",
+        symbol: "x_{nL}",
+        meaning: "Distance of the n-th bright fringe from the central maximum",
+        unit: "m",
+      },
+      {
+        symbol: "x_{nD}",
+        meaning: "Distance of the n-th dark fringe from the central maximum",
         unit: "m",
       },
       {
@@ -66,8 +71,8 @@ export const formulas_p2_ch7 = [
         unit: "m",
       },
       {
-        symbol: "d",
-        meaning: "Separation between the two coherent slits",
+        symbol: "a",
+        meaning: "Distance between the two slits (slit separation)",
         unit: "m",
       },
       {
@@ -79,6 +84,12 @@ export const formulas_p2_ch7 = [
         symbol: "\\beta",
         meaning:
           "Fringe width (distance between two consecutive bright or dark fringes)",
+        unit: "m",
+      },
+      {
+        symbol: "\\Delta z",
+        meaning:
+          "Distance between adjacent bright and dark fringes (ঝালরের প্রস্থ)",
         unit: "m",
       },
     ],
@@ -106,7 +117,7 @@ export const formulas_p2_ch7 = [
     nameEn: "Single Slit Diffraction",
     nameBn: "একক চিরের অপবর্তন",
     latex:
-      "a \\sin\\theta = n\\lambda \\quad (\\text{Condition for Minima / Dark bands}) \\newline a \\sin\\theta = (2n+1)\\frac{\\lambda}{2} \\quad (\\text{Condition for Maxima / Bright bands}) \\newline w_c = \\frac{2\\lambda D}{a} \\quad (\\text{Central Maximum Width})",
+      "a \\sin\\theta_{nD} = 2n \\frac{\\lambda}{2} \\newline a \\sin\\theta_{nL} = (2n+1)\\frac{\\lambda}{2}",
     variables: [
       { symbol: "a", meaning: "Width of the single slit", unit: "m" },
       { symbol: "\\theta", meaning: "Angle of diffraction", unit: "Degrees" },
@@ -119,11 +130,6 @@ export const formulas_p2_ch7 = [
         symbol: "n",
         meaning: "Order of diffraction minimum or maximum (1, 2, 3...)",
         unit: "Dimensionless",
-      },
-      {
-        symbol: "w_c",
-        meaning: "Linear width of the central bright peak on screen",
-        unit: "m",
       },
       {
         symbol: "D",
@@ -322,6 +328,46 @@ export const formulas_p2_ch7 = [
       "In an EM wave, the electric field energy density and magnetic field energy density are exactly equal, although they vibrate in perpendicular planes.",
       "The ratio of electric field amplitude to magnetic field amplitude is always equal to the speed of light: $\\frac{E_0}{B_0} = c$.",
     ],
+  },
+  {
+    id: "Intensity of light",
+    chapterId: "p2_ch7",
+    topic: "Electromagnetic Wave (তড়িৎচৌম্বক তরঙ্গ)",
+    nameEn: "Intensity of Light & Inverse Square Law",
+    nameBn: "আলোর তীব্রতা ও বিপরীত বর্গ সূত্র",
+    latex: "I = \\frac{1}{2} \\rho V \\omega^2 A^2 \\newline I \\propto A^2",
+    variables: [
+      {
+        symbol: "I",
+        meaning: "Intensity of light (power per unit area)",
+        unit: "W/m²",
+      },
+      {
+        symbol: "A",
+        meaning: "Area over which the power is distributed",
+        unit: "m²",
+      },
+      {
+        symbol: "\\rho",
+        meaning: "Density of the medium through which light is propagating",
+        unit: "kg/m³",
+      },
+      {
+        symbol: "\\omega",
+        meaning:
+          "Angular frequency of the light wave (related to frequency by \\omega = 2\\pi f)",
+        unit: "rad/s",
+      },
+      {
+        symbol: "V",
+        meaning: "Volume of the region through which the light is passing",
+        unit: "m³",
+      },
+    ],
+    assumptions:
+      "Point source emitting light uniformly in all directions (isotropic emission).",
+    specialCases: [],
+    mcqShortcuts: [],
   },
   {
     id: "malus_law",

@@ -71,10 +71,13 @@ export const formulas_p1_ch8 = [
     nameEn: "Energy in SHM",
     nameBn: "সরল ছন্দিত স্পন্দনের শক্তি",
     latex:
-      "E_k = \\frac{1}{2}k(A^2 - x^2) \\newline E_p = \\frac{1}{2}kx^2 \\newline E_{total} = \\frac{1}{2}kA^2",
+      "E_k = \\frac{1}{2}k(A^2 - x^2) \\newline E_p = \\frac{1}{2}kx^2 \\newline E_{total} = \\frac{1}{2}kA^2 = \\frac{1}{2}m\\omega^2 A^2",
     variables: [
       { symbol: "A", meaning: "Amplitude", unit: "m" },
       { symbol: "x", meaning: "Displacement", unit: "m" },
+      { symbol: "k", meaning: "Spring constant", unit: "N/m" },
+      { symbol: "m", meaning: "Mass", unit: "kg" },
+      { symbol: "\\omega", meaning: "Angular frequency", unit: "rad/s" },
     ],
     hasVisualization: true,
     vizType: "shm_energy_graphs_sim",
@@ -93,36 +96,6 @@ export const formulas_p1_ch8 = [
     ],
     hasVisualization: true,
     vizType: "spring_combinations_sim",
-  },
-  {
-    id: "shm_energy",
-    chapterId: "p1_ch8",
-    topic: "Energy in SHM (সরল ছন্দিত স্পন্দনের শক্তি)",
-    nameEn: "Total Energy",
-    nameBn: "মোট শক্তি",
-    latex: "E = \\frac{1}{2}m\\omega^2 A^2",
-    variables: [
-      { symbol: "E", meaning: "Total mechanical energy", unit: "Joule (J)" },
-      { symbol: "m", meaning: "Mass of the particle", unit: "kg" },
-    ],
-    assumptions: "No damping or resistive forces.",
-    mcqShortcuts: [
-      "At x = A/√2, Kinetic Energy = Potential Energy = 1/2 Total Energy.",
-      "At x = A/2, Potential Energy = 1/4 Total Energy, Kinetic Energy = 3/4 Total Energy.",
-      "Frequency of energy oscillation is twice the frequency of SHM.",
-    ],
-    specialCases: [
-      {
-        condition: "\\text{Kinetic Energy}",
-        latex: "E_k = \\frac{1}{2}m\\omega^2(A^2 - x^2)",
-      },
-      {
-        condition: "\\text{Potential Energy}",
-        latex: "E_p = \\frac{1}{2}m\\omega^2 x^2",
-      },
-    ],
-    hasVisualization: true,
-    vizType: "shm_energy_graphs_sim",
   },
   {
     id: "time_period_pendulum",
