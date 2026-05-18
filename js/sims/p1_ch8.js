@@ -70,7 +70,7 @@ export const p1_ch8_sims = {
 
         // Reference point coordinates
         let px = cx + r * sketch.cos(sketch.shmAngle);
-        let py = cy - r * sketch.sin(sketch.shmAngle); 
+        let py = cy - r * sketch.sin(sketch.shmAngle);
 
         sketch.stroke("#94a3b8");
         sketch.strokeWeight(1.5);
@@ -88,7 +88,8 @@ export const p1_ch8_sims = {
         let numCoils = 24;
         for (let i = 0; i <= numCoils; i++) {
           let sy = sketch.lerp(30, py, i / numCoils);
-          let sx = springX + (i > 0 && i < numCoils ? (i % 2 === 0 ? -12 : 12) : 0);
+          let sx =
+            springX + (i > 0 && i < numCoils ? (i % 2 === 0 ? -12 : 12) : 0);
           sketch.vertex(sx, sy);
         }
         sketch.endShape();
@@ -104,7 +105,7 @@ export const p1_ch8_sims = {
         sketch.stroke("rgba(79, 70, 229, 0.4)");
         sketch.strokeWeight(1.5);
         sketch.drawingContext.setLineDash([4, 4]);
-        sketch.line(px, py, waveStartX, py); 
+        sketch.line(px, py, waveStartX, py);
         sketch.drawingContext.setLineDash([]);
 
         // Projection dot
@@ -125,12 +126,12 @@ export const p1_ch8_sims = {
         }
         sketch.endShape();
 
-        sketch.shmAngle -= sp; 
+        sketch.shmAngle -= sp;
 
         p1_ch8_sims.drawPills(sketch, "SHM Reference Circle Projection", [
           `A: ${r.toFixed(0)} units`,
           `ω: ${(sp * 0.1).toFixed(3)} rad/s`,
-          `Displacement y = A sin(ωt)`
+          `Displacement y = A sin(ωt)`,
         ]);
         break;
       }
@@ -143,7 +144,7 @@ export const p1_ch8_sims = {
         let damp = sketch.damping !== undefined ? sketch.damping : 1.0;
 
         let physG = p1_ch8_sims.getScaledG(g_val) * 12.0;
-        
+
         // Equation of motion: d2θ/dt2 = - (g/L) sin(θ)
         let acc = -(physG / L) * sketch.sin(sketch.pendAngle);
         sketch.pendVel += acc;
@@ -179,11 +180,19 @@ export const p1_ch8_sims = {
         // Tangent vector is perpendicular to the string (pex, pey).
         // For bob at coordinates (L sinθ, L cosθ), tangent points along (cosθ, -sinθ).
         if (Math.abs(sketch.pendVel) > 0.03) {
-          let vScale = 130; 
+          let vScale = 130;
           let vx = sketch.pendVel * sketch.cos(sketch.pendAngle) * vScale;
           let vy = -sketch.pendVel * sketch.sin(sketch.pendAngle) * vScale;
-          
-          p1_ch8_sims.drawArrow(sketch, pex, pey, pex + vx, pey + vy, "#ef4444", 2);
+
+          p1_ch8_sims.drawArrow(
+            sketch,
+            pex,
+            pey,
+            pex + vx,
+            pey + vy,
+            "#ef4444",
+            2,
+          );
           sketch.fill("#ef4444");
           sketch.noStroke();
           sketch.textSize(9);
@@ -191,13 +200,13 @@ export const p1_ch8_sims = {
         }
 
         sketch.pop();
-        
+
         let T = 2 * Math.PI * sketch.sqrt(L / (g_val * 85)); // Period
         p1_ch8_sims.drawPills(sketch, "Simple Pendulum Gravity Oscillator", [
-          `L: ${(L/100).toFixed(2)} m`,
+          `L: ${(L / 100).toFixed(2)} m`,
           `g: ${g_val.toFixed(1)} m/s²`,
           `T = 2π√(L/g) = ${T.toFixed(2)} s`,
-          `θ: ${sketch.pendAngle.toFixed(1)}°`
+          `θ: ${sketch.pendAngle.toFixed(1)}°`,
         ]);
         break;
       }
@@ -207,9 +216,9 @@ export const p1_ch8_sims = {
         let kVal = sketch.k !== undefined ? sketch.k : 0.4;
         let mVal = sketch.mass !== undefined ? sketch.mass : 2.0;
 
-        let omega = sketch.sqrt(kVal / mVal) * 5.0; 
+        let omega = sketch.sqrt(kVal / mVal) * 5.0;
         sketch.shmEnergyTime += 1.0;
-        
+
         let displacement = ampVal * sketch.cos(omega * sketch.shmEnergyTime);
 
         // Spring position
@@ -251,41 +260,41 @@ export const p1_ch8_sims = {
 
         sketch.stroke("#94a3b8");
         sketch.strokeWeight(1);
-        sketch.line(gx, gy, gx + gw, gy); 
-        sketch.line(gx + gw/2, gy, gx + gw/2, gy - gh); 
+        sketch.line(gx, gy, gx + gw, gy);
+        sketch.line(gx + gw / 2, gy, gx + gw / 2, gy - gh);
 
         sketch.noStroke();
         sketch.fill(0);
         sketch.textSize(9);
         sketch.text("-A", gx + 10, gy + 12);
         sketch.text("+A", gx + gw - 25, gy + 12);
-        sketch.text("Energy (J)", gx + gw/2 - 25, gy - gh - 4);
+        sketch.text("Energy (J)", gx + gw / 2 - 25, gy - gh - 4);
 
         // Plot parabolas
         let totalE = 0.5 * kVal * ampVal * ampVal;
-        
+
         sketch.noFill();
         sketch.strokeWeight(1.5);
 
         // E_p parabola
         sketch.stroke("#ef4444");
         sketch.beginShape();
-        for (let dx = -gw/2; dx <= gw/2; dx += 2) {
-          let scaledX = (dx / (gw/2)) * ampVal;
+        for (let dx = -gw / 2; dx <= gw / 2; dx += 2) {
+          let scaledX = (dx / (gw / 2)) * ampVal;
           let ep = 0.5 * kVal * scaledX * scaledX;
           let py = gy - (ep / totalE) * gh;
-          sketch.vertex(gx + gw/2 + dx, py);
+          sketch.vertex(gx + gw / 2 + dx, py);
         }
         sketch.endShape();
 
         // E_k parabola
         sketch.stroke("#10b981");
         sketch.beginShape();
-        for (let dx = -gw/2; dx <= gw/2; dx += 2) {
-          let scaledX = (dx / (gw/2)) * ampVal;
+        for (let dx = -gw / 2; dx <= gw / 2; dx += 2) {
+          let scaledX = (dx / (gw / 2)) * ampVal;
           let ek = 0.5 * kVal * (ampVal * ampVal - scaledX * scaledX);
           let py = gy - (ek / totalE) * gh;
-          sketch.vertex(gx + gw/2 + dx, py);
+          sketch.vertex(gx + gw / 2 + dx, py);
         }
         sketch.endShape();
 
@@ -300,21 +309,34 @@ export const p1_ch8_sims = {
 
         sketch.noStroke();
         sketch.fill("#ef4444");
-        sketch.circle(gx + gw/2 + activeGraphX, gy - (curPE / totalE) * gh, 6);
+        sketch.circle(
+          gx + gw / 2 + activeGraphX,
+          gy - (curPE / totalE) * gh,
+          6,
+        );
         sketch.fill("#10b981");
-        sketch.circle(gx + gw/2 + activeGraphX, gy - (curKE / totalE) * gh, 6);
+        sketch.circle(
+          gx + gw / 2 + activeGraphX,
+          gy - (curKE / totalE) * gh,
+          6,
+        );
 
         // Label displacement line
         sketch.stroke("rgba(0, 0, 0, 0.12)");
         sketch.strokeWeight(1);
-        sketch.line(gx + gw/2 + activeGraphX, gy, gx + gw/2 + activeGraphX, gy - gh);
+        sketch.line(
+          gx + gw / 2 + activeGraphX,
+          gy,
+          gx + gw / 2 + activeGraphX,
+          gy - gh,
+        );
 
         p1_ch8_sims.drawPills(sketch, "SHM Kinetic vs Potential Energy", [
           `A: ${ampVal.toFixed(0)}`,
           `k: ${kVal.toFixed(2)} N/m`,
           `x: ${displacement.toFixed(1)}`,
           `E_tot = ½kA² = ${totalE.toFixed(1)} J`,
-          `PE: ${curPE.toFixed(1)} J (Red) | KE: ${curKE.toFixed(1)} J (Green)`
+          `PE: ${curPE.toFixed(1)} J (Red) | KE: ${curKE.toFixed(1)} J (Green)`,
         ]);
         break;
       }
@@ -329,7 +351,7 @@ export const p1_ch8_sims = {
 
         if (sketch.springsRunning) {
           let dt = 0.2;
-          
+
           let accS = -(k_series / mass) * sketch.dispSeries * 0.05;
           sketch.velSeries += accS * dt;
           sketch.dispSeries += sketch.velSeries * dt * 8;
@@ -346,35 +368,35 @@ export const p1_ch8_sims = {
         sketch.rect(0, 210, sketch.width, 6);
 
         let startX = 40;
-        
+
         // Series combination
         let blockSeriesX = startX + 160 + sketch.dispSeries;
         let midPtX = startX + (blockSeriesX - startX) / 2;
-        
+
         sketch.stroke("#475569");
         sketch.strokeWeight(1.8);
         sketch.noFill();
-        
+
         // spring 1
         sketch.beginShape();
         sketch.vertex(startX, 65);
         for (let i = 0; i <= 10; i++) {
-          let cx = sketch.lerp(startX, midPtX, i/10);
-          let cy = 65 + (i > 0 && i < 10 ? (i%2 === 0 ? -8 : 8) : 0);
+          let cx = sketch.lerp(startX, midPtX, i / 10);
+          let cy = 65 + (i > 0 && i < 10 ? (i % 2 === 0 ? -8 : 8) : 0);
           sketch.vertex(cx, cy);
         }
         sketch.endShape();
-        
+
         sketch.fill("#cbd5e1");
         sketch.circle(midPtX, 65, 6);
-        
+
         // spring 2
         sketch.noFill();
         sketch.beginShape();
         sketch.vertex(midPtX, 65);
         for (let i = 0; i <= 10; i++) {
-          let cx = sketch.lerp(midPtX, blockSeriesX, i/10);
-          let cy = 65 + (i > 0 && i < 10 ? (i%2 === 0 ? -8 : 8) : 0);
+          let cx = sketch.lerp(midPtX, blockSeriesX, i / 10);
+          let cy = 65 + (i > 0 && i < 10 ? (i % 2 === 0 ? -8 : 8) : 0);
           sketch.vertex(cx, cy);
         }
         sketch.endShape();
@@ -386,7 +408,7 @@ export const p1_ch8_sims = {
 
         // Parallel combination
         let blockParallelX = startX + 160 + sketch.dispParallel;
-        
+
         sketch.stroke("#475569");
         sketch.strokeWeight(1.8);
         sketch.noFill();
@@ -394,8 +416,8 @@ export const p1_ch8_sims = {
         sketch.beginShape();
         sketch.vertex(startX, 160);
         for (let i = 0; i <= 14; i++) {
-          let cx = sketch.lerp(startX, blockParallelX, i/14);
-          let cy = 160 + (i > 0 && i < 14 ? (i%2 === 0 ? -6 : 6) : 0);
+          let cx = sketch.lerp(startX, blockParallelX, i / 14);
+          let cy = 160 + (i > 0 && i < 14 ? (i % 2 === 0 ? -6 : 6) : 0);
           sketch.vertex(cx, cy);
         }
         sketch.endShape();
@@ -403,8 +425,8 @@ export const p1_ch8_sims = {
         sketch.beginShape();
         sketch.vertex(startX, 185);
         for (let i = 0; i <= 14; i++) {
-          let cx = sketch.lerp(startX, blockParallelX, i/14);
-          let cy = 185 + (i > 0 && i < 14 ? (i%2 === 0 ? -6 : 6) : 0);
+          let cx = sketch.lerp(startX, blockParallelX, i / 14);
+          let cy = 185 + (i > 0 && i < 14 ? (i % 2 === 0 ? -6 : 6) : 0);
           sketch.vertex(cx, cy);
         }
         sketch.endShape();
@@ -425,11 +447,15 @@ export const p1_ch8_sims = {
         let T_series = 2 * Math.PI * sketch.sqrt(mass / k_series) * 0.1;
         let T_parallel = 2 * Math.PI * sketch.sqrt(mass / k_parallel) * 0.1;
 
-        p1_ch8_sims.drawPills(sketch, "Series vs Parallel Stiffness comparison", [
-          `k1: ${curK1.toFixed(0)} | k2: ${curK2.toFixed(0)} N/m`,
-          `Ks: ${k_series.toFixed(1)} N/m | Kp: ${k_parallel.toFixed(1)} N/m`,
-          `Ts = ${T_series.toFixed(2)}s | Tp = ${T_parallel.toFixed(2)}s`
-        ]);
+        p1_ch8_sims.drawPills(
+          sketch,
+          "Series vs Parallel Stiffness comparison",
+          [
+            `k1: ${curK1.toFixed(0)} | k2: ${curK2.toFixed(0)} N/m`,
+            `Ks: ${k_series.toFixed(1)} N/m | Kp: ${k_parallel.toFixed(1)} N/m`,
+            `Ts = ${T_series.toFixed(2)}s | Tp = ${T_parallel.toFixed(2)}s`,
+          ],
+        );
         break;
       }
     }
@@ -452,17 +478,17 @@ export const p1_ch8_sims = {
     sketch.push();
     sketch.resetMatrix();
     sketch.textSize(10);
-    
+
     // Title
     let tw = sketch.textWidth(title);
     sketch.fill("rgba(30, 41, 59, 0.85)");
     sketch.noStroke();
     sketch.rect(15, 12, tw + 20, 22, 11);
-    
+
     sketch.fill("#ffffff");
     sketch.textAlign(sketch.CENTER, sketch.CENTER);
     sketch.textStyle(sketch.BOLD);
-    sketch.text(title, 15 + (tw + 20)/2, 12 + 11);
+    sketch.text(title, 15 + (tw + 20) / 2, 12 + 11);
     sketch.textStyle(sketch.NORMAL);
 
     // Metrics
@@ -470,17 +496,17 @@ export const p1_ch8_sims = {
       let metricsStr = metrics.join("   |   ");
       let mw = sketch.textWidth(metricsStr);
       let barW = mw + 30;
-      
+
       sketch.fill("rgba(255, 255, 255, 0.95)");
       sketch.stroke("#cbd5e1");
       sketch.strokeWeight(1.5);
       sketch.rect(15, sketch.height - 34, barW, 22, 11);
-      
+
       sketch.noStroke();
       sketch.fill("#334155");
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(metricsStr, 30, sketch.height - 34 + 11);
     }
     sketch.pop();
-  }
+  },
 };

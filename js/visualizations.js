@@ -69,6 +69,15 @@ export const vizManager = {
           module.draw(sketch, vizType);
         }
       };
+
+      sketch.windowResized = () => {
+        const currentContainer = document.getElementById(containerId);
+        if (currentContainer) {
+          const newWidth = currentContainer.clientWidth;
+          const newHeight = currentContainer.clientHeight || 380;
+          sketch.resizeCanvas(newWidth, newHeight);
+        }
+      };
     };
 
     const instance = new p5(sketchFn);

@@ -76,11 +76,20 @@ export const formulas_p1_ch2 = [
     topic: "Vector Components (ভেক্টরের উপাংশ)",
     nameEn: "Vector Resolution in 2D",
     nameBn: "দ্বিমাত্রিক ভেক্টর বিভাজন",
-    latex: "A_x = A\\cos\\theta, \\quad A_y = A\\sin\\theta \\newline \\vec{A} = A_x\\hat{i} + A_y\\hat{j}",
+    latex:
+      "A_x = A\\cos\\theta, \\quad A_y = A\\sin\\theta \\newline \\vec{A} = A_x\\hat{i} + A_y\\hat{j}",
     variables: [
       { symbol: "A", meaning: "Magnitude of the vector A", unit: "N/A" },
-      { symbol: "A_x, A_y", meaning: "Horizontal (X) and vertical (Y) components", unit: "N/A" },
-      { symbol: "\\theta", meaning: "Angle with the positive X-axis", unit: "Degree" }
+      {
+        symbol: "A_x, A_y",
+        meaning: "Horizontal (X) and vertical (Y) components",
+        unit: "N/A",
+      },
+      {
+        symbol: "\\theta",
+        meaning: "Angle with the positive X-axis",
+        unit: "Degree",
+      },
     ],
     assumptions: "Orthogonal coordinate system.",
     specialCases: [],

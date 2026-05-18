@@ -25,6 +25,13 @@ export const p2_ch10_sims = {
       // Mouse/Touch click handler mapped inside instance with responsive hitboxes
       sketch.mousePressed = () => {
         if (sketch.vizType !== "logic_gates") return;
+        if (
+          sketch.mouseX < 0 ||
+          sketch.mouseX > sketch.width ||
+          sketch.mouseY < 0 ||
+          sketch.mouseY > sketch.height
+        )
+          return;
 
         // 1. Gate Tab Buttons click
         let tabs = ["AND", "OR", "NOT", "NAND", "NOR", "XOR", "XNOR"];

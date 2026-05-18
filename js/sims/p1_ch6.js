@@ -22,7 +22,7 @@ export const p1_ch6_sims = {
     sketch.rocketState = 0; // 0=Idle, 1=Flying, 2=Crashed, 3=Escaped
     sketch.rocketPath = [];
     sketch.explosionSize = 0;
-    
+
     // Auto-launch trigger function
     sketch.launchRocket = () => {
       sketch.rocketY = 0;
@@ -50,7 +50,7 @@ export const p1_ch6_sims = {
       case "orbit_simulation": {
         let cx = sketch.width / 2;
         let cy = sketch.height / 2;
-        
+
         sketch.push();
         sketch.translate(cx, cy);
 
@@ -92,25 +92,33 @@ export const p1_ch6_sims = {
         sketch.rotate(satelliteAngle);
 
         // Solar panels
-        sketch.fill("#4f46e5"); 
+        sketch.fill("#4f46e5");
         sketch.stroke("#818cf8");
         sketch.strokeWeight(1);
         sketch.rect(-18, -2, 12, 4);
         sketch.rect(6, -2, 12, 4);
         sketch.stroke(200);
-        sketch.line(-6, 0, 6, 0); 
-        
+        sketch.line(-6, 0, 6, 0);
+
         // Satellite center body
         sketch.fill("#cbd5e1");
         sketch.stroke("#475569");
         sketch.rect(-4, -4, 8, 8, 1);
-        sketch.fill("#ef4444"); 
+        sketch.fill("#ef4444");
         sketch.circle(0, 0, 3);
         sketch.pop();
 
         // Draw Force Vectors on Satellite
-        p1_ch6_sims.drawArrow(sketch, ox, oy, ox - ox * 0.35, oy - oy * 0.35, "#38bdf8", 2); // F_g
-        
+        p1_ch6_sims.drawArrow(
+          sketch,
+          ox,
+          oy,
+          ox - ox * 0.35,
+          oy - oy * 0.35,
+          "#38bdf8",
+          2,
+        ); // F_g
+
         let vx = -sketch.sin(sketch.t) * 35;
         let vy = sketch.cos(sketch.t) * 35;
         p1_ch6_sims.drawArrow(sketch, ox, oy, ox + vx, oy + vy, "#f59e0b", 2); // v_tangent
@@ -128,17 +136,17 @@ export const p1_ch6_sims = {
         sketch.t += sketch.orbitV;
 
         let G = 6.67e-11;
-        let M = 5.97e24; 
-        let R_earth = 6371; 
-        let h_scaled = (r - 23) * 50; 
-        let actualV = sketch.sqrt((G * M) / ((R_earth + h_scaled) * 1000)); 
-        let T_period = 2 * Math.PI * (R_earth + h_scaled) * 1000 / actualV; 
+        let M = 5.97e24;
+        let R_earth = 6371;
+        let h_scaled = (r - 23) * 50;
+        let actualV = sketch.sqrt((G * M) / ((R_earth + h_scaled) * 1000));
+        let T_period = (2 * Math.PI * (R_earth + h_scaled) * 1000) / actualV;
 
         p1_ch6_sims.drawPills(sketch, "Satellite Orbital Dynamics", [
           `h: ${h_scaled.toFixed(0)} km`,
           `Radius: ${(R_earth + h_scaled).toFixed(0)} km`,
           `v = √[GM/r] = ${(actualV / 1000).toFixed(2)} km/s`,
-          `Period T: ${(T_period / 60).toFixed(1)} mins`
+          `Period T: ${(T_period / 60).toFixed(1)} mins`,
         ]);
         break;
       }
@@ -147,7 +155,7 @@ export const p1_ch6_sims = {
         let ecc = sketch.ecc !== undefined ? sketch.ecc : 0.4;
         let a = sketch.semi !== undefined ? sketch.semi : 100;
         let b = a * sketch.sqrt(1 - ecc * ecc);
-        let f = a * ecc; 
+        let f = a * ecc;
 
         let cx = sketch.width / 2;
         let cy = sketch.height / 2;
@@ -165,21 +173,21 @@ export const p1_ch6_sims = {
         sketch.noStroke();
         sketch.fill("rgba(245, 158, 11, 0.2)");
         sketch.circle(-f * 2, 0, 36);
-        sketch.fill("#f59e0b"); 
+        sketch.fill("#f59e0b");
         sketch.circle(-f * 2, 0, 20);
 
         // Kepler's 2nd Law - equal area sectors
         if (sketch.showSweep === 1) {
-          let sweepWidth = 16; 
+          let sweepWidth = 16;
           sketch.fill("rgba(16, 185, 129, 0.25)");
           sketch.stroke("rgba(16, 185, 129, 0.5)");
-          
+
           // Sector 1: Perihelion
           sketch.beginShape();
-          sketch.vertex(-f*2, 0);
+          sketch.vertex(-f * 2, 0);
           for (let ang = -sweepWidth; ang <= sweepWidth; ang++) {
-            let r_ang = (a * (1 - ecc*ecc)) / (1 + ecc * sketch.cos(ang));
-            let sx = r_ang * sketch.cos(ang) - f*2;
+            let r_ang = (a * (1 - ecc * ecc)) / (1 + ecc * sketch.cos(ang));
+            let sx = r_ang * sketch.cos(ang) - f * 2;
             let sy = r_ang * sketch.sin(ang);
             sketch.vertex(sx, sy);
           }
@@ -187,10 +195,14 @@ export const p1_ch6_sims = {
 
           // Sector 2: Aphelion
           sketch.beginShape();
-          sketch.vertex(-f*2, 0);
-          for (let ang = 180 - sweepWidth / 4; ang <= 180 + sweepWidth / 4; ang++) {
-            let r_ang = (a * (1 - ecc*ecc)) / (1 + ecc * sketch.cos(ang));
-            let sx = r_ang * sketch.cos(ang) - f*2;
+          sketch.vertex(-f * 2, 0);
+          for (
+            let ang = 180 - sweepWidth / 4;
+            ang <= 180 + sweepWidth / 4;
+            ang++
+          ) {
+            let r_ang = (a * (1 - ecc * ecc)) / (1 + ecc * sketch.cos(ang));
+            let sx = r_ang * sketch.cos(ang) - f * 2;
             let sy = r_ang * sketch.sin(ang);
             sketch.vertex(sx, sy);
           }
@@ -200,15 +212,16 @@ export const p1_ch6_sims = {
           sketch.noStroke();
           sketch.textSize(9);
           sketch.text("A1 (Fast)", -f - 10, 16);
-          sketch.text("A2 (Slow)", -f*3.2, 16);
+          sketch.text("A2 (Slow)", -f * 3.2, 16);
         }
 
         // Planet mechanics
-        let r_current = (a * (1 - ecc*ecc)) / (1 + ecc * sketch.cos(sketch.keplerTheta));
+        let r_current =
+          (a * (1 - ecc * ecc)) / (1 + ecc * sketch.cos(sketch.keplerTheta));
         let px = r_current * sketch.cos(sketch.keplerTheta) - f * 2;
         let py = r_current * sketch.sin(sketch.keplerTheta);
 
-        let dTheta = (2500 / (r_current * r_current));
+        let dTheta = 2500 / (r_current * r_current);
         sketch.keplerTheta += dTheta;
 
         // Radial vector Sun -> Planet
@@ -224,7 +237,7 @@ export const p1_ch6_sims = {
 
         sketch.pop();
 
-        let periodT = sketch.sqrt(a * a * a) * 0.1; 
+        let periodT = sketch.sqrt(a * a * a) * 0.1;
         let tSquare = periodT * periodT;
         let aCube = a * a * a;
         let ratio = tSquare / aCube;
@@ -233,13 +246,14 @@ export const p1_ch6_sims = {
           `eccentricity e: ${ecc.toFixed(2)}`,
           `semi-major a: ${a.toFixed(0)}`,
           `T² / a³ Ratio: ${ratio.toFixed(5)}`,
-          `2nd Law sweep: dA/dt = constant`
+          `2nd Law sweep: dA/dt = constant`,
         ]);
         break;
       }
 
       case "escape_velocity_sandbox": {
-        let planetIdx = sketch.planetSelect !== undefined ? sketch.planetSelect : 0;
+        let planetIdx =
+          sketch.planetSelect !== undefined ? sketch.planetSelect : 0;
         let launchSp = sketch.v_launch !== undefined ? sketch.v_launch : 8.0;
 
         let planetName = "Earth";
@@ -282,7 +296,7 @@ export const p1_ch6_sims = {
           sketch.fill(atmosphereGlow);
           sketch.circle(cx, cy, R_planet * 2 + 15);
         }
-        
+
         sketch.fill(pColor);
         sketch.circle(cx, cy, R_planet * 2);
 
@@ -311,7 +325,8 @@ export const p1_ch6_sims = {
           let dt = 0.25;
           // Core Newtonian Gravitational deceleration: a = -g * R^2 / (R+y)^2
           let R_sim = 80; // simulated radius scale
-          let acc = -gravityVal * Math.pow(R_sim / (R_sim + sketch.rocketY * 0.4), 2);
+          let acc =
+            -gravityVal * Math.pow(R_sim / (R_sim + sketch.rocketY * 0.4), 2);
 
           sketch.rocketVel += acc * dt * 0.12;
           sketch.rocketY += sketch.rocketVel * dt * 6.5;
@@ -363,7 +378,7 @@ export const p1_ch6_sims = {
           sketch.triangle(-4, -10, 4, -10, 0, -18); // Nose cone
           sketch.fill("#cbd5e1");
           sketch.rect(-6, 4, 2, 4); // Wings left
-          sketch.rect(4, 4, 2, 4);  // Wings right
+          sketch.rect(4, 4, 2, 4); // Wings right
           sketch.pop();
         }
 
@@ -377,7 +392,7 @@ export const p1_ch6_sims = {
           if (sketch.explosionSize < 24) sketch.explosionSize += 1.5;
         }
 
-        // 📈 Premium Gravitational Potential Well Curve U(r) = -GM/r!
+        // Gravitational Potential Well Curve U(r) = -GM/r!
         // We draw this on the left-half side of the screen
         let wellX = 15;
         let wellY = 80;
@@ -393,7 +408,7 @@ export const p1_ch6_sims = {
         sketch.fill("#cbd5e1");
         sketch.textSize(8);
         sketch.text("Potential Well U(r)", wellX + 10, wellY + 12);
-        
+
         // Potential well zero line
         sketch.stroke("rgba(255, 255, 255, 0.2)");
         sketch.line(wellX + 8, wellY + 25, wellX + wellW - 8, wellY + 25); // asymptotic zero energy
@@ -410,7 +425,7 @@ export const p1_ch6_sims = {
         sketch.endShape();
 
         // Draw moving Glowing Bead along the gravity potential curve in real-time!
-        let beadY = 25 + (sketch.rocketY * 0.48); // scale position
+        let beadY = 25 + sketch.rocketY * 0.48; // scale position
         beadY = sketch.constrain(beadY, 25, wellH - 15);
         let beadX = wellX + 15 + 1800 / (beadY + 30);
 
@@ -431,12 +446,22 @@ export const p1_ch6_sims = {
           sketch.text("ESCAPE VELOCITY ACHIEVED! 🚀", cx - 85, 45);
         }
 
-        p1_ch6_sims.drawPills(sketch, `Planetary Rocket Launcher (${planetName})`, [
-          `Launch v_0: ${launchSp.toFixed(1)} km/s`,
-          `v_escape: ${v_esc.toFixed(1)} km/s`,
-          `Alt: ${(sketch.rocketY * 1.5).toFixed(0)} km`,
-          sketch.rocketState === 3 ? "Escaped well!" : sketch.rocketVel > 0 ? "Flying up..." : sketch.rocketState === 2 ? "Crashed!" : "Ready"
-        ]);
+        p1_ch6_sims.drawPills(
+          sketch,
+          `Planetary Rocket Launcher (${planetName})`,
+          [
+            `Launch v_0: ${launchSp.toFixed(1)} km/s`,
+            `v_escape: ${v_esc.toFixed(1)} km/s`,
+            `Alt: ${(sketch.rocketY * 1.5).toFixed(0)} km`,
+            sketch.rocketState === 3
+              ? "Escaped well!"
+              : sketch.rocketVel > 0
+                ? "Flying up..."
+                : sketch.rocketState === 2
+                  ? "Crashed!"
+                  : "Ready",
+          ],
+        );
         break;
       }
     }
@@ -459,18 +484,18 @@ export const p1_ch6_sims = {
     sketch.push();
     sketch.resetMatrix();
     sketch.textSize(10);
-    
+
     // Draw sci-fi dark title pill
     let tw = sketch.textWidth(title);
     sketch.fill("rgba(15, 23, 42, 0.85)");
     sketch.stroke("rgba(129, 140, 248, 0.3)");
     sketch.strokeWeight(1);
     sketch.rect(15, 12, tw + 20, 22, 11);
-    
+
     sketch.fill("#f8fafc");
     sketch.textAlign(sketch.CENTER, sketch.CENTER);
     sketch.textStyle(sketch.BOLD);
-    sketch.text(title, 15 + (tw + 20)/2, 12 + 11);
+    sketch.text(title, 15 + (tw + 20) / 2, 12 + 11);
     sketch.textStyle(sketch.NORMAL);
 
     // Draw dark metrics bar pill
@@ -478,17 +503,17 @@ export const p1_ch6_sims = {
       let metricsStr = metrics.join("   |   ");
       let mw = sketch.textWidth(metricsStr);
       let barW = mw + 30;
-      
+
       sketch.fill("rgba(15, 23, 42, 0.85)");
       sketch.stroke("rgba(129, 140, 248, 0.3)");
       sketch.strokeWeight(1);
       sketch.rect(15, sketch.height - 34, barW, 22, 11);
-      
+
       sketch.noStroke();
       sketch.fill("#cbd5e1");
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(metricsStr, 30, sketch.height - 34 + 11);
     }
     sketch.pop();
-  }
+  },
 };

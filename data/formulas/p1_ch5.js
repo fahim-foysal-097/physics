@@ -255,13 +255,23 @@ export const formulas_p1_ch5 = [
     topic: "Power (ক্ষমতা)",
     nameEn: "Efficiency of a Machine",
     nameBn: "যন্ত্রের কর্মদক্ষতা",
-    latex: "\\eta = \\frac{W_{out}}{W_{in}} \\times 100\\% = \\frac{P_{out}}{P_{in}} \\times 100\\%",
+    latex:
+      "\\eta = \\frac{W_{out}}{W_{in}} \\times 100\\% = \\frac{P_{out}}{P_{in}} \\times 100\\%",
     variables: [
       { symbol: "\\eta", meaning: "Efficiency of the machine", unit: "%" },
-      { symbol: "W_{out}, W_{in}", meaning: "Useful output and input work", unit: "J" },
-      { symbol: "P_{out}, P_{in}", meaning: "Useful output and input power", unit: "W" },
+      {
+        symbol: "W_{out}, W_{in}",
+        meaning: "Useful output and input work",
+        unit: "J",
+      },
+      {
+        symbol: "P_{out}, P_{in}",
+        meaning: "Useful output and input power",
+        unit: "W",
+      },
     ],
-    assumptions: "Input power must always be greater than output power due to losses.",
+    assumptions:
+      "Input power must always be greater than output power due to losses.",
     specialCases: [
       { condition: "Perfect engine (No loss)", latex: "\\eta = 100\\%" },
     ],

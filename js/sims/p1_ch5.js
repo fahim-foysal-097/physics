@@ -5,7 +5,7 @@ export const p1_ch5_sims = {
     // Pump parameters
     sketch.depth = 100;
     sketch.pump_rate = 0.2;
-    sketch.pumpInputPower = 250; 
+    sketch.pumpInputPower = 250;
     sketch.wellWaterY = 120;
     sketch.bucketWaterH = 0;
     sketch.gearAngle = 0;
@@ -53,9 +53,9 @@ export const p1_ch5_sims = {
 
     switch (vizType) {
       case "water_pump": {
-        let dpt = sketch.depth !== undefined ? sketch.depth : 100; 
-        let rate = sketch.pump_rate !== undefined ? sketch.pump_rate : 0.2; 
-        
+        let dpt = sketch.depth !== undefined ? sketch.depth : 100;
+        let rate = sketch.pump_rate !== undefined ? sketch.pump_rate : 0.2;
+
         let py = sketch.height / 2 + 50;
 
         // Draw Well Bricks
@@ -77,7 +77,7 @@ export const p1_ch5_sims = {
         // Pump Engine house
         sketch.stroke("#1e293b");
         sketch.strokeWeight(2);
-        sketch.fill("#ef4444"); 
+        sketch.fill("#ef4444");
         sketch.rect(sketch.width / 4 - 20, py - 140, 40, 30, 4);
 
         // Rotating Gears inside engine
@@ -97,15 +97,30 @@ export const p1_ch5_sims = {
         // Water discharging pipe to the right
         sketch.stroke("#64748b");
         sketch.strokeWeight(5);
-        sketch.line(sketch.width / 4 + 10, py - 130, sketch.width / 2 + 30, py - 130);
-        sketch.line(sketch.width / 2 + 30, py - 130, sketch.width / 2 + 30, py - 95);
+        sketch.line(
+          sketch.width / 4 + 10,
+          py - 130,
+          sketch.width / 2 + 30,
+          py - 130,
+        );
+        sketch.line(
+          sketch.width / 2 + 30,
+          py - 130,
+          sketch.width / 2 + 30,
+          py - 95,
+        );
 
         // Discharging water stream
         sketch.stroke("#38bdf8");
         sketch.strokeWeight(3);
         if (rate > 0.05) {
           let flowOffset = (sketch.frameCount * 3) % 25;
-          sketch.line(sketch.width / 2 + 30, py - 95, sketch.width / 2 + 30, py - 70 + flowOffset * 0.5);
+          sketch.line(
+            sketch.width / 2 + 30,
+            py - 95,
+            sketch.width / 2 + 30,
+            py - 70 + flowOffset * 0.5,
+          );
         }
 
         // Draw Bucket on right side
@@ -120,29 +135,34 @@ export const p1_ch5_sims = {
         if (rate > 0.05) {
           sketch.bucketWaterH = Math.min(36, sketch.bucketWaterH + 0.1);
         }
-        sketch.rect(sketch.width / 2 + 16, py - 30 - sketch.bucketWaterH, 28, sketch.bucketWaterH);
+        sketch.rect(
+          sketch.width / 2 + 16,
+          py - 30 - sketch.bucketWaterH,
+          28,
+          sketch.bucketWaterH,
+        );
 
         // Calculations & readout
         let g = 9.8;
-        let massRate = rate * 20; 
-        let P_out = massRate * g * (dpt / 5); 
-        let efficiency = 0.72; 
+        let massRate = rate * 20;
+        let P_out = massRate * g * (dpt / 5);
+        let efficiency = 0.72;
         let P_in = P_out / efficiency;
-        let HP = P_in / 746; 
+        let HP = P_in / 746;
 
         p1_ch5_sims.drawPills(sketch, "Water Pump Power & Efficiency", [
           `Depth h: ${dpt.toFixed(0)}m`,
           `Flow: ${massRate.toFixed(1)} kg/s`,
           `P_out = mgh/t = ${P_out.toFixed(1)} W`,
           `P_in: ${P_in.toFixed(1)} W (${HP.toFixed(2)} HP)`,
-          `Efficiency η: ${(efficiency * 100).toFixed(0)}%`
+          `Efficiency η: ${(efficiency * 100).toFixed(0)}%`,
         ]);
         break;
       }
 
       case "spring_energy_lab": {
         let curK = sketch.k !== undefined ? sketch.k : 20;
-        let curX = sketch.x !== undefined ? sketch.x : 50; 
+        let curX = sketch.x !== undefined ? sketch.x : 50;
 
         let startX = 60;
         let equilX = 180;
@@ -194,15 +214,39 @@ export const p1_ch5_sims = {
         // Draw Forces Vectors
         let forceScale = 0.8;
         if (curX > 5) {
-          p1_ch5_sims.drawArrow(sketch, blockX, springY, blockX - curX * forceScale, springY, "#ef4444", 2); 
+          p1_ch5_sims.drawArrow(
+            sketch,
+            blockX,
+            springY,
+            blockX - curX * forceScale,
+            springY,
+            "#ef4444",
+            2,
+          );
           sketch.fill("#ef4444");
           sketch.noStroke();
-          sketch.text("F_s = -kx", blockX - curX*forceScale/2 - 20, springY - 18);
+          sketch.text(
+            "F_s = -kx",
+            blockX - (curX * forceScale) / 2 - 20,
+            springY - 18,
+          );
         } else if (curX < -5) {
-          p1_ch5_sims.drawArrow(sketch, blockX, springY, blockX - curX * forceScale, springY, "#ef4444", 2); 
+          p1_ch5_sims.drawArrow(
+            sketch,
+            blockX,
+            springY,
+            blockX - curX * forceScale,
+            springY,
+            "#ef4444",
+            2,
+          );
           sketch.fill("#ef4444");
           sketch.noStroke();
-          sketch.text("F_s = -kx", blockX - curX*forceScale/2 - 10, springY - 18);
+          sketch.text(
+            "F_s = -kx",
+            blockX - (curX * forceScale) / 2 - 10,
+            springY - 18,
+          );
         }
 
         // Draw Force vs Displacement Real-Time plot below
@@ -214,25 +258,41 @@ export const p1_ch5_sims = {
         sketch.stroke("#cbd5e1");
         sketch.strokeWeight(1);
         sketch.fill("rgba(255, 255, 255, 0.9)");
-        sketch.rect(graphX - 15, graphY - graphH - 10, graphW + 30, graphH + 25, 4);
+        sketch.rect(
+          graphX - 15,
+          graphY - graphH - 10,
+          graphW + 30,
+          graphH + 25,
+          4,
+        );
 
         // axes
         sketch.stroke("#94a3b8");
         sketch.strokeWeight(1.5);
-        sketch.line(graphX - 10, graphY, graphX + graphW + 10, graphY); 
-        sketch.line(graphX + graphW/2, graphY - graphH, graphX + graphW/2, graphY + 10); 
+        sketch.line(graphX - 10, graphY, graphX + graphW + 10, graphY);
+        sketch.line(
+          graphX + graphW / 2,
+          graphY - graphH,
+          graphX + graphW / 2,
+          graphY + 10,
+        );
 
         sketch.fill("#94a3b8");
         sketch.noStroke();
         sketch.textSize(9);
         sketch.text("x", graphX + graphW, graphY + 12);
-        sketch.text("F", graphX + graphW/2 - 14, graphY - graphH + 5);
+        sketch.text("F", graphX + graphW / 2 - 14, graphY - graphH + 5);
 
         // Plot F = kx line
         sketch.stroke("#334155");
         sketch.strokeWeight(1.5);
-        let slope = (curK / 50) * 0.8; 
-        sketch.line(graphX, graphY - (-graphW/2 * slope), graphX + graphW, graphY - (graphW/2 * slope));
+        let slope = (curK / 50) * 0.8;
+        sketch.line(
+          graphX,
+          graphY - (-graphW / 2) * slope,
+          graphX + graphW,
+          graphY - (graphW / 2) * slope,
+        );
 
         // Shade integration area (work done)
         let activeX = (curX / 100) * (graphW / 2);
@@ -241,24 +301,29 @@ export const p1_ch5_sims = {
         sketch.fill("rgba(79, 70, 229, 0.2)");
         sketch.noStroke();
         sketch.beginShape();
-        sketch.vertex(graphX + graphW/2, graphY);
-        sketch.vertex(graphX + graphW/2 + activeX, graphY);
-        sketch.vertex(graphX + graphW/2 + activeX, graphY - activeF);
+        sketch.vertex(graphX + graphW / 2, graphY);
+        sketch.vertex(graphX + graphW / 2 + activeX, graphY);
+        sketch.vertex(graphX + graphW / 2 + activeX, graphY - activeF);
         sketch.endShape(sketch.CLOSE);
 
         sketch.stroke("#4f46e5");
         sketch.strokeWeight(1);
-        sketch.line(graphX + graphW/2 + activeX, graphY, graphX + graphW/2 + activeX, graphY - activeF);
+        sketch.line(
+          graphX + graphW / 2 + activeX,
+          graphY,
+          graphX + graphW / 2 + activeX,
+          graphY - activeF,
+        );
         sketch.fill("#4f46e5");
-        sketch.circle(graphX + graphW/2 + activeX, graphY - activeF, 5);
+        sketch.circle(graphX + graphW / 2 + activeX, graphY - activeF, 5);
 
-        let energyJ = 0.5 * curK * Math.pow(curX / 50, 2); 
+        let energyJ = 0.5 * curK * Math.pow(curX / 50, 2);
 
         p1_ch5_sims.drawPills(sketch, "Hooke's Law & Elastic Work Integrator", [
           `k: ${curK.toFixed(0)} N/m`,
-          `displacement x: ${(curX/50).toFixed(2)} m`,
-          `F_s = -kx = ${(-curK * (curX/50)).toFixed(1)} N`,
-          `W = ½ k x² = ${energyJ.toFixed(2)} J`
+          `displacement x: ${(curX / 50).toFixed(2)} m`,
+          `F_s = -kx = ${(-curK * (curX / 50)).toFixed(1)} N`,
+          `W = ½ k x² = ${energyJ.toFixed(2)} J`,
         ]);
         break;
       }
@@ -287,29 +352,33 @@ export const p1_ch5_sims = {
         // Physics evolution
         if (sketch.coasterRunning) {
           sketch.distTraveled += Math.abs(sketch.carVel) * 0.1;
-          let curHeight = (sketch.height / 2 + 100) - trackY(sketch.carX); 
-          sketch.carPE = 1.0 * g * curHeight * 0.3; 
-          
-          sketch.carThermal = sketch.distTraveled * fric * 25.0;
-          sketch.carKE = Math.max(0, sketch.totalE - sketch.carPE - sketch.carThermal);
+          let curHeight = sketch.height / 2 + 100 - trackY(sketch.carX);
+          sketch.carPE = 1.0 * g * curHeight * 0.3;
 
-          sketch.carVel = (sketch.carVel > 0 ? 1 : -1) * sketch.sqrt(2 * sketch.carKE);
-          
-          let slopeAngle = (trackY(sketch.carX + 1) - trackY(sketch.carX - 1));
-          sketch.carVel -= slopeAngle * g * 0.15; 
+          sketch.carThermal = sketch.distTraveled * fric * 25.0;
+          sketch.carKE = Math.max(
+            0,
+            sketch.totalE - sketch.carPE - sketch.carThermal,
+          );
+
+          sketch.carVel =
+            (sketch.carVel > 0 ? 1 : -1) * sketch.sqrt(2 * sketch.carKE);
+
+          let slopeAngle = trackY(sketch.carX + 1) - trackY(sketch.carX - 1);
+          sketch.carVel -= slopeAngle * g * 0.15;
 
           sketch.carX += sketch.carVel * 0.12;
 
           if (sketch.carX <= 40) {
             sketch.carX = 40;
-            sketch.carVel = -sketch.carVel * 0.8; 
+            sketch.carVel = -sketch.carVel * 0.8;
           }
           if (sketch.carX >= sketch.width - 40) {
             sketch.carX = sketch.width - 40;
             sketch.carVel = -sketch.carVel * 0.8;
           }
         } else {
-          let curHeight = (sketch.height / 2 + 100) - trackY(sketch.carX);
+          let curHeight = sketch.height / 2 + 100 - trackY(sketch.carX);
           sketch.carPE = 1.0 * g * curHeight * 0.3;
           sketch.carKE = 0;
           sketch.carThermal = 0;
@@ -321,7 +390,7 @@ export const p1_ch5_sims = {
         sketch.fill("#ef4444");
         sketch.stroke("#b91c1c");
         sketch.strokeWeight(1.5);
-        sketch.circle(cx, cy - 6, 12); 
+        sketch.circle(cx, cy - 6, 12);
 
         // Draw Dynamic Energy Stacked Bar Chart on top-right
         let barX = sketch.width - 130;
@@ -355,20 +424,36 @@ export const p1_ch5_sims = {
         // Labels beside bar
         sketch.textSize(8);
         sketch.fill("#10b981");
-        sketch.text(`PE: ${sketch.carPE.toFixed(0)}J`, barX + 22, barY + barMaxH - pe_h/2 + 3);
+        sketch.text(
+          `PE: ${sketch.carPE.toFixed(0)}J`,
+          barX + 22,
+          barY + barMaxH - pe_h / 2 + 3,
+        );
         sketch.fill("#0ea5e9");
-        sketch.text(`KE: ${sketch.carKE.toFixed(0)}J`, barX + 22, barY + barMaxH - pe_h - ke_h/2 + 3);
+        sketch.text(
+          `KE: ${sketch.carKE.toFixed(0)}J`,
+          barX + 22,
+          barY + barMaxH - pe_h - ke_h / 2 + 3,
+        );
         if (th_h > 2) {
           sketch.fill("#ef4444");
-          sketch.text(`Loss: ${sketch.carThermal.toFixed(0)}J`, barX + 22, barY + 12);
+          sketch.text(
+            `Loss: ${sketch.carThermal.toFixed(0)}J`,
+            barX + 22,
+            barY + 12,
+          );
         }
 
-        p1_ch5_sims.drawPills(sketch, "Mechanical Energy Conservation Coaster", [
-          `h_release: ${initH.toFixed(0)}m`,
-          `friction: ${fric.toFixed(3)}`,
-          `E_total: ${sketch.totalE.toFixed(0)} J`,
-          `PE: ${sketch.carPE.toFixed(1)} J | KE: ${sketch.carKE.toFixed(1)} J | Loss: ${sketch.carThermal.toFixed(1)} J`
-        ]);
+        p1_ch5_sims.drawPills(
+          sketch,
+          "Mechanical Energy Conservation Coaster",
+          [
+            `h_release: ${initH.toFixed(0)}m`,
+            `friction: ${fric.toFixed(3)}`,
+            `E_total: ${sketch.totalE.toFixed(0)} J`,
+            `PE: ${sketch.carPE.toFixed(1)} J | KE: ${sketch.carKE.toFixed(1)} J | Loss: ${sketch.carThermal.toFixed(1)} J`,
+          ],
+        );
         break;
       }
     }
@@ -391,17 +476,17 @@ export const p1_ch5_sims = {
     sketch.push();
     sketch.resetMatrix();
     sketch.textSize(10);
-    
+
     // Title
     let tw = sketch.textWidth(title);
     sketch.fill("rgba(30, 41, 59, 0.85)");
     sketch.noStroke();
     sketch.rect(15, 12, tw + 20, 22, 11);
-    
+
     sketch.fill("#ffffff");
     sketch.textAlign(sketch.CENTER, sketch.CENTER);
     sketch.textStyle(sketch.BOLD);
-    sketch.text(title, 15 + (tw + 20)/2, 12 + 11);
+    sketch.text(title, 15 + (tw + 20) / 2, 12 + 11);
     sketch.textStyle(sketch.NORMAL);
 
     // Metrics
@@ -409,17 +494,17 @@ export const p1_ch5_sims = {
       let metricsStr = metrics.join("   |   ");
       let mw = sketch.textWidth(metricsStr);
       let barW = mw + 30;
-      
+
       sketch.fill("rgba(255, 255, 255, 0.95)");
       sketch.stroke("#cbd5e1");
       sketch.strokeWeight(1.5);
       sketch.rect(15, sketch.height - 34, barW, 22, 11);
-      
+
       sketch.noStroke();
       sketch.fill("#334155");
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(metricsStr, 30, sketch.height - 34 + 11);
     }
     sketch.pop();
-  }
+  },
 };

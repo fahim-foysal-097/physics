@@ -4,7 +4,7 @@ export const p1_ch10_sims = {
       sketch.temp = 300;
       sketch.volume = 120;
       sketch.gas_mode = 0; // 0=Free, 1=Boyle, 2=Charles
-      
+
       sketch.initGasParticles = () => {
         sketch.gasParticles = [];
         for (let i = 0; i < 40; i++) {
@@ -12,18 +12,21 @@ export const p1_ch10_sims = {
             x: sketch.random(40, 140),
             y: sketch.random(60, 145),
             vx: sketch.random(-1, 1),
-            vy: sketch.random(-1, 1)
+            vy: sketch.random(-1, 1),
           });
-          let len = Math.sqrt(sketch.gasParticles[i].vx * sketch.gasParticles[i].vx + sketch.gasParticles[i].vy * sketch.gasParticles[i].vy);
+          let len = Math.sqrt(
+            sketch.gasParticles[i].vx * sketch.gasParticles[i].vx +
+              sketch.gasParticles[i].vy * sketch.gasParticles[i].vy,
+          );
           if (len > 0) {
             sketch.gasParticles[i].vx /= len;
             sketch.gasParticles[i].vy /= len;
           }
         }
       };
-      
+
       sketch.initGasParticles();
-      
+
       sketch.resetGas = () => {
         sketch.temp = 300;
         sketch.volume = 120;
@@ -103,11 +106,25 @@ export const p1_ch10_sims = {
           sketch.noStroke();
           let flameIntensity = sketch.map(curT, 300, 600, 10, 45);
           for (let i = 0; i < 5; i++) {
-            let fx = leftWall + (curV / 5) * i + (curV / 10);
+            let fx = leftWall + (curV / 5) * i + curV / 10;
             sketch.fill(239, 68, 68, flameIntensity + sketch.random(15));
-            sketch.triangle(fx - 15, bottomWall + 20, fx + 15, bottomWall + 20, fx, bottomWall + 2 + sketch.random(-6, 2));
+            sketch.triangle(
+              fx - 15,
+              bottomWall + 20,
+              fx + 15,
+              bottomWall + 20,
+              fx,
+              bottomWall + 2 + sketch.random(-6, 2),
+            );
             sketch.fill(245, 158, 11, flameIntensity + sketch.random(25));
-            sketch.triangle(fx - 10, bottomWall + 20, fx + 10, bottomWall + 20, fx, bottomWall + 6 + sketch.random(-4, 2));
+            sketch.triangle(
+              fx - 10,
+              bottomWall + 20,
+              fx + 10,
+              bottomWall + 20,
+              fx,
+              bottomWall + 6 + sketch.random(-4, 2),
+            );
           }
           sketch.pop();
         } else if (curT < 300) {
@@ -119,7 +136,12 @@ export const p1_ch10_sims = {
           sketch.rect(leftWall, bottomWall + 2, curV, 15, 3);
           sketch.stroke(56, 189, 248, iceOpacity);
           sketch.strokeWeight(1);
-          sketch.line(leftWall, bottomWall + 10, leftWall + curV, bottomWall + 10);
+          sketch.line(
+            leftWall,
+            bottomWall + 10,
+            leftWall + curV,
+            bottomWall + 10,
+          );
           sketch.pop();
         }
 
@@ -166,17 +188,33 @@ export const p1_ch10_sims = {
         sketch.strokeWeight(5);
         sketch.noFill();
         sketch.line(leftWall - 2, topWall - 2, leftWall + 210, topWall - 2); // Top track
-        sketch.line(leftWall - 2, bottomWall + 2, leftWall + 210, bottomWall + 2); // Bottom track
+        sketch.line(
+          leftWall - 2,
+          bottomWall + 2,
+          leftWall + 210,
+          bottomWall + 2,
+        ); // Bottom track
         sketch.line(leftWall - 2, topWall - 2, leftWall - 2, bottomWall + 2); // Left end wall
 
         // Draw sliding Piston head & rod
         sketch.fill("#64748b");
         sketch.stroke("#334155");
         sketch.strokeWeight(2);
-        sketch.rect(rightWall - 6, topWall + 1, 10, bottomWall - topWall - 2, 2); // Piston head
+        sketch.rect(
+          rightWall - 6,
+          topWall + 1,
+          10,
+          bottomWall - topWall - 2,
+          2,
+        ); // Piston head
         sketch.strokeWeight(4);
         sketch.stroke("#475569");
-        sketch.line(rightWall + 4, (topWall + bottomWall)/2, leftWall + 225, (topWall + bottomWall)/2); // Piston rod
+        sketch.line(
+          rightWall + 4,
+          (topWall + bottomWall) / 2,
+          leftWall + 225,
+          (topWall + bottomWall) / 2,
+        ); // Piston rod
 
         // --- Visual 2: P-V Diagram coordinate plot ---
         let gx = sketch.width - 150;
@@ -225,19 +263,24 @@ export const p1_ch10_sims = {
         sketch.fill("#ef4444");
         sketch.noStroke();
         sketch.circle(ptX, ptY, 6);
-        
+
         // Dynamic coordinate tooltip on graph
         sketch.fill("#1e293b");
         sketch.textSize(8);
         sketch.text(`(${press.toFixed(2)} atm, ${curV}L)`, ptX - 10, ptY - 8);
 
         // Interactive title & metric pills
-        let constraintTitle = curMode === 0 ? "Ideal Gas Chamber (Free Mode)" : curMode === 1 ? "Boyle's Law Rig (Constant T)" : "Charles's Law Rig (Constant P)";
+        let constraintTitle =
+          curMode === 0
+            ? "Ideal Gas Chamber (Free Mode)"
+            : curMode === 1
+              ? "Boyle's Law Rig (Constant T)"
+              : "Charles's Law Rig (Constant P)";
         p1_ch10_sims.drawPills(sketch, constraintTitle, [
           `P: ${press.toFixed(2)} atm`,
           `V: ${curV} L`,
           `T: ${curT} K`,
-          `PV/T: ${((press * curV) / curT).toFixed(3)}`
+          `PV/T: ${((press * curV) / curT).toFixed(3)}`,
         ]);
         break;
       }
@@ -288,12 +331,12 @@ export const p1_ch10_sims = {
 
         sketch.bigX = sketch.constrain(sketch.bigX, 20, sketch.width - 20);
         sketch.bigY = sketch.constrain(sketch.bigY, 20, sketch.height - 20);
-        
+
         p1_ch10_sims.drawPills(sketch, "Brownian Motion & Elastic Collisions", [
           `Gas Speed (T): ${sketch.gasSpeed.toFixed(0)}`,
           `Molecules: 120`,
           `X_pos: ${sketch.bigX.toFixed(0)}`,
-          `Y_pos: ${sketch.bigY.toFixed(0)}`
+          `Y_pos: ${sketch.bigY.toFixed(0)}`,
         ]);
         break;
 
@@ -437,17 +480,17 @@ export const p1_ch10_sims = {
     sketch.push();
     sketch.resetMatrix();
     sketch.textSize(10);
-    
+
     // Title
     let tw = sketch.textWidth(title);
     sketch.fill("rgba(30, 41, 59, 0.85)");
     sketch.noStroke();
     sketch.rect(15, 12, tw + 20, 22, 11);
-    
+
     sketch.fill("#ffffff");
     sketch.textAlign(sketch.CENTER, sketch.CENTER);
     sketch.textStyle(sketch.BOLD);
-    sketch.text(title, 15 + (tw + 20)/2, 12 + 11);
+    sketch.text(title, 15 + (tw + 20) / 2, 12 + 11);
     sketch.textStyle(sketch.NORMAL);
 
     // Metrics
@@ -455,17 +498,17 @@ export const p1_ch10_sims = {
       let metricsStr = metrics.join("   |   ");
       let mw = sketch.textWidth(metricsStr);
       let barW = mw + 30;
-      
+
       sketch.fill("rgba(255, 255, 255, 0.95)");
       sketch.stroke("#cbd5e1");
       sketch.strokeWeight(1.5);
       sketch.rect(15, sketch.height - 34, barW, 22, 11);
-      
+
       sketch.noStroke();
       sketch.fill("#334155");
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(metricsStr, 30, sketch.height - 34 + 11);
     }
     sketch.pop();
-  }
+  },
 };

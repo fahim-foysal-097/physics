@@ -13,7 +13,7 @@ export const p1_ch3_sims = {
     sketch.t = 0;
     sketch.path = [];
     sketch.R = 0;
-    
+
     sketch.fire = () => {
       sketch.isFiring = true;
       sketch.t = 0;
@@ -28,12 +28,12 @@ export const p1_ch3_sims = {
     };
 
     // Motion Graphs Parameters
-    sketch.u_motion = 10; 
-    sketch.a_motion = 2;  
+    sketch.u_motion = 10;
+    sketch.a_motion = 2;
     sketch.animating = false;
     sketch.timeVal = 0;
-    sketch.history = []; 
-    
+    sketch.history = [];
+
     sketch.startAnim = () => {
       sketch.animating = true;
       sketch.timeVal = 0;
@@ -59,8 +59,13 @@ export const p1_ch3_sims = {
         let hVal = sketch.h !== undefined ? sketch.h : 0;
 
         // Pre-calculate kinematics
-        let maxH = hVal + (Math.pow(uVal * sketch.sin(angVal), 2) / (2 * gVal));
-        let totalTime = (uVal * sketch.sin(angVal) + sketch.sqrt(Math.pow(uVal*sketch.sin(angVal), 2) + 2*gVal*hVal)) / gVal;
+        let maxH = hVal + Math.pow(uVal * sketch.sin(angVal), 2) / (2 * gVal);
+        let totalTime =
+          (uVal * sketch.sin(angVal) +
+            sketch.sqrt(
+              Math.pow(uVal * sketch.sin(angVal), 2) + 2 * gVal * hVal,
+            )) /
+          gVal;
         let calculatedRange = uVal * sketch.cos(angVal) * totalTime;
 
         // Base zoom scaling
@@ -88,7 +93,7 @@ export const p1_ch3_sims = {
         for (let gy = 0; gy > -sketch.height; gy -= 40) {
           sketch.line(-45, gy, sketch.width, gy);
         }
-        
+
         sketch.stroke("#cbd5e1");
         sketch.strokeWeight(2);
         sketch.line(-45, 0, sketch.width, 0); // Ground
@@ -100,7 +105,7 @@ export const p1_ch3_sims = {
         sketch.fill("#64748b");
         sketch.textSize(8);
         sketch.textAlign(sketch.RIGHT, sketch.CENTER);
-        
+
         let maxTickY = maxH > 150 ? maxH + 40 : 150;
         let stepY = maxH > 300 ? 100 : maxH > 150 ? 50 : 20;
         for (let tickY = 0; tickY <= maxTickY; tickY += stepY) {
@@ -113,7 +118,8 @@ export const p1_ch3_sims = {
 
         // Draw X-axis tick marks (Horizontal Ruler with dynamic steps)
         sketch.textAlign(sketch.CENTER, sketch.TOP);
-        let stepX = calculatedRange > 400 ? 100 : calculatedRange > 180 ? 50 : 20;
+        let stepX =
+          calculatedRange > 400 ? 100 : calculatedRange > 180 ? 50 : 20;
         for (let tickX = stepX; tickX <= calculatedRange + 40; tickX += stepX) {
           let xPos = tickX * scaleFactor;
           if (xPos < sketch.width - 50) {
@@ -126,7 +132,10 @@ export const p1_ch3_sims = {
         // Physics update loop
         if (sketch.isFiring) {
           let x = uVal * sketch.cos(angVal) * sketch.t;
-          let y = hVal + (uVal * sketch.sin(angVal) * sketch.t - 0.5 * gVal * sketch.t * sketch.t);
+          let y =
+            hVal +
+            (uVal * sketch.sin(angVal) * sketch.t -
+              0.5 * gVal * sketch.t * sketch.t);
 
           if (y >= 0) {
             sketch.path.push({ x: x, y: y });
@@ -169,8 +178,24 @@ export const p1_ch3_sims = {
             let vy = uVal * sketch.sin(angVal) - gVal * sketch.t;
 
             // Draw component arrows scaled to match current size
-            p1_ch3_sims.drawArrow(sketch, cx, cy, cx + vx * scaleFactor * 0.4, cy, "#0ea5e9", 2); 
-            p1_ch3_sims.drawArrow(sketch, cx, cy, cx, cy - vy * scaleFactor * 0.4, "#f59e0b", 2); 
+            p1_ch3_sims.drawArrow(
+              sketch,
+              cx,
+              cy,
+              cx + vx * scaleFactor * 0.4,
+              cy,
+              "#0ea5e9",
+              2,
+            );
+            p1_ch3_sims.drawArrow(
+              sketch,
+              cx,
+              cy,
+              cx,
+              cy - vy * scaleFactor * 0.4,
+              "#f59e0b",
+              2,
+            );
 
             sketch.fill("#0ea5e9");
             sketch.textSize(9);
@@ -188,7 +213,7 @@ export const p1_ch3_sims = {
           `h: ${hVal.toFixed(0)}m`,
           `R: ${calculatedRange.toFixed(1)}m`,
           `H_max: ${maxH.toFixed(1)}m`,
-          `Flight Time: ${totalTime.toFixed(2)}s`
+          `Flight Time: ${totalTime.toFixed(2)}s`,
         ]);
         break;
       }
@@ -209,7 +234,9 @@ export const p1_ch3_sims = {
 
         if (sketch.animating) {
           sketch.timeVal += 0.05;
-          let disp = curU * sketch.timeVal + 0.5 * curA * sketch.timeVal * sketch.timeVal;
+          let disp =
+            curU * sketch.timeVal +
+            0.5 * curA * sketch.timeVal * sketch.timeVal;
           let vel = curU + curA * sketch.timeVal;
           let acc = curA;
 
@@ -222,7 +249,8 @@ export const p1_ch3_sims = {
           }
         }
 
-        let activeDisp = curU * sketch.timeVal + 0.5 * curA * sketch.timeVal * sketch.timeVal;
+        let activeDisp =
+          curU * sketch.timeVal + 0.5 * curA * sketch.timeVal * sketch.timeVal;
         let drawX = 40 + activeDisp * 1.5;
         sketch.fill("#ef4444");
         sketch.noStroke();
@@ -240,14 +268,20 @@ export const p1_ch3_sims = {
         // 1st Graph: x-t (Position vs Time)
         sketch.push();
         sketch.translate(gx, graphY);
-        p1_ch3_sims.drawGraphOutline(sketch, graphW, graphH, "Displacement (x) vs Time", "#0ea5e9");
+        p1_ch3_sims.drawGraphOutline(
+          sketch,
+          graphW,
+          graphH,
+          "Displacement (x) vs Time",
+          "#0ea5e9",
+        );
         sketch.stroke("#0ea5e9");
         sketch.strokeWeight(2);
         sketch.noFill();
         sketch.beginShape();
         for (let pt of sketch.history) {
           let px = (pt.t / 10) * (graphW - 20);
-          let py = - (pt.x / 200) * (graphH - 20); 
+          let py = -(pt.x / 200) * (graphH - 20);
           sketch.vertex(px + 10, py - 10);
         }
         sketch.endShape();
@@ -256,14 +290,20 @@ export const p1_ch3_sims = {
         // 2nd Graph: v-t (Velocity vs Time)
         sketch.push();
         sketch.translate(gx + graphW + 20, graphY);
-        p1_ch3_sims.drawGraphOutline(sketch, graphW, graphH, "Velocity (v) vs Time", "#f59e0b");
+        p1_ch3_sims.drawGraphOutline(
+          sketch,
+          graphW,
+          graphH,
+          "Velocity (v) vs Time",
+          "#f59e0b",
+        );
         sketch.stroke("#f59e0b");
         sketch.strokeWeight(2);
         sketch.noFill();
         sketch.beginShape();
         for (let pt of sketch.history) {
           let px = (pt.t / 10) * (graphW - 20);
-          let py = - (pt.v / 40) * (graphH - 20); 
+          let py = -(pt.v / 40) * (graphH - 20);
           sketch.vertex(px + 10, py - 10);
         }
         sketch.endShape();
@@ -272,14 +312,20 @@ export const p1_ch3_sims = {
         // 3rd Graph: a-t (Acceleration vs Time)
         sketch.push();
         sketch.translate(gx + 2 * graphW + 40, graphY);
-        p1_ch3_sims.drawGraphOutline(sketch, graphW, graphH, "Acceleration (a) vs Time", "#10b981");
+        p1_ch3_sims.drawGraphOutline(
+          sketch,
+          graphW,
+          graphH,
+          "Acceleration (a) vs Time",
+          "#10b981",
+        );
         sketch.stroke("#10b981");
         sketch.strokeWeight(2);
         sketch.noFill();
         sketch.beginShape();
         for (let pt of sketch.history) {
           let px = (pt.t / 10) * (graphW - 20);
-          let py = - (pt.a / 12) * (graphH - 20); 
+          let py = -(pt.a / 12) * (graphH - 20);
           sketch.vertex(px + 10, py - 10);
         }
         sketch.endShape();
@@ -290,7 +336,7 @@ export const p1_ch3_sims = {
           `u: ${curU.toFixed(1)} m/s`,
           `Time: ${sketch.timeVal.toFixed(1)} s`,
           `s = ${activeDisp.toFixed(1)} m`,
-          `v = ${(curU + curA*sketch.timeVal).toFixed(1)} m/s`
+          `v = ${(curU + curA * sketch.timeVal).toFixed(1)} m/s`,
         ]);
         break;
       }
@@ -306,8 +352,8 @@ export const p1_ch3_sims = {
     // Axes
     sketch.stroke("#94a3b8");
     sketch.strokeWeight(1);
-    sketch.line(10, -10, w - 10, -10); 
-    sketch.line(10, -10, 10, -h + 10); 
+    sketch.line(10, -10, w - 10, -10);
+    sketch.line(10, -10, 10, -h + 10);
 
     sketch.noStroke();
     sketch.fill(colorStr);
@@ -334,17 +380,17 @@ export const p1_ch3_sims = {
     sketch.push();
     sketch.resetMatrix();
     sketch.textSize(10);
-    
+
     // Draw Title Pill (top-left)
     let tw = sketch.textWidth(title);
     sketch.fill("rgba(30, 41, 59, 0.85)");
     sketch.noStroke();
     sketch.rect(15, 12, tw + 20, 22, 11);
-    
+
     sketch.fill("#ffffff");
     sketch.textAlign(sketch.CENTER, sketch.CENTER);
     sketch.textStyle(sketch.BOLD);
-    sketch.text(title, 15 + (tw + 20)/2, 12 + 11);
+    sketch.text(title, 15 + (tw + 20) / 2, 12 + 11);
     sketch.textStyle(sketch.NORMAL);
 
     // Draw Metrics Bar Pill (bottom-left)
@@ -352,17 +398,17 @@ export const p1_ch3_sims = {
       let metricsStr = metrics.join("   |   ");
       let mw = sketch.textWidth(metricsStr);
       let barW = mw + 30;
-      
+
       sketch.fill("rgba(255, 255, 255, 0.95)");
       sketch.stroke("#cbd5e1");
       sketch.strokeWeight(1.5);
       sketch.rect(15, sketch.height - 34, barW, 22, 11);
-      
+
       sketch.noStroke();
       sketch.fill("#334155");
       sketch.textAlign(sketch.LEFT, sketch.CENTER);
       sketch.text(metricsStr, 30, sketch.height - 34 + 11);
     }
     sketch.pop();
-  }
+  },
 };

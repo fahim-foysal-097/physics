@@ -266,6 +266,17 @@ export const renderManager = {
    * Configuration for interactive visualization controls
    */
   vizConfig: {
+    shm_circular: [
+      { id: "radius", label: "Radius (A)", min: 30, max: 120, val: 70 },
+      {
+        id: "speed",
+        label: "Angular Vel (ω)",
+        min: 0.5,
+        max: 5.0,
+        val: 1.8,
+        step: 0.1,
+      },
+    ],
     projectile_advanced: [
       { id: "u", label: "Velocity (u)", min: 10, max: 100, val: 60 },
       { id: "angle", label: "Angle (θ)", min: 10, max: 85, val: 45 },
@@ -348,7 +359,7 @@ export const renderManager = {
     ],
     banking_road: [
       { id: "theta", label: "Angle (θ)", min: 0, max: 45, val: 15 },
-      { id: "carSpeed", label: "Car Speed (v)", min: 0, max: 40, val: 20 }
+      { id: "carSpeed", label: "Car Speed (v)", min: 0, max: 40, val: 20 },
     ],
     water_pump: [
       {
@@ -450,123 +461,340 @@ export const renderManager = {
     river_boat: [
       { id: "u", label: "River Speed (u)", min: 0, max: 8, val: 3, step: 0.1 },
       { id: "v", label: "Boat Speed (v)", min: 2, max: 12, val: 6, step: 0.1 },
-      { id: "alpha", label: "Steer Angle (α)", min: 30, max: 150, val: 90, step: 1 },
-      { id: "mode", label: "Preset Mode", type: "radio", options: [
+      {
+        id: "alpha",
+        label: "Steer Angle (α)",
+        min: 30,
+        max: 150,
+        val: 90,
+        step: 1,
+      },
+      {
+        id: "mode",
+        label: "Preset Mode",
+        type: "radio",
+        options: [
           { label: "Manual", val: 0 },
           { label: "Min Time (90°)", val: 1 },
-          { label: "Min Distance", val: 2 }
-        ], val: 0 },
+          { label: "Min Distance", val: 2 },
+        ],
+        val: 0,
+      },
       { id: "startCrossing", label: "Start Crossing", type: "button" },
-      { id: "resetCrossing", label: "Reset Boat", type: "button" }
+      { id: "resetCrossing", label: "Reset Boat", type: "button" },
     ],
     rain_umbrella: [
-      { id: "v_m", label: "Man Speed (v_m)", min: 0, max: 15, val: 5, step: 0.5 },
-      { id: "v_r", label: "Rain Speed (v_r)", min: 3, max: 15, val: 8, step: 0.5 },
-      { id: "theta", label: "Umbrella Angle", min: -80, max: 80, val: 0, step: 1 },
-      { id: "viewFrame", label: "Frame of Reference", type: "radio", options: [
+      {
+        id: "v_m",
+        label: "Man Speed (v_m)",
+        min: 0,
+        max: 15,
+        val: 5,
+        step: 0.5,
+      },
+      {
+        id: "v_r",
+        label: "Rain Speed (v_r)",
+        min: 3,
+        max: 15,
+        val: 8,
+        step: 0.5,
+      },
+      {
+        id: "theta",
+        label: "Umbrella Angle",
+        min: -80,
+        max: 80,
+        val: 0,
+        step: 1,
+      },
+      {
+        id: "viewFrame",
+        label: "Frame of Reference",
+        type: "radio",
+        options: [
           { label: "Ground Frame", val: 0 },
-          { label: "Man's Frame (Relative)", val: 1 }
-        ], val: 0 },
-      { id: "reset", label: "Reset Sim", type: "button" }
+          { label: "Man's Frame (Relative)", val: 1 },
+        ],
+        val: 0,
+      },
+      { id: "reset", label: "Reset Sim", type: "button" },
     ],
     motion_graphs: [
-      { id: "u", label: "Init Velocity (u)", min: -20, max: 20, val: 10, step: 1 },
-      { id: "a", label: "Acceleration (a)", min: -10, max: 10, val: 2, step: 0.5 },
+      {
+        id: "u",
+        label: "Init Velocity (u)",
+        min: -20,
+        max: 20,
+        val: 10,
+        step: 1,
+      },
+      {
+        id: "a",
+        label: "Acceleration (a)",
+        min: -10,
+        max: 10,
+        val: 2,
+        step: 0.5,
+      },
       { id: "startAnim", label: "Start Motion", type: "button" },
-      { id: "resetAnim", label: "Reset Motion", type: "button" }
+      { id: "resetAnim", label: "Reset Motion", type: "button" },
     ],
     pulley_system: [
       { id: "m1", label: "Mass 1 (m1) kg", min: 1, max: 10, val: 5, step: 0.5 },
       { id: "m2", label: "Mass 2 (m2) kg", min: 1, max: 10, val: 3, step: 0.5 },
       { id: "startPulley", label: "Release Masses", type: "button" },
-      { id: "resetPulley", label: "Reset System", type: "button" }
+      { id: "resetPulley", label: "Reset System", type: "button" },
     ],
     collision_lab: [
       { id: "m1", label: "Mass 1 (m1) kg", min: 1, max: 8, val: 4 },
       { id: "m2", label: "Mass 2 (m2) kg", min: 1, max: 8, val: 2 },
-      { id: "u1", label: "Velocity 1 (u1)", min: -10, max: 10, val: 5, step: 0.5 },
-      { id: "u2", label: "Velocity 2 (u2)", min: -10, max: 10, val: -3, step: 0.5 },
+      {
+        id: "u1",
+        label: "Velocity 1 (u1)",
+        min: -10,
+        max: 10,
+        val: 5,
+        step: 0.5,
+      },
+      {
+        id: "u2",
+        label: "Velocity 2 (u2)",
+        min: -10,
+        max: 10,
+        val: -3,
+        step: 0.5,
+      },
       { id: "e", label: "Restitution (e)", min: 0, max: 1, val: 1, step: 0.1 },
       { id: "startCollision", label: "Start Collision", type: "button" },
-      { id: "resetCollision", label: "Reset Lab", type: "button" }
+      { id: "resetCollision", label: "Reset Lab", type: "button" },
     ],
     spring_energy_lab: [
       { id: "k", label: "Spring Const (k)", min: 5, max: 50, val: 20, step: 1 },
-      { id: "x", label: "Displacement (x)", min: -100, max: 100, val: 50, step: 1 }
+      {
+        id: "x",
+        label: "Displacement (x)",
+        min: -100,
+        max: 100,
+        val: 50,
+        step: 1,
+      },
     ],
     energy_conservation_coaster: [
-      { id: "h", label: "Initial Height (h)", min: 50, max: 200, val: 150, step: 5 },
-      { id: "g_val", label: "Gravity (g)", min: 5, max: 25, val: 9.8, step: 0.5 },
-      { id: "friction", label: "Friction", min: 0, max: 0.05, val: 0, step: 0.005 },
+      {
+        id: "h",
+        label: "Initial Height (h)",
+        min: 50,
+        max: 200,
+        val: 150,
+        step: 5,
+      },
+      {
+        id: "g_val",
+        label: "Gravity (g)",
+        min: 5,
+        max: 25,
+        val: 9.8,
+        step: 0.5,
+      },
+      {
+        id: "friction",
+        label: "Friction",
+        min: 0,
+        max: 0.05,
+        val: 0,
+        step: 0.005,
+      },
       { id: "startCoaster", label: "Release Car", type: "button" },
-      { id: "resetCoaster", label: "Reset Coaster", type: "button" }
+      { id: "resetCoaster", label: "Reset Coaster", type: "button" },
     ],
     kepler_laws_sim: [
-      { id: "ecc", label: "Eccentricity (e)", min: 0.0, max: 0.8, val: 0.4, step: 0.05 },
-      { id: "semi", label: "Orbit Size (a)", min: 60, max: 150, val: 100, step: 5 },
-      { id: "showSweep", label: "2nd Law Sweeps", type: "radio", options: [
+      {
+        id: "ecc",
+        label: "Eccentricity (e)",
+        min: 0.0,
+        max: 0.8,
+        val: 0.4,
+        step: 0.05,
+      },
+      {
+        id: "semi",
+        label: "Orbit Size (a)",
+        min: 60,
+        max: 150,
+        val: 100,
+        step: 5,
+      },
+      {
+        id: "showSweep",
+        label: "2nd Law Sweeps",
+        type: "radio",
+        options: [
           { label: "Show", val: 1 },
-          { label: "Hide", val: 0 }
-        ], val: 0 },
-      { id: "reset", label: "Reset Orbit", type: "button" }
+          { label: "Hide", val: 0 },
+        ],
+        val: 0,
+      },
+      { id: "reset", label: "Reset Orbit", type: "button" },
     ],
     escape_velocity_sandbox: [
-      { id: "planetSelect", label: "Planet Type", type: "radio", options: [
+      {
+        id: "planetSelect",
+        label: "Planet Type",
+        type: "radio",
+        options: [
           { label: "Earth (ve=11.2)", val: 0 },
           { label: "Moon (ve=2.4)", val: 1 },
-          { label: "Mars (ve=5.0)", val: 2 }
-        ], val: 0 },
-      { id: "v_launch", label: "Launch Speed (km/s)", min: 1, max: 16, val: 8, step: 0.2 },
+          { label: "Mars (ve=5.0)", val: 2 },
+        ],
+        val: 0,
+      },
+      {
+        id: "v_launch",
+        label: "Launch Speed (km/s)",
+        min: 1,
+        max: 16,
+        val: 8,
+        step: 0.2,
+      },
       { id: "launchRocket", label: "Launch Projectile", type: "button" },
-      { id: "resetRocket", label: "Reset Launch", type: "button" }
+      { id: "resetRocket", label: "Reset Launch", type: "button" },
     ],
     stress_strain_curve: [
-      { id: "material", label: "Material Select", type: "radio", options: [
+      {
+        id: "material",
+        label: "Material Select",
+        type: "radio",
+        options: [
           { label: "Steel (Stiff)", val: 0 },
           { label: "Copper (Ductile)", val: 1 },
-          { label: "Glass (Brittle)", val: 2 }
-        ], val: 0 },
-      { id: "loadWeight", label: "Add Load (kg)", min: 0, max: 200, val: 0, step: 10 },
+          { label: "Glass (Brittle)", val: 2 },
+        ],
+        val: 0,
+      },
+      {
+        id: "loadWeight",
+        label: "Add Load (kg)",
+        min: 0,
+        max: 200,
+        val: 0,
+        step: 10,
+      },
       { id: "startTensile", label: "Start Tensile Test", type: "button" },
-      { id: "resetWire", label: "Reset Wire", type: "button" }
+      { id: "resetWire", label: "Reset Wire", type: "button" },
     ],
     capillary_rise_lab: [
-      { id: "radius", label: "Tube Radius (r) mm", min: 0.2, max: 2.0, val: 1.0, step: 0.1 },
-      { id: "tension", label: "Surface Tension (T)", min: 0.02, max: 0.1, val: 0.072, step: 0.005 },
-      { id: "theta", label: "Contact Angle (θ)", min: 0, max: 130, val: 0, step: 5 }
+      {
+        id: "radius",
+        label: "Tube Radius (r) mm",
+        min: 0.2,
+        max: 2.0,
+        val: 1.0,
+        step: 0.1,
+      },
+      {
+        id: "tension",
+        label: "Surface Tension (T)",
+        min: 0.02,
+        max: 0.1,
+        val: 0.072,
+        step: 0.005,
+      },
+      {
+        id: "theta",
+        label: "Contact Angle (θ)",
+        min: 0,
+        max: 130,
+        val: 0,
+        step: 5,
+      },
     ],
     terminal_velocity_stokes: [
-      { id: "radius", label: "Sphere Radius (r) mm", min: 1, max: 6, val: 3, step: 0.5 },
-      { id: "viscosity", label: "Viscosity (η)", min: 0.1, max: 2.0, val: 0.8, step: 0.1 },
-      { id: "density", label: "Sphere Material", type: "radio", options: [
+      {
+        id: "radius",
+        label: "Sphere Radius (r) mm",
+        min: 1,
+        max: 6,
+        val: 3,
+        step: 0.5,
+      },
+      {
+        id: "viscosity",
+        label: "Viscosity (η)",
+        min: 0.1,
+        max: 2.0,
+        val: 0.8,
+        step: 0.1,
+      },
+      {
+        id: "density",
+        label: "Sphere Material",
+        type: "radio",
+        options: [
           { label: "Steel", val: 7800 },
           { label: "Aluminum", val: 2700 },
-          { label: "Glass", val: 2500 }
-        ], val: 7800 },
+          { label: "Glass", val: 2500 },
+        ],
+        val: 7800,
+      },
       { id: "dropSphere", label: "Drop Sphere", type: "button" },
-      { id: "resetStokes", label: "Reset Stokes", type: "button" }
+      { id: "resetStokes", label: "Reset Stokes", type: "button" },
     ],
     shm_energy_graphs_sim: [
-      { id: "amp", label: "Amplitude (A)", min: 20, max: 100, val: 60, step: 5 },
-      { id: "k", label: "Spring Const (k)", min: 0.1, max: 1.0, val: 0.4, step: 0.05 },
-      { id: "reset", label: "Reset Position", type: "button" }
+      {
+        id: "amp",
+        label: "Amplitude (A)",
+        min: 20,
+        max: 100,
+        val: 60,
+        step: 5,
+      },
+      {
+        id: "k",
+        label: "Spring Const (k)",
+        min: 0.1,
+        max: 1.0,
+        val: 0.4,
+        step: 0.05,
+      },
+      { id: "reset", label: "Reset Position", type: "button" },
     ],
     spring_combinations_sim: [
       { id: "k1", label: "Spring 1 (k1)", min: 10, max: 40, val: 20, step: 2 },
       { id: "k2", label: "Spring 2 (k2)", min: 10, max: 40, val: 20, step: 2 },
       { id: "mass", label: "Mass (m)", min: 1, max: 5, val: 2, step: 0.5 },
       { id: "releaseSprings", label: "Release Masses", type: "button" },
-      { id: "resetSprings", label: "Reset Springs", type: "button" }
+      { id: "resetSprings", label: "Reset Springs", type: "button" },
     ],
     gas_law_interactive: [
-      { id: "temp", label: "Temperature (T)", min: 100, max: 600, val: 300, step: 10 },
-      { id: "volume", label: "Volume (V)", min: 50, max: 200, val: 120, step: 5 },
-      { id: "gas_mode", label: "Thermodynamic Constraint", type: "radio", options: [
+      {
+        id: "temp",
+        label: "Temperature (T)",
+        min: 100,
+        max: 600,
+        val: 300,
+        step: 10,
+      },
+      {
+        id: "volume",
+        label: "Volume (V)",
+        min: 50,
+        max: 200,
+        val: 120,
+        step: 5,
+      },
+      {
+        id: "gas_mode",
+        label: "Thermodynamic Constraint",
+        type: "radio",
+        options: [
           { label: "Free Chamber (Change Both)", val: 0 },
           { label: "Boyle's Law (Constant Temp)", val: 1 },
-          { label: "Charles's Law (Constant Press)", val: 2 }
-        ], val: 0 },
-      { id: "resetGas", label: "Reset Gas Chamber", type: "button" }
+          { label: "Charles's Law (Constant Press)", val: 2 },
+        ],
+        val: 0,
+      },
+      { id: "resetGas", label: "Reset Gas Chamber", type: "button" },
     ],
     brownian_motion: [
       {

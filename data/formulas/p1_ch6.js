@@ -139,7 +139,11 @@ export const formulas_p1_ch6 = [
       { symbol: "U", meaning: "Gravitational potential energy", unit: "J" },
       { symbol: "M", meaning: "Mass of the massive body", unit: "kg" },
       { symbol: "m", meaning: "Mass of the test body", unit: "kg" },
-      { symbol: "r", meaning: "Distance from the center of the massive body", unit: "m" }
+      {
+        symbol: "r",
+        meaning: "Distance from the center of the massive body",
+        unit: "m",
+      },
     ],
     assumptions: "Reference zero potential energy is at infinity.",
     specialCases: [],

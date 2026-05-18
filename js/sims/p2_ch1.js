@@ -14,25 +14,6 @@ export const p2_ch1_sims = {
       sketch.toggleRun = () => {
         sketch.running = !sketch.running;
       };
-
-      // Precise cycle points for closing the loop
-      // A: (V1, P1), B: (V2, P2), C: (V3, P3), D: (V4, P4)
-      const V1 = 70,
-        P1 = 150;
-      const V2 = 170,
-        P2 = P1 * (V1 / V2); // Isothermal Exp
-      const V3 = 280,
-        P3 = P2 * Math.pow(V2 / V3, 1.4); // Adiabatic Exp
-      // To close properly: V2/V1 = V3/V4 => V4 = V1 * (V3/V2)
-      const V4_calc = V1 * (V3 / V2);
-      const P4_calc = P3 * (V3 / V4_calc); // Isothermal Comp at TC
-
-      sketch.cyclePoints = [
-        { v: V1, p: P1, t: "H" }, // A
-        { v: V2, p: P2, t: "H" }, // B
-        { v: V3, p: P3, t: "C" }, // C
-        { v: V4_calc, p: P4_calc, t: "C" }, // D
-      ];
     }
     if (vizType === "process_comparison") {
       sketch.V = 100;
@@ -101,6 +82,27 @@ export const p2_ch1_sims = {
         }
       }
 
+      // Dynamic calculation of cycle points based on TH, TC, and gamma
+      let V1 = 70;
+      let P1 = 150 * (sketch.TH / 500);
+      let V2 = 170;
+      let P2 = P1 * (V1 / V2); // Isothermal Exp
+
+      let desiredV3 =
+        V2 * Math.pow(sketch.TH / sketch.TC, 1 / (sketch.gamma - 1));
+      let V3 = sketch.constrain(desiredV3, 190, w - 20); // keep inside canvas
+      let P3 = P2 * Math.pow(V2 / V3, sketch.gamma);
+
+      let V4_calc = V1 * (V3 / V2);
+      let P4_calc = P3 * (V3 / V4_calc); // Isothermal Comp at TC
+
+      sketch.cyclePoints = [
+        { v: V1, p: P1, t: "H" },
+        { v: V2, p: P2, t: "H" },
+        { v: V3, p: P3, t: "C" },
+        { v: V4_calc, p: P4_calc, t: "C" },
+      ];
+
       // Draw Work Area inside the cycle
       sketch.fill(primaryColor + "15");
       sketch.noStroke();
@@ -113,7 +115,7 @@ export const p2_ch1_sims = {
           let p =
             i === 0 || i === 2
               ? start.p * (start.v / v)
-              : start.p * Math.pow(start.v / v, 1.4);
+              : start.p * Math.pow(start.v / v, sketch.gamma);
           sketch.vertex(v, h - p);
         }
       }
@@ -142,7 +144,7 @@ export const p2_ch1_sims = {
           let p =
             i === 0 || i === 2
               ? start.p * (start.v / v)
-              : start.p * Math.pow(start.v / v, 1.4);
+              : start.p * Math.pow(start.v / v, sketch.gamma);
           sketch.vertex(v, h - p);
         }
         sketch.vertex(end.v, h - end.p); // Guarantee perfect closure
@@ -168,7 +170,7 @@ export const p2_ch1_sims = {
       let curP =
         sketch.phase === 0 || sketch.phase === 2
           ? p1.p * (p1.v / curV)
-          : p1.p * Math.pow(p1.v / curV, 1.4);
+          : p1.p * Math.pow(p1.v / curV, sketch.gamma);
 
       // Draw point and dashed lines to axes
       sketch.stroke(textColor + "55");
@@ -214,8 +216,8 @@ export const p2_ch1_sims = {
       }
 
       // Gas Volume (Gradient/Alpha)
-      let pistonPos = sketch.map(curV, 70, 280, 20, 80);
-      let alpha = sketch.map(curV, 70, 280, 200, 50); // density effect
+      let pistonPos = sketch.map(curV, 70, V3, 20, 80);
+      let alpha = sketch.map(curV, 70, V3, 200, 50); // density effect
       let gCol =
         sketch.phase <= 1
           ? sketch.color(239, 68, 68, alpha)
@@ -446,7 +448,7 @@ export const p2_ch1_sims = {
       sketch.stroke(coldColor);
       sketch.beginShape();
       for (let v = 70; v <= 280; v += 1) {
-        let p = startP * Math.pow(startV / v, 1.4);
+        let p = startP * Math.pow(startV / v, sketch.gamma);
         sketch.vertex(v, h - p);
       }
       sketch.endShape();
@@ -459,7 +461,11 @@ export const p2_ch1_sims = {
       sketch.fill(hotColor);
       sketch.circle(curV, h - startP * (startV / curV), 8);
       sketch.fill(coldColor);
-      sketch.circle(curV, h - startP * Math.pow(startV / curV, 1.4), 8);
+      sketch.circle(
+        curV,
+        h - startP * Math.pow(startV / curV, sketch.gamma),
+        8,
+      );
 
       sketch.fill(textColor);
       sketch.textSize(12);

@@ -96,7 +96,9 @@ export const p2_ch5_sims = {
           if (
             !sketch.isDraggingMagnet &&
             sketch.mouseX > 0 &&
-            sketch.mouseX < w * 0.6
+            sketch.mouseX < w * 0.6 &&
+            sketch.mouseY > 0 &&
+            sketch.mouseY < h
           ) {
             // Check click near magnet
             if (
