@@ -140,8 +140,8 @@ export const renderManager = {
       "modalAssumptionsContainer",
     );
     if (formula.assumptions) {
-      document.getElementById("modalAssumptions").textContent =
-        formula.assumptions;
+      document.getElementById("modalAssumptions").innerHTML =
+        utils.renderMathInText(formula.assumptions);
       assumpContainer.classList.remove("d-none");
     } else {
       assumpContainer.classList.add("d-none");
@@ -164,7 +164,7 @@ export const renderManager = {
     if (formula.mcqShortcuts && formula.mcqShortcuts.length > 0) {
       document.getElementById("modalMcqShortcuts").innerHTML = `
                 <ul class="mb-0 ps-3">
-                    ${formula.mcqShortcuts.map((s) => `<li class="mb-2">${s}</li>`).join("")}
+                    ${formula.mcqShortcuts.map((s) => `<li class="mb-2">${utils.renderMathInText(s)}</li>`).join("")}
                 </ul>
             `;
       mcqContainer.classList.remove("d-none");
