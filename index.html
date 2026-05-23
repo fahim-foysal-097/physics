@@ -52,11 +52,12 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top custom-navbar shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#" id="brandLogoHome">
                 <div class="brand-icon">
                     <img src="./assets/icon.png" alt="Logo" width="42" height="42">
                 </div>
-                <span class="fw-bold">HSC Physics <span class="text-primary-accent">Revision</span></span>
+                <span class="fw-bold text-main" style="font-size: 1.1rem; white-space: nowrap;">HSC Physics <span
+                        class="text-primary-accent d-none d-sm-inline">Revision</span></span>
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -66,6 +67,9 @@
 
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navHomeBtn">Home Dashboard</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://fahimfoysal.pro.bd/" target="_blank">Visit My Website</a>
                     </li>
@@ -78,6 +82,22 @@
         <div class="row h-100">
             <!-- Sidebar -->
             <aside class="col-lg-3 col-xl-2 d-none d-lg-flex flex-column sidebar shadow-sm h-100" id="sidebar">
+                <!-- Bookmarks/Saved Tab -->
+                <div class="px-3 pt-3 pb-2 border-bottom">
+                    <button
+                        class="btn btn-outline-warning w-100 rounded-pill d-flex align-items-center justify-content-center gap-2 py-2"
+                        id="savedFormulasBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                            fill="currentColor" class="text-warning">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        <span class="fw-bold text-dark" style="font-size: 0.9rem;">Saved Formulas</span>
+                        <span class="badge bg-warning text-dark rounded-pill" id="savedCountBadge">0</span>
+                    </button>
+                </div>
+
                 <ul class="nav nav-pills paper-tabs flex-row w-100 px-3 pt-3 mb-3" id="paperTabs" role="tablist">
                     <li class="nav-item flex-fill text-center" role="presentation">
                         <button class="nav-link active w-100" id="paper1-tab" data-bs-toggle="tab"
@@ -104,7 +124,7 @@
             </aside>
 
             <!-- Main Content Area -->
-            <main class="col-12 col-lg-9 col-xl-10 main-content pt-4 px-4 pb-5">
+            <main class="col-12 col-lg-9 col-xl-10 main-content pt-3 pt-md-4 px-2 px-md-4 pb-5">
                 <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
                     <div class="view-switcher-container">
                         <div class="btn-group p-1 bg-white rounded-pill shadow-sm border" role="group">
@@ -129,12 +149,14 @@
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center gap-3">
-                        <div id="currentChapterTitle">
-                            <h1 class="chapter-title m-0 d-none d-md-block en-title">Select a Chapter</h1>
-                            <small class="text-muted bn-title d-none d-md-block">একটি অধ্যায় নির্বাচন করুন</small>
+                    <div
+                        class="d-flex align-items-center justify-content-between justify-content-lg-start gap-3 flex-grow-1 flex-lg-grow-0">
+                        <div id="currentChapterTitle" class="me-auto me-lg-0">
+                            <h1 class="chapter-title m-0 fs-5 fs-md-3 en-title">Select a Chapter</h1>
+                            <small class="text-muted bn-title d-block" style="font-size: 0.75rem;">একটি অধ্যায় নির্বাচন
+                                করুন</small>
                         </div>
-                        <button class="btn btn-primary rounded-pill px-4 d-lg-none" type="button"
+                        <button class="btn btn-primary rounded-pill px-3 px-md-4 d-lg-none" type="button"
                             data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -148,8 +170,13 @@
                     </div>
                 </div>
 
+                <!-- Dashboard Home View (Shown by default) -->
+                <div id="dashboardView" class="dashboard-container">
+                    <!-- Dynamic Dashboard content will be injected here via JS -->
+                </div>
+
                 <!-- Formulas View -->
-                <div id="formulasView">
+                <div id="formulasView" class="d-none">
                     <!-- Category Filters (Topics) -->
                     <div class="topic-filters d-flex gap-2 overflow-auto pb-3 mb-4" id="topicFilters">
                         <!-- Injected via JS -->
@@ -158,16 +185,6 @@
                     <!-- Formulas Grid -->
                     <div class="row g-4" id="formulasGrid">
                         <!-- Injected via JS -->
-                        <div class="col-12 text-center text-muted py-5" id="emptyState">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
-                                stroke-linejoin="round" class="mb-3 opacity-50">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 16 16 12 12 8"></polyline>
-                                <line x1="8" y1="12" x2="16" y2="12"></line>
-                            </svg>
-                            <p class="fs-5">Please select a chapter from the sidebar to view formulas.</p>
-                        </div>
                     </div>
                 </div>
 
@@ -203,7 +220,18 @@
                 <div class="modal-header border-bottom-0 pb-0">
                     <div class="d-flex flex-column w-100">
                         <div class="d-flex justify-content-between align-items-start">
-                            <h4 class="modal-title mb-1" id="modalFormulaNameEn">Formula Name</h4>
+                            <div class="d-flex align-items-center gap-2">
+                                <h4 class="modal-title mb-1" id="modalFormulaNameEn">Formula Name</h4>
+                                <button class="bookmark-btn" id="modalBookmarkBtn" title="Save Formula">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                        </polygon>
+                                    </svg>
+                                </button>
+                            </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <span class="modal-subtitle text-muted fs-5" id="modalFormulaNameBn">সূত্রের নাম</span>

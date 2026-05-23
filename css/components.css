@@ -1,14 +1,61 @@
 /* Navbar */
 .custom-navbar {
-  background-color: var(--bg-surface);
-  border-bottom: 1px solid var(--border-color);
-  height: 60px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  min-height: 64px;
+  height: auto;
+  padding: 0.5rem 1.5rem;
+  z-index: 1030;
+}
+
+@media (max-width: 991.98px) {
+  .custom-navbar .navbar-collapse {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    margin-top: 0.75rem;
+    padding: 1rem;
+  }
+
+  .custom-navbar .nav-link {
+    padding: 0.75rem 1rem !important;
+    margin-bottom: 0.25rem;
+  }
 }
 
 .brand-icon {
   color: var(--primary);
   display: flex;
   align-items: center;
+}
+
+.brand-icon img {
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.15);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.navbar-brand:hover .brand-icon img {
+  transform: rotate(8deg) scale(1.08);
+}
+
+.custom-navbar .nav-link {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem !important;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.custom-navbar .nav-link:hover {
+  color: var(--primary);
+  background-color: var(--primary-light);
 }
 
 /* Buttons */
@@ -65,25 +112,43 @@
   border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;
 }
 
-/* Formula Cards */
+/* Formula Cards & Glassmorphism */
 .formula-card {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: var(--radius-lg);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+}
+
+.formula-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .formula-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.08);
+  border-color: rgba(79, 70, 229, 0.3);
+}
+
+.formula-card:hover::before {
+  opacity: 1;
 }
 
 .formula-card-body {
@@ -102,6 +167,15 @@
   align-items: center;
   justify-content: center;
   color: var(--text-main);
+  background: rgba(248, 250, 252, 0.6);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  transition: background-color 0.2s;
+}
+
+.formula-card:hover .latex-preview {
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .card-badges {
@@ -117,6 +191,30 @@
   border-radius: 4px;
   background-color: var(--bg-surface-active);
   color: var(--text-muted);
+}
+
+/* Bookmark Buttons */
+.bookmark-btn {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  padding: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmark-btn:hover {
+  background-color: rgba(241, 245, 249, 0.8);
+  color: #eab308;
+  transform: scale(1.1);
+}
+
+.bookmark-btn.active {
+  color: #eab308;
 }
 
 /* Modals */
@@ -191,6 +289,15 @@
 }
 
 /* Topic Filters */
+.topic-filters {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
+}
+.topic-filters::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 .topic-btn {
   white-space: nowrap;
   border-radius: 20px;
@@ -216,6 +323,12 @@
 }
 .custom-offcanvas .offcanvas-header {
   border-bottom-color: var(--border-color);
+}
+.custom-offcanvas .offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* Avoid double scrollbar */
 }
 
 /* Lab View Styles */

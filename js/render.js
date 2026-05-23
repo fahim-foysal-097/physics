@@ -20,6 +20,7 @@ export const renderManager = {
       const item = document.createElement("button");
       item.className =
         "list-group-item list-group-item-action d-flex flex-column py-3";
+      item.setAttribute("data-chapter-id", chapter.id);
       item.innerHTML = `
                 <div class="d-flex justify-content-between align-items-center mb-1">
                     <span class="badge bg-primary-light text-primary rounded-pill small">CH ${chapter.id.split("_")[1].replace("ch", "")}</span>
@@ -29,12 +30,6 @@ export const renderManager = {
             `;
 
       item.addEventListener("click", () => {
-        // Handle active state
-        document
-          .querySelectorAll(".chapter-list .list-group-item")
-          .forEach((el) => el.classList.remove("active"));
-        item.classList.add("active");
-
         // Dispatch event for app.js to handle
         document.dispatchEvent(
           new CustomEvent("loadChapter", { detail: chapter }),
@@ -57,7 +52,7 @@ export const renderManager = {
 
     topics.forEach((topic) => {
       const btn = document.createElement("button");
-      btn.className = `btn btn-sm btn-light-accent text-nowrap rounded-pill px-3 ${topic === "all" ? "active" : ""}`;
+      btn.className = `topic-btn text-nowrap rounded-pill px-3 ${topic === "all" ? "active" : ""}`;
       btn.textContent = topic === "all" ? "All Topics" : topic;
 
       btn.addEventListener("click", () => {
@@ -73,6 +68,63 @@ export const renderManager = {
   },
 
   /**
+   * Check if a formula is saved in Bookmarks
+   */
+  isSaved: (formulaId) => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("saved_formulas") || "[]");
+      return saved.some((f) => f.id === formulaId);
+    } catch (e) {
+      return false;
+    }
+  },
+
+  /**
+   * Toggle saved status of a formula
+   */
+  toggleSaved: (formula, btnElement, badgeElement = null) => {
+    try {
+      let saved = JSON.parse(localStorage.getItem("saved_formulas") || "[]");
+      const exists = saved.some((f) => f.id === formula.id);
+
+      if (exists) {
+        saved = saved.filter((f) => f.id !== formula.id);
+        if (btnElement) btnElement.classList.remove("active");
+      } else {
+        saved.push(formula);
+        if (btnElement) btnElement.classList.add("active");
+      }
+
+      localStorage.setItem("saved_formulas", JSON.stringify(saved));
+
+      // Update badge counts dynamically
+      const countBadge = document.getElementById("savedCountBadge");
+      if (countBadge) countBadge.textContent = saved.length;
+
+      // Update mobile badge if present
+      const mobileCountBadge = document.getElementById("mobileSavedCountBadge");
+      if (mobileCountBadge) mobileCountBadge.textContent = saved.length;
+
+      // If we are currently inside the Bookmarks view/tab, trigger re-render
+      const formulasView = document.getElementById("formulasView");
+      const currentTitle = document.getElementById("currentChapterTitle");
+      if (
+        currentTitle &&
+        currentTitle.querySelector(".en-title").textContent === "Saved Formulas"
+      ) {
+        renderManager.renderFormulasGrid(saved);
+      }
+
+      // Dispatch event to notify state changes
+      document.dispatchEvent(
+        new CustomEvent("bookmarksChanged", { detail: saved }),
+      );
+    } catch (e) {
+      console.error("Failed to toggle bookmark", e);
+    }
+  },
+
+  /**
    * Renders the grid of formula cards
    */
   renderFormulasGrid: (formulas) => {
@@ -80,8 +132,12 @@ export const renderManager = {
     grid.innerHTML = "";
 
     if (formulas.length === 0) {
-      grid.innerHTML =
-        '<div class="col-12 text-center py-5 text-muted">No formulas found in this section.</div>';
+      grid.innerHTML = `
+        <div class="col-12 text-center py-5 text-muted">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mb-3 opacity-50"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <p class="fs-5">No saved formulas found. Start starring equations to save them here!</p>
+        </div>
+      `;
       return;
     }
 
@@ -90,19 +146,52 @@ export const renderManager = {
       col.className = "col-12 col-md-6 col-xl-4 slide-up";
       col.style.animationDelay = `${index * 0.05}s`;
 
+      const isSaved = renderManager.isSaved(formula.id);
+
       col.innerHTML = `
-                <div class="formula-card h-100 p-4" onclick="document.dispatchEvent(new CustomEvent('openFormulaModal', {detail: ${JSON.stringify(formula).replace(/"/g, "&quot;")}}))">
+                <div class="formula-card h-100 p-4">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <span class="badge bg-light text-primary-accent rounded-pill px-2 py-1 small">${formula.topic}</span>
-                        ${formula.hasVisualization ? '<span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 small">Interactive</span>' : ""}
+                        <div class="d-flex align-items-center gap-2">
+                            ${formula.hasVisualization ? '<span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 small">Interactive</span>' : ""}
+                            <button class="bookmark-btn ${isSaved ? "active" : ""}" data-id="${formula.id}" title="Save Formula">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="${isSaved ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <h5 class="formula-name mb-1">${formula.nameEn}</h5>
-                    <p class="bn-title text-muted small mb-3">${formula.nameBn}</p>
-                    <div class="formula-preview text-center py-3 bg-light rounded-3 overflow-hidden">
-                        ${utils.renderMath(formula.latex)}
+                    <div class="formula-card-clickable flex-grow-1 d-flex flex-column">
+                        <h5 class="formula-name mb-1">${formula.nameEn}</h5>
+                        <p class="bn-title text-muted small mb-3">${formula.nameBn}</p>
+                        <div class="formula-preview text-center py-3 bg-light rounded-3 overflow-hidden">
+                            ${utils.renderMath(formula.latex)}
+                        </div>
                     </div>
                 </div>
             `;
+
+      // Set up click listeners
+      const card = col.querySelector(".formula-card");
+      const bookmarkBtn = col.querySelector(".bookmark-btn");
+      const clickableArea = col.querySelector(".formula-card-clickable");
+
+      bookmarkBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        renderManager.toggleSaved(formula, bookmarkBtn);
+        const svg = bookmarkBtn.querySelector("svg");
+        if (bookmarkBtn.classList.contains("active")) {
+          svg.setAttribute("fill", "currentColor");
+        } else {
+          svg.setAttribute("fill", "none");
+        }
+      });
+
+      clickableArea.addEventListener("click", () => {
+        document.dispatchEvent(
+          new CustomEvent("openFormulaModal", { detail: formula }),
+        );
+      });
 
       grid.appendChild(col);
     });
@@ -119,6 +208,46 @@ export const renderManager = {
       formula.latex,
       true,
     );
+
+    // Setup modal bookmark star state
+    const modalBookmarkBtn = document.getElementById("modalBookmarkBtn");
+    const isSaved = renderManager.isSaved(formula.id);
+    if (isSaved) {
+      modalBookmarkBtn.classList.add("active");
+      modalBookmarkBtn
+        .querySelector("svg")
+        .setAttribute("fill", "currentColor");
+    } else {
+      modalBookmarkBtn.classList.remove("active");
+      modalBookmarkBtn.querySelector("svg").setAttribute("fill", "none");
+    }
+
+    // Re-bind modal bookmark button click
+    const newBookmarkBtn = modalBookmarkBtn.cloneNode(true);
+    modalBookmarkBtn.parentNode.replaceChild(newBookmarkBtn, modalBookmarkBtn);
+    newBookmarkBtn.addEventListener("click", () => {
+      renderManager.toggleSaved(formula, newBookmarkBtn);
+      const svg = newBookmarkBtn.querySelector("svg");
+      if (newBookmarkBtn.classList.contains("active")) {
+        svg.setAttribute("fill", "currentColor");
+      } else {
+        svg.setAttribute("fill", "none");
+      }
+
+      // Synchronize in formulas grid
+      const gridBtn = document.querySelector(
+        `.formula-card .bookmark-btn[data-id="${formula.id}"]`,
+      );
+      if (gridBtn) {
+        if (newBookmarkBtn.classList.contains("active")) {
+          gridBtn.classList.add("active");
+          gridBtn.querySelector("svg").setAttribute("fill", "currentColor");
+        } else {
+          gridBtn.classList.remove("active");
+          gridBtn.querySelector("svg").setAttribute("fill", "none");
+        }
+      }
+    });
 
     // Render variables
     const varTbody = document.getElementById("modalVariables");
@@ -1736,5 +1865,390 @@ export const renderManager = {
     });
 
     container.appendChild(row);
+  },
+
+  /**
+   * Renders the dynamic revision dashboard
+   */
+  renderDashboard: (chaptersList) => {
+    const dashboard = document.getElementById("dashboardView");
+    if (!dashboard) return;
+
+    // Get current saved formulas count from localStorage
+    let savedCount = 0;
+    try {
+      savedCount = JSON.parse(
+        localStorage.getItem("saved_formulas") || "[]",
+      ).length;
+    } catch (e) {}
+
+    // Calculate total chapters
+    const totalChapters = chaptersList.length;
+
+    // Predefined list of popular iconic physics formulas for Formula of the Day
+    const iconicFormulas = [
+      {
+        id: "p1_ch3_projectile",
+        chapterId: "p1_ch3",
+        topic: "Projectile Motion",
+        nameEn: "Maximum height of projectile",
+        nameBn: "প্রক্ষেপকের সর্বাধিক উচ্চতা",
+        latex: "H = \\frac{u^2 \\sin^2\\theta_0}{2g}",
+        variables: [
+          {
+            symbol: "H",
+            meaning: "Maximum vertical height reached",
+            unit: "m",
+          },
+          {
+            symbol: "u",
+            meaning: "Initial velocity of projection",
+            unit: "m/s",
+          },
+          {
+            symbol: "\\theta_0",
+            meaning: "Angle of projection with horizontal",
+            unit: "rad",
+          },
+          {
+            symbol: "g",
+            meaning: "Acceleration due to gravity (9.8)",
+            unit: "m/s^2",
+          },
+        ],
+        assumptions: "Ideal projectile motion with no air resistance.",
+        mcqShortcuts: [
+          "For maximum height, projection angle must be 90 degrees.",
+          "H is proportional to square of initial velocity (u^2).",
+        ],
+        specialCases: [
+          {
+            condition: "\\theta_0 = 90^\\circ",
+            latex: "H_{max} = \\frac{u^2}{2g}",
+          },
+        ],
+        hasVisualization: true,
+        vizType: "projectile_advanced",
+      },
+      {
+        id: "p2_ch4_biot_savart",
+        chapterId: "p2_ch4",
+        topic: "Biot-Savart Law",
+        nameEn: "Biot-Savart law",
+        nameBn: "বায়ো-সাভার সূত্র",
+        latex: "dB = \\frac{\\mu_0}{4\\pi} \\frac{I\\,dl\\sin\\theta}{r^2}",
+        variables: [
+          {
+            symbol: "dB",
+            meaning: "Magnetic field element strength",
+            unit: "T",
+          },
+          {
+            symbol: "\\mu_0",
+            meaning: "Permeability of free space",
+            unit: "T m/A",
+          },
+          { symbol: "I", meaning: "Current flowing in conductor", unit: "A" },
+          {
+            symbol: "dl",
+            meaning: "Infinitesimal length of conductor",
+            unit: "m",
+          },
+          {
+            symbol: "\\theta",
+            meaning: "Angle between dl and displacement vector r",
+            unit: "rad",
+          },
+          {
+            symbol: "r",
+            meaning: "Distance from current element to point",
+            unit: "m",
+          },
+        ],
+        assumptions: "Steady current flowing in a thin conductor in vacuum.",
+        mcqShortcuts: [
+          "Permeability of vacuum \\mu_0 = 4\\pi \\times 10^{-7} T m/A.",
+          "Field is zero along the line of current element.",
+        ],
+        specialCases: [
+          {
+            condition: "\\theta = 90^\\circ",
+            latex: "dB_{max} = \\frac{\\mu_0 I dl}{4\\pi r^2}",
+          },
+        ],
+        hasVisualization: false,
+      },
+      {
+        id: "p1_ch8_pendulum",
+        chapterId: "p1_ch8",
+        topic: "Simple Pendulum",
+        nameEn: "Time period of pendulum",
+        nameBn: "সরল দোলকের দোলনকাল",
+        latex: "T = 2\\pi \\sqrt{\\frac{L}{g}}",
+        variables: [
+          { symbol: "T", meaning: "Time period of oscillation", unit: "s" },
+          {
+            symbol: "L",
+            meaning: "Effective length of pendulum (l + r)",
+            unit: "m",
+          },
+          {
+            symbol: "g",
+            meaning: "Acceleration due to gravity",
+            unit: "m/s^2",
+          },
+        ],
+        assumptions:
+          "Angular displacement is very small (less than 4 degrees), friction-free pivot.",
+        mcqShortcuts: [
+          "T is directly proportional to square root of L.",
+          "Time period of second's pendulum is exactly 2 seconds (L is approx 99.3 cm on Earth).",
+        ],
+        specialCases: [
+          {
+            condition: "L \\to \\infty \\text{ (Earth Radius R)}",
+            latex: "T = 2\\pi \\sqrt{\\frac{R}{g}} \\approx 84.6 \\text{ min}",
+          },
+        ],
+        hasVisualization: true,
+        vizType: "simple_pendulum",
+      },
+      {
+        id: "p2_ch1_carnot",
+        chapterId: "p2_ch1",
+        topic: "Carnot Engine",
+        nameEn: "Carnot engine efficiency",
+        nameBn: "কার্নো ইঞ্জিনের কর্মদক্ষতা",
+        latex: "\\eta = 1 - \\frac{T_2}{T_1}",
+        variables: [
+          {
+            symbol: "\\eta",
+            meaning: "Thermal efficiency (fractional)",
+            unit: "",
+          },
+          {
+            symbol: "T_1",
+            meaning: "Absolute temperature of source",
+            unit: "K",
+          },
+          { symbol: "T_2", meaning: "Absolute temperature of sink", unit: "K" },
+        ],
+        assumptions:
+          "Reversible thermodynamic Carnot cycle with no heat losses.",
+        mcqShortcuts: [
+          "Efficiency can only be 100% (\\eta = 1) if Sink temperature T2 is absolute zero (0 K), which is practically impossible.",
+          "Always convert temperatures to Kelvin (K) first!",
+        ],
+        specialCases: [
+          {
+            condition: "T_2 = T_1",
+            latex: "\\eta = 0 \\text{ (No work done)}",
+          },
+        ],
+        hasVisualization: true,
+        vizType: "carnot_cycle",
+      },
+    ];
+
+    // Select formula of the day based on current calendar date
+    const dateIndex = new Date().getDate() % iconicFormulas.length;
+    const fod = iconicFormulas[dateIndex];
+
+    // Read Recently Visited Chapters from localStorage
+    let recentChapters = [];
+    try {
+      recentChapters = JSON.parse(
+        localStorage.getItem("recent_chapters") || "[]",
+      );
+    } catch (e) {
+      recentChapters = [];
+    }
+
+    // Fallback default chapters if there are no recents yet
+    const defaults = [
+      {
+        id: "p1_ch2",
+        nameEn: "Chapter 2: Vector",
+        nameBn: "অধ্যায় ২: ভেক্টর",
+        paper: 1,
+      },
+      {
+        id: "p1_ch6",
+        nameEn: "Chapter 6: Gravitation & Gravity",
+        nameBn: "অধ্যায় ৬: মহাকর্ষ ও অভিকর্ষ",
+        paper: 1,
+      },
+      {
+        id: "p2_ch1",
+        nameEn: "Chapter 1: Thermodynamics",
+        nameBn: "অধ্যায় ১: তাপগতিবিদ্যা",
+        paper: 2,
+      },
+      {
+        id: "p2_ch10",
+        nameEn: "Chapter 10: Semiconductor & Electronics",
+        nameBn: "অধ্যায় ১০: সেমিকন্ডাক্টর ও ইলেকট্রনিক্স",
+        paper: 2,
+      },
+    ];
+
+    const displayChapters =
+      recentChapters.length > 0 ? recentChapters.slice(0, 4) : defaults;
+    const isHistory = recentChapters.length > 0;
+
+    let quickLinksHtml = "";
+    displayChapters.forEach((ch, idx) => {
+      const displayId = ch.id.split("_")[1].replace("ch", "");
+      quickLinksHtml += `
+        <button class="quick-link-item list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3 rounded-3" id="quickLinkCh-${ch.id}">
+            <div class="d-flex flex-column align-items-start">
+                <span class="fw-medium text-dark text-start" style="font-size: 0.9rem;">${ch.nameEn.split(":")[1] || ch.nameEn}</span>
+                <span class="text-muted bn-title x-small text-start">${ch.nameBn}</span>
+            </div>
+            <span class="badge bg-light text-primary rounded-pill px-2">P${ch.paper} CH ${displayId}</span>
+        </button>
+      `;
+    });
+
+    dashboard.innerHTML = `
+        <!-- Welcome Jumbotron -->
+        <div class="welcome-banner text-center text-md-start mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8 mb-3 mb-md-0">
+                    <h2 class="fw-bold mb-2">Welcome to HSC Physics Revision!</h2>
+                    <p class="lead text-muted mb-0">Explore interactive visualizations, revise essential physics equations, and master concepts for Paper 1 and Paper 2 with ease.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="brand-badge p-3 bg-white rounded-3 shadow-sm border d-inline-block">
+                        <img src="./assets/icon.png" alt="Logo" width="64" height="64" class="mb-2">
+                        <h6 class="m-0 fw-bold text-primary">Interactive Physics Lab</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Statistics Counters -->
+        <div class="row g-4 mb-4">
+            <div class="col-12 col-md-4">
+                <div class="dashboard-stat-card shadow-sm">
+                    <div class="dashboard-stat-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold m-0">${totalChapters}</h4>
+                        <small class="text-muted">Total Revision Chapters</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="dashboard-stat-card shadow-sm">
+                    <div class="dashboard-stat-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold m-0">35+</h4>
+                        <small class="text-muted">Interactive Physics Lab Sims</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="dashboard-stat-card shadow-sm" id="dashboardSavedCardBtn" style="cursor: pointer;">
+                    <div class="dashboard-stat-icon" style="background-color: rgba(234, 179, 8, 0.1); color: #eab308;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold m-0" id="dashboardSavedCount">${savedCount}</h4>
+                        <small class="text-muted">Saved Formulas Bookmarked</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Formula of the Day -->
+            <div class="col-12 col-lg-7">
+                <div class="formula-of-day-card p-4 border h-100 d-flex flex-column shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill small fw-bold">FORMULA OF THE DAY</span>
+                        <small class="text-muted">${fod.topic}</small>
+                    </div>
+                    <h4 class="fw-bold text-primary mb-1">${fod.nameEn}</h4>
+                    <p class="bn-title text-muted mb-3">${fod.nameBn}</p>
+                    
+                    <div class="formula-hero text-center py-4 my-3 bg-light rounded-3 overflow-x-auto overflow-y-hidden border">
+                        <div class="fs-3 px-3">${utils.renderMath(fod.latex)}</div>
+                    </div>
+
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
+                        <span class="text-muted small">Chapter: ${fod.chapterId.toUpperCase().replace("_", " ")}</span>
+                        <button class="btn btn-primary rounded-pill px-4" id="openFodBtn">Learn & Visualize</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access Menu -->
+            <div class="col-12 col-lg-5">
+                <div class="card border p-4 h-100 shadow-sm bg-white rounded-3">
+                    <h5 class="fw-bold mb-3 border-bottom pb-2">${isHistory ? "Recently Visited Chapters" : "Featured Chapters"}</h5>
+                    <div class="d-flex flex-column gap-2">
+                        ${quickLinksHtml}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Bind event listeners for the dashboard buttons
+    document.getElementById("openFodBtn").addEventListener("click", () => {
+      document.dispatchEvent(
+        new CustomEvent("openFormulaModal", { detail: fod }),
+      );
+    });
+
+    document
+      .getElementById("dashboardSavedCardBtn")
+      .addEventListener("click", () => {
+        const savedBtn = document.getElementById("savedFormulasBtn");
+        if (savedBtn) savedBtn.click();
+      });
+
+    // Helper to simulate sidebar clicks for dynamic navigation links
+    const triggerSidebarClick = (chapterId, paper) => {
+      // Switch paper tab first
+      const tabId = paper === 1 ? "paper1-tab" : "paper2-tab";
+      const paperTab = document.getElementById(tabId);
+      if (paperTab) paperTab.click();
+
+      setTimeout(() => {
+        const allButtons = document.querySelectorAll(".chapter-list button");
+        for (const item of allButtons) {
+          const chId = item.querySelector(".badge")?.textContent || "";
+          const targetNum = chapterId.split("_")[1].replace("ch", "");
+          if (chId === `CH ${targetNum}`) {
+            item.click();
+            break;
+          }
+        }
+      }, 150);
+    };
+
+    // Bind click listeners for recent chapters
+    displayChapters.forEach((ch) => {
+      const linkBtn = document.getElementById(`quickLinkCh-${ch.id}`);
+      if (linkBtn) {
+        linkBtn.addEventListener("click", () =>
+          triggerSidebarClick(ch.id, ch.paper),
+        );
+      }
+    });
   },
 };
