@@ -5,83 +5,19 @@ export const formulas_p2_ch10 = [
     topic: "Diode & Semiconductor (ডায়োড ও সেমিকন্ডাক্টর)",
     nameEn: "Diode Current & Dynamic Resistance",
     nameBn: "ডায়োড প্রবাহ ও গতিশীল রোধ",
-    latex:
-      "I = I_0 \\left( e^{\\frac{e V}{\\eta k_B T}} - 1 \\right) \\newline R_d = \\frac{\\Delta V}{\\Delta I} = \\frac{V_2 - V_1}{I_2 - I_1} \\newline R_s = \\frac{V}{I}",
+    latex: "R_d = \\frac{\\Delta V}{\\Delta I} = \\frac{V_2 - V_1}{I_2 - I_1}",
     variables: [
       { symbol: "I", meaning: "Diode current", unit: "A" },
-      { symbol: "I_0", meaning: "Reverse saturation current", unit: "A" },
       { symbol: "V", meaning: "Applied voltage across the diode", unit: "V" },
-      { symbol: "e", meaning: "Charge of electron", unit: "C" },
-      {
-        symbol: "k_B",
-        meaning: "Boltzmann's constant (1.38 × 10⁻²³)",
-        unit: "J/K",
-      },
-      { symbol: "T", meaning: "Absolute temperature", unit: "K" },
-      {
-        symbol: "\\eta",
-        meaning: "Ideality factor (1 for Germanium, 2 for Silicon)",
-        unit: "Dimensionless",
-      },
       { symbol: "R_d", meaning: "Dynamic (AC) resistance of diode", unit: "Ω" },
-      { symbol: "R_s", meaning: "Static (DC) resistance of diode", unit: "Ω" },
     ],
-    assumptions: "Shockley diode equation for ideal P-N junctions.",
-    specialCases: [
-      {
-        condition: "V > 0 \\quad (\\text{Forward Bias})",
-        latex:
-          "I \\approx I_0 e^{e V / \\eta k_B T} \\quad (\\text{Current increases exponentially})",
-      },
-      {
-        condition: "V < 0 \\quad (\\text{Reverse Bias})",
-        latex: "I \\approx -I_0 \\quad (\\text{Negligible leakage current})",
-      },
-    ],
+    assumptions: "Ideal P-N junctions.",
     hasVisualization: true,
     vizType: "pn_junction",
     mcqShortcuts: [
       "In forward bias, P is connected to positive and N to negative terminal. Depletion layer shrinks, and resistance becomes very low.",
       "In reverse bias, P is connected to negative and N to positive terminal. Depletion layer expands, and resistance is extremely high.",
       "Dynamic resistance $R_d$ is the inverse of the slope of the diode's I-V characteristic curve ($R_d = 1 / \\text{slope}$).",
-    ],
-  },
-  {
-    id: "diode_in_circuit",
-    chapterId: "p2_ch10",
-    topic: "Diode & Semiconductor (ডায়োড ও সেমিকন্ডাক্টর)",
-    nameEn: "Ideal Diode & Rectifiers",
-    nameBn: "আদর্শ ডায়োড ও একমুখীকরণ",
-    latex:
-      "\\text{Ideal Diode Switch:} \\newline \\text{Forward Bias} \\implies \\text{Closed Switch } (R = 0, \\, V_{diode} = 0) \\newline \\text{Reverse Bias} \\implies \\text{Open Switch } (R = \\infty, \\, I = 0) \\newline \\text{Half-Wave Rectifier:} \\newline I_{dc} = \\frac{I_m}{\\pi}, \\quad I_{rms} = \\frac{I_m}{2}, \\quad \\eta_{max} \\approx 40.6\\% \\newline \\text{Full-Wave Rectifier:} \\newline I_{dc} = \\frac{2 I_m}{\\pi}, \\quad I_{rms} = \\frac{I_m}{\\sqrt{2}}, \\quad \\eta_{max} \\approx 81.2\\%",
-    variables: [
-      {
-        symbol: "I_{dc}",
-        meaning: "Average/DC output current of rectifier",
-        unit: "A",
-      },
-      {
-        symbol: "I_{rms}",
-        meaning: "Root-mean-square current of rectifier",
-        unit: "A",
-      },
-      { symbol: "I_m", meaning: "Peak AC current input", unit: "A" },
-      {
-        symbol: "\\eta_{max}",
-        meaning: "Maximum rectification efficiency",
-        unit: "%",
-      },
-    ],
-    assumptions:
-      "Using ideal diodes without diode barrier voltage drop (0.7V for Si, 0.3V for Ge).",
-    specialCases: [],
-    hasVisualization: true,
-    vizType: "pn_junction",
-    mcqShortcuts: [
-      "Ripple factor measures AC components remaining in output. Half-wave ripple factor is $1.21$, Full-wave is $0.48$.",
-      "Bridge rectifier uses 4 diodes. Peak Inverse Voltage (PIV) is equal to peak input voltage $V_m$.",
-      "Center-tap full-wave rectifier uses 2 diodes. PIV = $2 V_m$.",
-      "Output frequency of full-wave rectifier is double the input frequency ($f_{out} = 2 f_{in}$). For half-wave, $f_{out} = f_{in}$.",
     ],
   },
   {
@@ -201,8 +137,7 @@ export const formulas_p2_ch10 = [
   {
     id: "logic_gates",
     chapterId: "p2_ch10",
-    topic:
-      "Logic Gates & Digital Electronics (লজিক গেট ও ডিজিটাল ইলেকট্রনিক্স)",
+    topic: "Logic Gates (লজিক গেট)",
     nameEn: "Logic Gates & Boolean Algebra",
     nameBn: "লজিক গেট ও বুলিয়ান অ্যালজেব্রা",
     latex:
@@ -220,6 +155,18 @@ export const formulas_p2_ch10 = [
       "**XOR** output is `1` only when the inputs are different ($A \\ne B$). It is used as an odd-parity detector and in adder circuits.",
       "**XNOR** output is `1` only when the inputs are identical ($A = B$). It is used as a equality detector.",
       "De Morgan's Theorems: $\\overline{A+B} = \\bar{A} \\cdot \\bar{B}$ and $\\overline{A \\cdot B} = \\bar{A} + \\bar{B}$.",
+    ],
+  },
+  {
+    id: "de_morgan",
+    chapterId: "p2_ch10",
+    topic: "De Morgan's Laws (ডি মর্গানের সূত্র)",
+    nameEn: "De Morgan's Laws",
+    nameBn: "ডি মর্গানের সূত্র",
+    latex:
+      "\\overline{A + B} = \\bar{A} \\cdot \\bar{B} \\newline \\overline{A \\cdot B} = \\bar{A} + \\bar{B}",
+    variables: [
+      { symbol: "A, B", meaning: "Binary variables (0 or 1)", unit: "N/A" },
     ],
   },
 ];
