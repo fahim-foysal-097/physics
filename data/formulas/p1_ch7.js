@@ -26,7 +26,7 @@ export const formulas_p1_ch7 = [
     nameEn: "Moduli of Elasticity",
     nameBn: "স্থিতিস্থাপক গুণাঙ্ক",
     latex:
-      "Y = \\frac{FL}{Al}, \\quad K = \\frac{PV}{\\Delta V}, \\quad \\eta = \\frac{F}{A\\theta}",
+      "Y = \\frac{FL}{Al}, \\quad K = \\frac{PV}{\\Delta V}, \\quad \\eta = \\frac{F}{A\\tan \\theta}",
     variables: [
       { symbol: "Y", meaning: "Young's Modulus", unit: "Pa" },
       { symbol: "K", meaning: "Bulk Modulus", unit: "Pa" },
@@ -34,19 +34,18 @@ export const formulas_p1_ch7 = [
       { symbol: "F", meaning: "Applied force", unit: "N" },
       { symbol: "L", meaning: "Original length", unit: "m" },
       { symbol: "A", meaning: "Cross-sectional area", unit: "m²" },
-      { symbol: "\\theta", meaning: "Shear angle in radians", unit: "rad" },
+      {
+        symbol: "\\theta",
+        meaning: "Shear angle in radians",
+        unit: "rad or degrees",
+      },
       { symbol: "P", meaning: "Pressure", unit: "Pa" },
       { symbol: "V", meaning: "Volume", unit: "m³" },
     ],
-    specialCases: [
-      {
-        condition: "Poisson's Ratio",
-        latex:
-          "\\sigma = \\frac{\\text{Lateral Strain}}{\\text{Longitudinal Strain}} = \\frac{d/D}{l/L}",
-      },
-    ],
     hasVisualization: true,
     vizType: "stress_strain_curve",
+    assumptions:
+      "Because $\\theta$ is small, $\\tan \\theta \\approx \\theta^c$. [$\\theta$ must be in radians.]",
   },
   {
     id: "poissons_ratio",

@@ -29,7 +29,7 @@ export const formulas_p1_ch = [
     nameBn: "Bengali Name",
     latex: "\\vec{F} = m\\vec{a}",
     variables: [{ symbol: "F", meaning: "Force", unit: "N" }],
-    assumptions: "Ideal conditions...",
+    assumptions: "Ideal conditions...", // note: for latex to work, put $latex experrsion within this$
     specialCases: [{ condition: "\\theta = 90^\circ", latex: "F = 0" }],
     hasVisualization: true, // Set true for p5.js integration
     vizType: "my_sketch", // Trigger for chapter simulation module
