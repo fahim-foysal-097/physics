@@ -205,7 +205,7 @@ export const formulas_p2_ch8 = [
     nameEn: "Photon Energy & Momentum",
     nameBn: "ফোটনের শক্তি ও ভরবেগ",
     latex:
-      "E = h f = \\frac{h c}{\\lambda} = \\frac{1240}{\\lambda_{nm}} \\newline p = \\frac{E}{c} = \\frac{h}{\\lambda}",
+      "E = h f = \\frac{h c}{\\lambda} \\newline E = \\frac{1240}{\\lambda_{nm}} \\text{ eV}   \\newline p = \\frac{E}{c} = \\frac{h}{\\lambda}",
     variables: [
       { symbol: "E", meaning: "Energy of a photon", unit: "J or eV" },
       { symbol: "p", meaning: "Momentum of a photon", unit: "kg·m/s" },
