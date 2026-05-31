@@ -156,8 +156,7 @@ export const formulas_p2_ch8 = [
     topic: "Relativity (আপেক্ষিকতা)",
     nameEn: "Relativistic Momentum & Energy Relation",
     nameBn: "আপেক্ষিক ভরবেগ ও শক্তির সম্পর্ক",
-    latex:
-      "p = m v = \\gamma m_0 v \\newline E^2 = (pc)^2 + (m_0 c^2)^2 \\newline pc = \\sqrt{E^2 - E_0^2}",
+    latex: "p = m v = \\gamma m_0 v \\newline E^2 = (pc)^2 + (m_0 c^2)^2",
     variables: [
       { symbol: "p", meaning: "Relativistic momentum", unit: "kg·m/s" },
       { symbol: "E", meaning: "Total energy", unit: "J or eV" },
@@ -180,18 +179,18 @@ export const formulas_p2_ch8 = [
     nameEn: "Mass-Energy Equivalence",
     nameBn: "ভর-শক্তি সমতুল্যতা",
     latex:
-      "E = m c^2 = \\gamma m_0 c^2 \\newline E_0 = m_0 c^2 \\newline K = E - E_0 = (m - m_0)c^2 = (\\gamma - 1)m_0 c^2",
+      "E = m c^2 = \\gamma m_0 c^2 \\newline E_0 = m_0 c^2 \\newline E_k = E - E_0 = (m - m_0)c^2 = (\\gamma - 1)m_0 c^2",
     variables: [
       { symbol: "E", meaning: "Total relativistic energy", unit: "J" },
       { symbol: "E_0", meaning: "Rest mass energy", unit: "J" },
-      { symbol: "K", meaning: "Relativistic kinetic energy", unit: "J" },
+      { symbol: "E_k", meaning: "Relativistic kinetic energy", unit: "J" },
     ],
     assumptions: "Einstein's mass-energy equivalence principle.",
     specialCases: [
       {
         condition: "v \\ll c",
         latex:
-          "K \\approx \\frac{1}{2}m_0 v^2 \\quad (\\text{Classical Kinetic Energy})",
+          "E_k \\approx \\frac{1}{2}m_0 v^2 \\quad (\\text{Classical Kinetic Energy})",
       },
     ],
     mcqShortcuts: [
@@ -206,7 +205,7 @@ export const formulas_p2_ch8 = [
     nameEn: "Photon Energy & Momentum",
     nameBn: "ফোটনের শক্তি ও ভরবেগ",
     latex:
-      "E = h f = \\frac{h c}{\\lambda} \\newline p = \\frac{E}{c} = \\frac{h}{\\lambda}",
+      "E = h f = \\frac{h c}{\\lambda} = \\frac{1240}{\\lambda_{nm}} \\newline p = \\frac{E}{c} = \\frac{h}{\\lambda}",
     variables: [
       { symbol: "E", meaning: "Energy of a photon", unit: "J or eV" },
       { symbol: "p", meaning: "Momentum of a photon", unit: "kg·m/s" },
@@ -273,13 +272,18 @@ export const formulas_p2_ch8 = [
     nameEn: "Stopping Potential",
     nameBn: "নিবৃত্তি বিভব",
     latex:
-      "K_{max} = e V_s \\newline e V_s = h f - \\Phi = \\frac{hc}{\\lambda} - \\Phi",
+      "K_{max} = e V_s \\newline e V_s = h f - h f_0 = \\frac{hc}{\\lambda} - hf_0",
     variables: [
       {
         symbol: "V_s",
         meaning:
           "Stopping potential (retarding voltage that stops all current)",
         unit: "V",
+      },
+      {
+        symbol: "f_0",
+        meaning: "Threshold frequency",
+        unit: "Hz",
       },
       { symbol: "e", meaning: "Elementary charge (1.6 × 10⁻¹⁹)", unit: "C" },
     ],
@@ -337,7 +341,7 @@ export const formulas_p2_ch8 = [
     nameEn: "Compton Scattering Shift",
     nameBn: "কম্পটন তরঙ্গদৈর্ঘ্য সরণ",
     latex:
-      "\\Delta\\lambda = \\lambda' - \\lambda = \\frac{h}{m_0 c}(1 - \\cos\\theta) \\newline \\lambda_c = \\frac{h}{m_0 c} \\approx 2.426 \\times 10^{-12} \\text{ m} = 0.0242 \\text{ \\AA}",
+      "\\Delta\\lambda = \\lambda' - \\lambda = \\frac{h}{m_0 c}(1 - \\cos\\theta) \\newline \\lambda_c = \\frac{h}{m_0 c}",
     variables: [
       {
         symbol: "\\Delta\\lambda",
@@ -396,7 +400,7 @@ export const formulas_p2_ch8 = [
     nameEn: "De Broglie Wavelength",
     nameBn: "ডি ব্রগলি তরঙ্গদৈর্ঘ্য",
     latex:
-      "\\lambda = \\frac{h}{p} = \\frac{h}{m v} = \\frac{h}{\\sqrt{2 m K}} = \\frac{h}{\\sqrt{2 m e V}}",
+      "\\lambda = \\frac{h}{p} = \\frac{h}{m v} = \\frac{h}{\\sqrt{2 m E_k}}",
     variables: [
       {
         symbol: "\\lambda",
@@ -404,12 +408,7 @@ export const formulas_p2_ch8 = [
         unit: "m",
       },
       { symbol: "p", meaning: "Momentum of the particle", unit: "kg·m/s" },
-      { symbol: "K", meaning: "Kinetic energy of the particle", unit: "J" },
-      {
-        symbol: "V",
-        meaning: "Accelerating potential difference (for electrons)",
-        unit: "V",
-      },
+      { symbol: "E_k", meaning: "Kinetic energy of the particle", unit: "J" },
     ],
     assumptions: "Every moving particle is associated with a matter wave.",
     specialCases: [
