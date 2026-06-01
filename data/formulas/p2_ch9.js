@@ -50,7 +50,7 @@ export const formulas_p2_ch9 = [
     nameEn: "Bohr Orbit Radius",
     nameBn: "বোর কক্ষপথের ব্যাসার্ধ",
     latex:
-      "r_n = \\frac{\\epsilon_0 n^2 h^2}{\\pi m e^2} Z^{-1} = r_1 n^2 \\newline r_1 = 0.529 \\times 10^{-10} \\text{ m} = 0.529 \\text{ \\AA}",
+      "r_n = \\frac{n^2}{Z} \\frac{h^2\\epsilon_0}{m \\pi e^4} = r_1 n^2 \\newline r_1  = 0.529 \\text{ \\AA} \\newline r_n = \\frac{n^2}{Z} 0.529 \\text{ \\AA}",
     variables: [
       { symbol: "r_n", meaning: "Radius of the n-th Bohr orbit", unit: "m" },
       {
@@ -123,7 +123,7 @@ export const formulas_p2_ch9 = [
     nameEn: "Rydberg Spectral Formula",
     nameBn: "রিডবার্গ সমীকরণ",
     latex:
-      "\\frac{1}{\\lambda} = R_H Z^2 \\left( \\frac{1}{n_1^2} - \\frac{1}{n_2^2} \\right) = \\bar{\\nu} \\newline R_H = \\frac{m e^4}{8 \\epsilon_0^2 c h^3} \\approx 1.09678 \\times 10^7 \\text{ m}^{-1}",
+      "\\frac{1}{\\lambda} = R_H Z^2 \\left( \\frac{1}{n_1^2} - \\frac{1}{n_2^2} \\right) = \\bar{\\nu} \\newline R_H = \\frac{m e^4}{8 \\epsilon_0^2 c h^3} \\approx 1.097 \\times 10^7 \\text{ m}^{-1}",
     variables: [
       {
         symbol: "\\lambda",
@@ -167,7 +167,6 @@ export const formulas_p2_ch9 = [
     hasVisualization: true,
     vizType: "bohr_atom",
     mcqShortcuts: [
-      "⚠️ **IMPORTANT NOTE FOR HSC:** This formula usually appears heavily in **Chemistry 1st Paper (Chapter 2: Qualitative Chemistry)** as well as Physics.",
       "Maximum wavelength (minimum energy) occurs when transition is from adjacent shell ($n_2 = n_1 + 1$).",
       "Minimum wavelength (limiting wave / maximum energy) occurs when transition is from infinity ($n_2 = \\infty$), giving $\\frac{1}{\\lambda_{min}} = \\frac{R_H}{n_1^2} \\implies \\lambda_{min} = \\frac{n_1^2}{R_H}$.",
     ],
