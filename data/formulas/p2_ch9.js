@@ -85,13 +85,51 @@ export const formulas_p2_ch9 = [
     ],
   },
   {
+    id: "bohr_orbit_velocity",
+    chapterId: "p2_ch9",
+    topic: "Bohr Model (বোর পরমাণু মডেল)",
+    nameEn: "Bohr Orbit Velocity",
+    nameBn: "বোর কক্ষপথের বেগ",
+    latex:
+      "v_n = \\frac{Z e^2}{2 h \\epsilon_0 n} = v_1 \\frac{Z}{n} \\newline v_1 = \\frac{e^2}{2 \\epsilon_0 h} \\approx 2.18 \\times 10^6 \\text{ m/s} \\newline v_n = \\frac{Z}{n} 2.18 \\times 10^6 \\text{ m/s}",
+    variables: [
+      {
+        symbol: "v_n",
+        meaning: "Linear velocity of electron in n-th orbit",
+        unit: "m/s",
+      },
+      {
+        symbol: "v_1",
+        meaning: "Velocity of electron in ground state of Hydrogen",
+        unit: "m/s",
+      },
+    ],
+    assumptions:
+      "Electron speed is determined by the balance of electrostatic force and centripetal force.",
+    specialCases: [
+      {
+        condition: "  n = 2",
+        latex: "v_2 = \\frac{Z}{2} v_1 \\approx 1.09 \\times 10^6 \\text{ m/s}",
+      },
+      {
+        condition: "n = 3",
+        latex: "v_3 = \\frac{Z}{3} v_1 \\approx 0.73 \\times 10^6 \\text{ m/s}",
+      },
+    ],
+    mcqShortcuts: [
+      "Velocity of electron decreases with increasing orbit number ($v_n \\propto 1/n$).",
+      "Velocity is directly proportional to atomic number ($v_n \\propto Z$).",
+      "Electron in ground state of Hydrogen moves at approximately $\\approx 2.18 \\times 10^6 \\text{ m/s}$).",
+    ],
+  },
+  {
     id: "bohr_energy_levels",
     chapterId: "p2_ch9",
     topic: "Bohr Model (বোর পরমাণু মডেল)",
     nameEn: "Bohr Orbit Energy",
     nameBn: "বোর কক্ষপথের শক্তি",
     latex:
-      "E_n = -\\frac{m e^4}{8 \\epsilon_0^2 n^2 h^2} Z^2 = -\\frac{13.6}{n^2} Z^2 \\text{ eV} \\newline E_n = E_1 \\frac{Z^2}{n^2} \\quad \\text{where } E_1 = -13.6 \\text{ eV} = -2.176 \\times 10^{-18} \\text{ J}",
+      "E_n = -\\frac{m e^4 Z^2}{8 h^2 \\epsilon_0^2 n^2} = -13.6 \\frac{Z^2}{n^2} \\text{ eV} \\newline E_n = E_1 \\frac{Z^2}{n^2} = -13.6 \\frac{Z^2}{n^2} \\text{ eV}",
     variables: [
       {
         symbol: "E_n",
@@ -111,7 +149,7 @@ export const formulas_p2_ch9 = [
     vizType: "bohr_atom",
     mcqShortcuts: [
       "Total energy is negative, proving the electron is bound to the nucleus.",
-      "Relationship: $E_{total} = -K = \\frac{1}{2}U$ (where K is Kinetic Energy and U is Potential Energy).",
+      "Relationship: $E_{total} = -E_k = \\frac{1}{2}E_p$ (where $E_k$ is Kinetic Energy and $E_p$ is Potential Energy).",
       "Potential energy is double the total energy in magnitude, but negative.",
       "Energy differences decrease as orbit number increases ($E_2-E_1 = 10.2\\text{ eV}$ while $E_3-E_2 = 1.89\\text{ eV}$).",
     ],
