@@ -2223,20 +2223,20 @@ export const renderManager = {
 
     // Helper to simulate sidebar clicks for dynamic navigation links
     const triggerSidebarClick = (chapterId, paper) => {
-      // Switch paper tab first
+      // Switch paper tab first (Desktop)
       const tabId = paper === 1 ? "paper1-tab" : "paper2-tab";
       const paperTab = document.getElementById(tabId);
       if (paperTab) paperTab.click();
 
+      // Switch mobile paper tab too (Mobile)
+      const mobileTabId = paper === 1 ? "mobilePaper1-tab" : "mobilePaper2-tab";
+      const mobilePaperTab = document.getElementById(mobileTabId);
+      if (mobilePaperTab) mobilePaperTab.click();
+
       setTimeout(() => {
-        const allButtons = document.querySelectorAll(".chapter-list button");
-        for (const item of allButtons) {
-          const chId = item.querySelector(".badge")?.textContent || "";
-          const targetNum = chapterId.split("_")[1].replace("ch", "");
-          if (chId === `CH ${targetNum}`) {
-            item.click();
-            break;
-          }
+        const btn = document.querySelector(`.chapter-list button[data-chapter-id="${chapterId}"]`);
+        if (btn) {
+          btn.click();
         }
       }, 150);
     };
