@@ -1,4 +1,4 @@
-# HSC Physics Revision Website <img src="assets/icon.png" height="34s">
+# HSC Physics Revision Website <img src="assets/icon.webp" height="34s">
 
 A comprehensive, interactive, and beautifully designed web application for HSC Physics revision. This platform provides students with an easy-to-use interface to browse formulas, understand variables, and interact with physics simulations for both Paper 1 and Paper 2.
 

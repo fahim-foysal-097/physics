@@ -860,7 +860,7 @@ export const renderManager = {
                 </div>
                 <div class="col-md-4 text-center">
                     <div class="brand-badge p-3 bg-white rounded-3 shadow-sm border d-inline-block">
-                        <img src="./assets/icon.png" alt="Logo" width="64" height="64" class="mb-2">
+                        <img src="./assets/icon.webp" alt="Logo" width="64" height="64" class="mb-2">
                         <h6 class="m-0 fw-bold text-primary">Interactive Physics Lab</h6>
                     </div>
                 </div>
