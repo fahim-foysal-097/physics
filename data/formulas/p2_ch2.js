@@ -38,7 +38,7 @@ export const formulas_p2_ch2 = [
     mcqShortcuts: [
       "If a charge is doubled, force becomes 2x.",
       "If distance is halved, force becomes 4x.",
-      "Dielectric constant K = ε/ε₀ = F_vacuum / F_medium.",
+      "Dielectric constant $K = \\epsilon / \\epsilon_0 = F_{vacuum} / F_{medium}$.",
     ],
   },
   {
