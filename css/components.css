@@ -114,10 +114,8 @@
 
 /* Formula Cards & Glassmorphism */
 .formula-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-lg);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
@@ -126,7 +124,9 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.03),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
 }
 
 .formula-card::before {

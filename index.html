@@ -44,8 +44,8 @@
 
     <!-- p5.js -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.13/lib/p5.min.js"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js : unused for now -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 </head>
 
 <body class="bg-light">
@@ -208,8 +208,46 @@
             <h5 class="offcanvas-title">Chapters</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body p-0">
-            <!-- Will clone the sidebar contents here via JS for mobile -->
+        <div class="offcanvas-body p-0 d-flex flex-column h-100">
+            <!-- Bookmarks/Saved Tab -->
+            <div class="px-3 pt-3 pb-2 border-bottom">
+                <button
+                    class="btn btn-outline-warning w-100 rounded-pill d-flex align-items-center justify-content-center gap-2 py-2"
+                    id="mobileSavedFormulasBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                        fill="currentColor" class="text-warning">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                        </polygon>
+                    </svg>
+                    <span class="fw-bold text-dark" style="font-size: 0.9rem;">Saved Formulas</span>
+                    <span class="badge bg-warning text-dark rounded-pill" id="mobileSavedCountBadge">0</span>
+                </button>
+            </div>
+
+            <ul class="nav nav-pills paper-tabs flex-row w-100 px-3 pt-3 mb-3" id="mobilePaperTabs" role="tablist">
+                <li class="nav-item flex-fill text-center" role="presentation">
+                    <button class="nav-link active w-100" id="mobilePaper1-tab" data-bs-toggle="tab"
+                        data-bs-target="#mobilePaper1" type="button" role="tab">1st Paper</button>
+                </li>
+                <li class="nav-item flex-fill text-center" role="presentation">
+                    <button class="nav-link w-100" id="mobilePaper2-tab" data-bs-toggle="tab"
+                        data-bs-target="#mobilePaper2" type="button" role="tab">2nd Paper</button>
+                </li>
+            </ul>
+
+            <div class="tab-content flex-grow-1 overflow-auto px-3 pb-4" id="mobilePaperTabsContent">
+                <div class="tab-pane fade show active" id="mobilePaper1" role="tabpanel">
+                    <div class="chapter-list list-group list-group-flush" id="mobileChaptersPaper1">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="mobilePaper2" role="tabpanel">
+                    <div class="chapter-list list-group list-group-flush" id="mobileChaptersPaper2">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -12,6 +12,87 @@ const state = {
 
 // Initialize Application
 document.addEventListener("DOMContentLoaded", async () => {
+  // Track active async load promise to prevent race conditions
+  let activeLoadPromiseId = null;
+
+  // View Transition Helper using GSAP
+  const transitionToView = (targetViewName) => {
+    vizManager.clearAllInstances();
+
+    const views = {
+      dashboard: document.getElementById("dashboardView"),
+      formulas: document.getElementById("formulasView"),
+      lab: document.getElementById("labView"),
+    };
+
+    // Kill any active transitions to prevent glitches on rapid clicks
+    gsap.killTweensOf([views.dashboard, views.formulas, views.lab]);
+
+    let activeView = null;
+    Object.keys(views).forEach((key) => {
+      if (views[key] && !views[key].classList.contains("d-none")) {
+        activeView = views[key];
+      }
+    });
+
+    const targetView = views[targetViewName];
+    if (!targetView) return;
+
+    if (activeView === targetView) {
+      // Just re-run entrance animation on current view
+      gsap.fromTo(
+        targetView,
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.35,
+          ease: "power2.out",
+          clearProps: "all",
+        },
+      );
+      return;
+    }
+
+    state.currentView = targetViewName;
+
+    // Sync buttons
+    const btnFormulas = document.getElementById("viewFormulas");
+    const btnLab = document.getElementById("viewLab");
+    if (btnFormulas) btnFormulas.checked = targetViewName === "formulas";
+    if (btnLab) btnLab.checked = targetViewName === "lab";
+
+    const tl = gsap.timeline();
+
+    if (activeView) {
+      tl.to(activeView, {
+        opacity: 0,
+        y: -15,
+        duration: 0.2,
+        ease: "power2.in",
+        onComplete: () => {
+          activeView.classList.add("d-none");
+        },
+      });
+    }
+
+    tl.call(() => {
+      targetView.classList.remove("d-none");
+    });
+
+    tl.fromTo(
+      targetView,
+      { opacity: 0, y: 15 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.35,
+        ease: "power2.out",
+        clearProps: "all",
+      },
+    );
+  };
+
   // 1. Render Sidebar Chapters
   renderManager.renderChapters(chapters);
 
@@ -21,7 +102,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const labView = document.getElementById("labView");
 
   const showDashboard = () => {
-    vizManager.clearAllInstances();
     state.currentChapter = null;
     state.currentFormulas = [];
 
@@ -37,13 +117,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       titleEl.querySelector(".bn-title").textContent = "রিভিশন ড্যাশবোর্ড";
     }
 
-    // Toggle viewport visibility
-    dashboardView.classList.remove("d-none");
-    formulasView.classList.add("d-none");
-    labView.classList.add("d-none");
-
     // Render stats and dashboard components
     renderManager.renderDashboard(chapters);
+    transitionToView("dashboard");
   };
 
   // Render initial dashboard home
@@ -58,9 +134,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 3. Set up Event Listeners
   document.addEventListener("loadChapter", async (e) => {
-    vizManager.clearAllInstances();
     const chapter = e.detail;
     state.currentChapter = chapter;
+
+    // Track this load process via a unique symbol to prevent async race conditions
+    const currentPromiseId = Symbol("loadPromise");
+    activeLoadPromiseId = currentPromiseId;
 
     // Synchronize active states in both desktop and mobile sidebars
     document
@@ -82,9 +161,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (bnTitle) bnTitle.textContent = chapter.nameBn;
     }
 
-    // Toggle viewport visibility
-    dashboardView.classList.add("d-none");
-
     // Log this chapter to Recently Visited Chapters history
     try {
       if (chapter && chapter.id !== "saved") {
@@ -105,15 +181,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const moduleName = `formulas_${chapter.id}`;
       const module = await import(`../data/formulas/${chapter.id}.js`);
+      
+      // Discard older promise resolution if a newer chapter has been selected in the meantime
+      if (activeLoadPromiseId !== currentPromiseId) {
+        return;
+      }
+
       state.currentFormulas = module[moduleName];
 
       if (state.currentView === "lab") {
-        formulasView.classList.add("d-none");
-        labView.classList.remove("d-none");
         renderManager.renderLabPage(state.currentFormulas, chapter.id);
+        transitionToView("lab");
       } else {
-        formulasView.classList.remove("d-none");
-        labView.classList.add("d-none");
         renderManager.renderTopics(state.currentFormulas, (selectedTopic) => {
           if (selectedTopic === "all") {
             renderManager.renderFormulasGrid(state.currentFormulas);
@@ -125,9 +204,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         });
         renderManager.renderFormulasGrid(state.currentFormulas);
+        transitionToView("formulas");
       }
     } catch (error) {
-      console.error(`Failed to load formulas for chapter ${chapter.id}`, error);
+      if (activeLoadPromiseId === currentPromiseId) {
+        console.error(`Failed to load formulas for chapter ${chapter.id}`, error);
+      }
     }
 
     const bsOffcanvas = bootstrap.Offcanvas.getInstance(
@@ -143,7 +225,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 4. Saved Formulas Button Click
   const savedFormulasBtn = document.getElementById("savedFormulasBtn");
   savedFormulasBtn.addEventListener("click", () => {
-    vizManager.clearAllInstances();
     state.currentChapter = {
       id: "saved",
       nameEn: "Saved Formulas",
@@ -161,11 +242,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       titleEl.querySelector(".bn-title").textContent = "সংরক্ষিত সূত্রসমূহ";
     }
 
-    // Toggle viewport visibility
-    dashboardView.classList.add("d-none");
-    formulasView.classList.remove("d-none");
-    labView.classList.add("d-none");
-
     // Hide topic filters since saved formulas can belong to multiple chapters/topics
     document.getElementById("topicFilters").innerHTML = "";
 
@@ -173,9 +249,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const saved = JSON.parse(localStorage.getItem("saved_formulas") || "[]");
       state.currentFormulas = saved;
       renderManager.renderFormulasGrid(saved);
+      transitionToView("formulas");
     } catch (e) {
       state.currentFormulas = [];
       renderManager.renderFormulasGrid([]);
+      transitionToView("formulas");
     }
   });
 
@@ -183,7 +261,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.addEventListener("bookmarksChanged", (e) => {
     const saved = e.detail;
     const statCounter = document.getElementById("dashboardSavedCount");
-    if (statCounter) statCounter.textContent = saved.length;
+    if (statCounter) {
+      statCounter.textContent = saved.length;
+      // Micro-animation for bookmark bump
+      gsap.fromTo(
+        statCounter,
+        { scale: 1.3 },
+        { scale: 1, duration: 0.3, ease: "back.out(2)" },
+      );
+    }
   });
 
   // Home / Logo Nav Clicks
@@ -197,93 +283,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     showDashboard();
   });
 
-  // 5. Mobile Sidebar Handling
-  const mobileSidebarBody = document.querySelector(
-    "#mobileSidebar .offcanvas-body",
+  // 5. Mobile Saved Formulas Button Binding
+  const mobileSavedFormulasBtn = document.getElementById(
+    "mobileSavedFormulasBtn",
   );
-  let sidebarHtml = document.getElementById("sidebar").innerHTML;
-
-  // Replace IDs to prevent duplication on mobile and make Bootstrap tabs work
-  sidebarHtml = sidebarHtml.replace(/id="paperTabs"/g, 'id="mobilePaperTabs"');
-  sidebarHtml = sidebarHtml.replace(
-    /id="paper1-tab"/g,
-    'id="mobilePaper1-tab"',
-  );
-  sidebarHtml = sidebarHtml.replace(
-    /id="paper2-tab"/g,
-    'id="mobilePaper2-tab"',
-  );
-  sidebarHtml = sidebarHtml.replace(/id="paper1"/g, 'id="mobilePaper1"');
-  sidebarHtml = sidebarHtml.replace(/id="paper2"/g, 'id="mobilePaper2"');
-  sidebarHtml = sidebarHtml.replace(
-    /data-bs-target="#paper1"/g,
-    'data-bs-target="#mobilePaper1"',
-  );
-  sidebarHtml = sidebarHtml.replace(
-    /data-bs-target="#paper2"/g,
-    'data-bs-target="#mobilePaper2"',
-  );
-  sidebarHtml = sidebarHtml.replace(
-    /id="chaptersPaper1"/g,
-    'id="mobileChaptersPaper1"',
-  );
-  sidebarHtml = sidebarHtml.replace(
-    /id="chaptersPaper2"/g,
-    'id="mobileChaptersPaper2"',
-  );
-  sidebarHtml = sidebarHtml.replace(
-    /id="savedFormulasBtn"/g,
-    'id="mobileSavedFormulasBtn"',
-  );
-  sidebarHtml = sidebarHtml.replace(
-    /id="savedCountBadge"/g,
-    'id="mobileSavedCountBadge"',
-  );
-
-  mobileSidebarBody.innerHTML = sidebarHtml;
-
-  // Re-bind Saved Formulas click on mobile
-  const mobileSavedBtn = mobileSidebarBody.querySelector(
-    "#mobileSavedFormulasBtn",
-  );
-  if (mobileSavedBtn) {
-    mobileSavedBtn.addEventListener("click", () => {
+  if (mobileSavedFormulasBtn) {
+    mobileSavedFormulasBtn.addEventListener("click", () => {
       savedFormulasBtn.click();
       const bsOffcanvas = bootstrap.Offcanvas.getInstance(
         document.getElementById("mobileSidebar"),
       );
       if (bsOffcanvas) bsOffcanvas.hide();
-    });
-  }
-
-  // Re-bind click event listeners to list-group items in mobile sidebar
-  mobileSidebarBody
-    .querySelectorAll(".chapter-list .list-group-item")
-    .forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const chapterId = btn.getAttribute("data-chapter-id");
-        const targetCh = chapters.find((c) => c.id === chapterId);
-        if (targetCh) {
-          document.dispatchEvent(
-            new CustomEvent("loadChapter", { detail: targetCh }),
-          );
-        }
-      });
-    });
-
-  // Re-initialize Bootstrap tabs for the mobile sidebar since the IDs are renamed
-  const mobileTabEl1 = document.getElementById("mobilePaper1-tab");
-  const mobileTabEl2 = document.getElementById("mobilePaper2-tab");
-  if (mobileTabEl1 && mobileTabEl2) {
-    mobileTabEl1.addEventListener("click", (e) => {
-      e.preventDefault();
-      const tab = new bootstrap.Tab(mobileTabEl1);
-      tab.show();
-    });
-    mobileTabEl2.addEventListener("click", (e) => {
-      e.preventDefault();
-      const tab = new bootstrap.Tab(mobileTabEl2);
-      tab.show();
     });
   }
 
@@ -300,16 +310,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnFormulas.addEventListener("change", () => {
     if (btnFormulas.checked) {
-      vizManager.clearAllInstances();
-      state.currentView = "formulas";
-
       if (state.currentChapter) {
         if (state.currentChapter.id === "saved") {
-          savedFormulasBtn.click();
-        } else {
-          document.dispatchEvent(
-            new CustomEvent("loadChapter", { detail: state.currentChapter }),
+          const saved = JSON.parse(
+            localStorage.getItem("saved_formulas") || "[]",
           );
+          state.currentFormulas = saved;
+          renderManager.renderFormulasGrid(saved);
+          transitionToView("formulas");
+        } else {
+          renderManager.renderTopics(state.currentFormulas, (selectedTopic) => {
+            if (selectedTopic === "all") {
+              renderManager.renderFormulasGrid(state.currentFormulas);
+            } else {
+              const filtered = state.currentFormulas.filter(
+                (f) => f.topic === selectedTopic,
+              );
+              renderManager.renderFormulasGrid(filtered);
+            }
+          });
+          renderManager.renderFormulasGrid(state.currentFormulas);
+          transitionToView("formulas");
         }
       } else {
         showDashboard();
@@ -319,18 +340,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnLab.addEventListener("change", () => {
     if (btnLab.checked) {
-      vizManager.clearAllInstances();
-      state.currentView = "lab";
-
-      dashboardView.classList.add("d-none");
-      formulasView.classList.add("d-none");
-      labView.classList.remove("d-none");
-
       if (state.currentChapter && state.currentChapter.id !== "saved") {
         renderManager.renderLabPage(
           state.currentFormulas,
           state.currentChapter.id,
         );
+        transitionToView("lab");
       } else {
         const grid = document.getElementById("labGrid");
         grid.innerHTML = `
@@ -340,14 +355,43 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p class="text-muted mb-0">Please select a chapter from the sidebar to view its interactive simulations.</p>
             </div>
         `;
+        transitionToView("lab");
       }
     }
   });
 
   // 7. Modal events
-  document
-    .getElementById("formulaModal")
-    .addEventListener("hidden.bs.modal", () => {
+  const modalEl = document.getElementById("formulaModal");
+  if (modalEl) {
+    modalEl.addEventListener("show.bs.modal", () => {
+      const modalContent = modalEl.querySelector(".modal-content");
+
+      // Elastic scale up the content box
+      gsap.fromTo(
+        modalContent,
+        { scale: 0.9, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.4)" },
+      );
+
+      // Stagger animate header, hero, variables table, notes
+      setTimeout(() => {
+        gsap.fromTo(
+          modalEl.querySelectorAll(
+            ".modal-header, .formula-hero, .custom-tabs, #formulaDetailTabsContent",
+          ),
+          { opacity: 0, y: 15 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            stagger: 0.05,
+            ease: "power2.out",
+          },
+        );
+      }, 50);
+    });
+
+    modalEl.addEventListener("hidden.bs.modal", () => {
       vizManager.stopAllAudio();
       if (vizManager.currentP5Instance) {
         vizManager.currentP5Instance.remove();
@@ -357,5 +401,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         vizManager.instances["modalVisualization"].remove();
         delete vizManager.instances["modalVisualization"];
       }
+
+      // Reset styles for next opening
+      const modalContent = modalEl.querySelector(".modal-content");
+      gsap.set(modalContent, { scale: 1, opacity: 1 });
+      gsap.set(
+        modalEl.querySelectorAll(
+          ".modal-header, .formula-hero, .custom-tabs, #formulaDetailTabsContent",
+        ),
+        { opacity: 1, y: 0 },
+      );
     });
+  }
+
+  // 8. Stagger chapters list when paper tabs are switched
+  document.querySelectorAll('[data-bs-toggle="tab"]').forEach((tab) => {
+    tab.addEventListener("shown.bs.tab", () => {
+      const activePane = document.querySelector(".tab-pane.active.show");
+      if (activePane) {
+        gsap.fromTo(
+          activePane.querySelectorAll(".list-group-item"),
+          { opacity: 0, x: -15 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.25,
+            stagger: 0.015,
+            ease: "power2.out",
+          },
+        );
+      }
+    });
+  });
 });

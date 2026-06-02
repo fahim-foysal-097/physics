@@ -20,7 +20,7 @@ Formulas are modular. Each chapter has its own file in `data/formulas/pX_chY.js`
 **Formula Schema:**
 
 ```javascript
-export const formulas_p1_ch = [
+export const formulas_p1_chY = [
   {
     id: "formula_id",
     chapterId: "p1_ch2", // Must match chapter metadata
@@ -29,8 +29,8 @@ export const formulas_p1_ch = [
     nameBn: "Bengali Name",
     latex: "\\vec{F} = m\\vec{a}",
     variables: [{ symbol: "F", meaning: "Force", unit: "N" }],
-    assumptions: "Ideal conditions...", // note: for latex to work, put $latex experrsion within this$
-    specialCases: [{ condition: "\\theta = 90^\circ", latex: "F = 0" }],
+    assumptions: "Ideal conditions...", // note: for latex to work, put $latex expression within this$
+    specialCases: [{ condition: "\\theta = 90^\\circ", latex: "F = 0" }],
     hasVisualization: true, // Set true for p5.js integration
     vizType: "my_sketch", // Trigger for chapter simulation module
   },
@@ -53,7 +53,7 @@ Simulations are organized by chapter for better isolation. To add a new simulati
      },
    };
    ```
-3. **Configure Controls**: In `js/render.js`, add an entry to `vizConfig`. This automatically generates UI sliders/buttons for your simulation.
+3. **Configure Controls**: In `js/viz_config.js`, add an entry to `vizConfig`. This automatically generates UI sliders/buttons for your simulation.
    ```javascript
    my_sketch: [
      { id: "velocity", label: "Speed", min: 0, max: 100, val: 50 },

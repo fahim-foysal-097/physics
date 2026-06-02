@@ -317,7 +317,11 @@ export const formulas_p2_ch9 = [
           "Initial number of moles of the radioactive substance (at t = 0)",
         unit: "moles",
       },
-      { symbol: "A", meaning: "Activity at time t (a.k.a R)", unit: "Bq or Ci" },
+      {
+        symbol: "A",
+        meaning: "Activity at time t (a.k.a R)",
+        unit: "Bq or Ci",
+      },
       {
         symbol: "A_0",
         meaning:
