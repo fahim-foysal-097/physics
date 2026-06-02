@@ -216,7 +216,7 @@ export const formulas_p2_ch9 = [
     nameEn: "Radioactive Decay Law",
     nameBn: "তেজস্ক্রিয় ক্ষয় সূত্র",
     latex:
-      "N = N_0 e^{-\\lambda t} \\newline A = -\\frac{dN}{dt} = \\lambda N \\newline A = A_0 e^{-\\lambda t}",
+      "N = N_0 e^{-\\lambda t} \\newline R =  A = -\\frac{dN}{dt} = \\lambda N \\newline A = A_0 e^{-\\lambda t}",
     variables: [
       {
         symbol: "N",
@@ -235,7 +235,7 @@ export const formulas_p2_ch9 = [
       },
       {
         symbol: "A",
-        meaning: "Activity (rate of disintegration)",
+        meaning: "Activity (rate of disintegration) (a.k.a R)",
         unit: "Becquerel (Bq) or Curie (Ci)",
       },
       { symbol: "t", meaning: "Time elapsed", unit: "s" },
@@ -245,8 +245,7 @@ export const formulas_p2_ch9 = [
     specialCases: [
       {
         condition: "t = \\tau \\quad (\\text{Mean life})",
-        latex:
-          "N = \\frac{N_0}{e} \\approx 0.368 N_0 \\quad (\\text{36.8% remaining})",
+        latex: "N = \\frac{N_0}{e} \\approx 0.368 N_0",
       },
     ],
     hasVisualization: true,
@@ -264,7 +263,7 @@ export const formulas_p2_ch9 = [
     nameEn: "Half-Life & Mean Life",
     nameBn: "অর্ধায়ু ও গড় আয়ু",
     latex:
-      "T_{1/2} = \\frac{\\ln 2}{\\lambda} \\approx \\frac{0.693}{\\lambda} \\newline \\tau = \\frac{1}{\\lambda} \\newline \\tau = \\frac{T_{1/2}}{\\ln 2} \\approx 1.44 T_{1/2}",
+      "T_{1/2} = \\frac{ln2}{\\lambda} \\approx \\frac{0.693}{\\lambda} \\newline \\tau = \\frac{1}{\\lambda} \\newline T_{1/2} = \\tau \\cdot ln2",
     variables: [
       {
         symbol: "T_{1/2}",
@@ -286,6 +285,52 @@ export const formulas_p2_ch9 = [
       "Half-life is independent of the initial mass or quantity of the substance.",
       "1 Curie ($1\\text{ Ci}$) = $3.7 \\times 10^{10}\\text{ disintegrations per second (dps)}$.",
       "1 Rutherford ($1\\text{ Rd}$) = $10^6\\text{ dps}$.",
+    ],
+  },
+  {
+    id: "radioactive_decay_law_summary",
+    chapterId: "p2_ch9",
+    topic: "Radioactivity (তেজস্ক্রিয়তা)",
+    nameEn: "Summary of Radioactive Decay Law",
+    nameBn: "তেজস্ক্রিয় ক্ষয় সূত্রের সারাংশ",
+    latex:
+      "\\frac{N_0}{N} = \\frac{A_0}{A} = \\frac{W_0}{W} = \\frac{n_0}{n} = e^{\\lambda t} = 2^{t/T_{1/2}} \\newline T_{1/2} = \\frac{ln2}{\\lambda} = \\tau \\cdot ln2",
+    variables: [
+      {
+        symbol: "W",
+        meaning: "Mass of the radioactive sample at time t",
+        unit: "kg or g",
+      },
+      {
+        symbol: "W_0",
+        meaning: "Initial mass of the radioactive sample (at t = 0)",
+        unit: "kg or g",
+      },
+      {
+        symbol: "n",
+        meaning: "Number of moles of the radioactive substance at time t",
+        unit: "moles",
+      },
+      {
+        symbol: "n_0",
+        meaning:
+          "Initial number of moles of the radioactive substance (at t = 0)",
+        unit: "moles",
+      },
+      { symbol: "A", meaning: "Activity at time t (a.k.a R)", unit: "Bq or Ci" },
+      {
+        symbol: "A_0",
+        meaning:
+          "Initial activity of the radioactive sample (at t = 0) (a.k.a R₀)",
+        unit: "Bq or Ci",
+      },
+    ],
+    assumptions:
+      "The decay process is random and follows first-order kinetics, where the probability of decay is constant over time. Units: 1 Bq = 1 decay/s, 1 Ci = $3.7 \\times 10^{10}$ Bq, 1 Rd = $10^6$ Bq.",
+    specialCases: [],
+    mcqShortcuts: [
+      "The ratio of initial to remaining quantity (N₀/N) is the same for number of nuclei, activity, mass, and moles.",
+      "After n half-lives, the remaining quantity is $(1/2)^n$ of the original.",
     ],
   },
   {
