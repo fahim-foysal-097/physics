@@ -225,9 +225,9 @@ export const formulas_p2_ch7 = [
       "Fraunhofer diffraction by multiple identical, parallel slits in contact.",
     specialCases: [
       {
-        condition: "Maximum Order of Spectrum (\\sin\\theta \\le 1)",
+        condition: "\\text{Maximum Order of Spectrum} (\\sin\\theta \\le 1)",
         latex:
-          "n_{max} \\le \\frac{d}{\\lambda} \\quad (\\text{Must be rounded down to nearest integer})",
+          "n_{max} \\le \\frac{d}{\\lambda} \\quad (\\text{Rounded down to nearest integer})",
       },
     ],
     hasVisualization: true,
@@ -335,12 +335,23 @@ export const formulas_p2_ch7 = [
     topic: "Electromagnetic Wave (তড়িৎচৌম্বক তরঙ্গ)",
     nameEn: "Intensity of Light & Inverse Square Law",
     nameBn: "আলোর তীব্রতা ও বিপরীত বর্গ সূত্র",
-    latex: "I = \\frac{1}{2} \\rho V \\omega^2 A^2 \\newline I \\propto A^2",
+    latex:
+      "I = \\frac{1}{2} \\rho V \\omega^2 A^2 \\newline I \\propto A^2 \\newline I_{total} = I_1 + I_2 + \\sqrt{I_1 I_2} \\cos\\delta",
     variables: [
       {
         symbol: "I",
         meaning: "Intensity of light (power per unit area)",
         unit: "W/m²",
+      },
+      {
+        symbol: "I_1, I_2",
+        meaning: "Intensities of two interfering waves",
+        unit: "W/m²",
+      },
+      {
+        symbol: "\\delta",
+        meaning: "Phase difference between the two waves",
+        unit: "Radians",
       },
       {
         symbol: "A",

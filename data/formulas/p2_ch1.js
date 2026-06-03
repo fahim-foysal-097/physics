@@ -38,6 +38,39 @@ export const formulas_p2_ch1 = [
     ],
   },
   {
+    id: "temp_triple_point",
+    chapterId: "p2_ch1",
+    topic: "Thermometry (তাপমিতি)",
+    nameEn: "Triple Point Calibration",
+    nameBn: "ত্রিপল পয়েন্ট ক্যালিব্রেশন",
+    latex: "\\frac{T}{X} = \\frac{T_{triple}}{X_{triple}}",
+    variables: [
+      { symbol: "T", meaning: "Unknown temperature", unit: "K" },
+      {
+        symbol: "T_{triple}",
+        meaning: "Triple point of water",
+        unit: "273.16 K",
+      },
+      {
+        symbol: "X",
+        meaning: "Thermometric property at T",
+        unit: "varies",
+      },
+      {
+        symbol: "X_{triple}",
+        meaning: "Thermometric property at triple point",
+        unit: "varies",
+      },
+    ],
+    assumptions: "Linear variation of thermometric property with temperature.",
+    specialCases: [
+      {
+        condition: "Kelvin Scale",
+        latex: "\\frac{K}{273.16} = \\frac{X}{X_{triple}}",
+      },
+    ],
+  },
+  {
     id: "temp_conversion",
     chapterId: "p2_ch1",
     topic: "Thermometry (তাপমিতি)",
@@ -72,9 +105,8 @@ export const formulas_p2_ch1 = [
         unit: "°C⁻¹",
       },
     ],
-    assumptions: "Resistance varies linearly with temperature.",
-    specialCases: [],
-    mcqShortcuts: ["t = \\frac{R_t - R_0}{R_{100} - R_0} \\times 100"],
+    assumptions:
+      "Resistance varies linearly with temperature. For conductors $\\alpha > 0$, for semiconductors & insulators $\\alpha < 0$.",
   },
   {
     id: "heat_capacity_latent",
@@ -157,21 +189,21 @@ export const formulas_p2_ch1 = [
     nameEn: "Heat Engine Efficiency",
     nameBn: "তাপ ইঞ্জিনের দক্ষতা",
     latex:
-      "\\eta = \\frac{W}{Q_1} = 1 - \\frac{Q_2}{Q_1} = 1 - \\frac{T_2}{T_1}",
+      "\\eta = \\frac{W (output)}{Q_H (input)} = 1 - \\frac{Q_C}{Q_H} = 1 - \\frac{T_C}{T_H}",
     variables: [
       { symbol: "\\eta", meaning: "Efficiency", unit: "N/A" },
-      { symbol: "Q_1", meaning: "Heat absorbed from source", unit: "J" },
-      { symbol: "Q_2", meaning: "Heat rejected to sink", unit: "J" },
+      { symbol: "Q_H", meaning: "Heat absorbed from hot source", unit: "J" },
+      { symbol: "Q_C", meaning: "Heat rejected to cold sink", unit: "J" },
       {
-        symbol: "T_1, T_2",
-        meaning: "Absolute temperatures of source and sink",
+        symbol: "T_H, T_C",
+        meaning: "Absolute temperatures of hot source and cold sink",
         unit: "K",
       },
     ],
     assumptions: "Carnot cycle for temperature relation.",
     specialCases: [],
     mcqShortcuts: [
-      "η < 1 (Efficiency is always less than 100%).",
+      "$\\eta < 1$ (Efficiency is always less than 100%).",
       "Efficiency depends on reservoir temperatures.",
     ],
     hasVisualization: true,
@@ -184,22 +216,24 @@ export const formulas_p2_ch1 = [
     nameEn: "Coefficient of Performance (Refrigerator)",
     nameBn: "রেফ্রিজারেটরের কর্মক্ষমতা গুণাঙ্ক",
     latex:
-      "K = \\frac{Q_2}{W} = \\frac{Q_2}{Q_1 - Q_2} = \\frac{T_2}{T_1 - T_2}",
+      "K = \\frac{Q_C}{W} = \\frac{Q_C}{Q_H - Q_C} = \\frac{T_C}{T_H - T_C}",
     variables: [
       { symbol: "K", meaning: "Coefficient of Performance (COP)", unit: "N/A" },
       {
-        symbol: "Q_2",
+        symbol: "Q_C",
         meaning: "Heat extracted from cold reservoir",
+        unit: "J",
+      },
+      {
+        symbol: "Q_H",
+        meaning: "Heat rejected to hot reservoir",
         unit: "J",
       },
       { symbol: "W", meaning: "Work input", unit: "J" },
     ],
     assumptions: "Reverse Carnot cycle.",
     specialCases: [],
-    mcqShortcuts: [
-      "COP can be greater than 1.",
-      "K = \\frac{1-\\eta}{\\eta} is not correct, use temperatures.",
-    ],
+    mcqShortcuts: ["COP can be greater than 1."],
   },
   {
     id: "entropy_law",
