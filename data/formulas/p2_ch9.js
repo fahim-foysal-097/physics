@@ -294,7 +294,7 @@ export const formulas_p2_ch9 = [
     nameEn: "Summary of Radioactive Decay Law",
     nameBn: "তেজস্ক্রিয় ক্ষয় সূত্রের সারাংশ",
     latex:
-      "\\frac{N_0}{N} = \\frac{A_0}{A} = \\frac{W_0}{W} = \\frac{n_0}{n} = e^{\\lambda t} = 2^{t/T_{1/2}} \\newline T_{1/2} = \\frac{ln2}{\\lambda} = \\tau \\cdot ln2",
+      "\\frac{N}{N_0} = \\frac{A}{A_0} = \\frac{W}{W_0} = \\frac{n}{n_0} = e^{\\lambda t} = 2^{t/T_{1/2}} \\newline T_{1/2} = \\frac{ln2}{\\lambda} = \\tau \\cdot ln2",
     variables: [
       {
         symbol: "W",
