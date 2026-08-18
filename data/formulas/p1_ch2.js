@@ -353,11 +353,11 @@ export const formulas_p1_ch2 = [
     nameEn: "Lami's Theorem",
     nameBn: "লামীর উপপাদ্য",
     latex:
-      "\\frac{P}{\\sin\\alpha} = \\frac{Q}{\\sin\\beta} = \\frac{R}{\\sin\\gamma}",
+      "\\frac{A}{\\sin\\alpha} = \\frac{B}{\\sin\\beta} = \\frac{C}{\\sin\\gamma}",
     variables: [
       {
-        symbol: "P, Q, R",
-        meaning: "Three concurrent forces in equilibrium",
+        symbol: "A, B, C",
+        meaning: "Three concurrent forces in equilibrium (Net force = 0)",
         unit: "N",
       },
       {
